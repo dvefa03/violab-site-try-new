@@ -45,8 +45,10 @@ function setImage(path, dataURL){ pendingImages[path] = dataURL; try{ window.IMA
 
 /* ---------------- GitHub saving ---------------- */
 async function gh(path, method, body){
-  const r = await fetch(`https://api.github.com/repos/${cfg.repo}/${path}`, { method: method||"GET",
-    headers: { Authorization: `Bearer ${cfg.token}`, Accept: "application/vnd.github+json" }, body: body ? JSON.stringify(body) : undefined });
+  let r;
+  try{ r = await fetch(`https://api.github.com/repos/${cfg.repo}/${path}`, { method: method||"GET",
+    headers: { Authorization: `Bearer ${cfg.token}`, Accept: "application/vnd.github+json" }, body: body ? JSON.stringify(body) : undefined }); }
+  catch(e){ throw new Error("the browser could not reach GitHub. Open the real website (…github.io/…), not a preview, and turn off ad or content blockers for it"); }
   if(!r.ok){ let t = ""; try{ t = (await r.json()).message; }catch(e){} throw new Error(`GitHub said ${r.status}${t?": "+t:""}`); }
   return r.json();
 }
@@ -94,6 +96,8 @@ function openLogin(){
     cfg.repo = val("aRepo"); cfg.branch = val("aBranch") || "master"; cfg.root = val("aRoot"); cfg.token = $("aToken").value.trim();
     if(!cfg.token){ tell("Please paste a GitHub token, or use “Try without saving”.", true); return; }
     try{ const r = await gh(""); if(!(r.permissions && r.permissions.push)) throw new Error("this token can read the repository but cannot change it");
+      // use the repository's real branch name (new repositories use "main", older ones "master")
+      if(r.default_branch && r.default_branch !== cfg.branch){ tell(`Using the branch “${r.default_branch}” of this repository.`); cfg.branch = r.default_branch; }
       saveCfg(); trial = false; start(); closeModal(); tell("Logged in. Edit buttons are now on the People, Publications and News pages.");
     }catch(e){ tell(`Login failed: ${e.message}`, true); }
   };
