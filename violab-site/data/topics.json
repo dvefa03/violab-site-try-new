@@ -19,10 +19,11 @@
     "id": "scale",
     "name": "Scalable Visualization",
     "text": ""
-  },
+   },
   {
     "id": "cryo",
     "name": "Cryo-EM Visualization",
     "text": ""
+
   }
 ]

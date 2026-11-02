@@ -48,6 +48,7 @@ function newsTile(n){ const h=n.paper?`#paper-${n.paper}`:"#news"; return `<arti
 // Home shows one full row of the newest papers and news: as many as fit the screen width.
 // The lists come straight from papers.json and news.json (newest first), so new items appear here by themselves.
 function columnsOf(el){ const t=getComputedStyle(el).gridTemplateColumns; return t && t!=="none" ? t.split(" ").filter(Boolean).length : 3; }
+
 function renderHome(){
   const P=$("homePapers"), N=$("homeNews");
   P.innerHTML=S.pubs.filter(p=>!p.preprint).slice(0,Math.max(2,columnsOf(P))).map(paperTile).join("");
@@ -193,8 +194,8 @@ function renderJoin(){
   const P=S.positions||{mode:"general",positions:[]};
   const list=(P.positions||[]).filter(p=>p.title);
   const mode = P.mode==="specific" && !list.length ? "closed" : P.mode;
-  const general=`<p>We welcome applications for MS and PhD students, postdocs and research scientists. You need a background in computer science or applied mathematics, strong programming skills and an interest in computer graphics, visualization or AI.</p>
-  <p>Apply to KAUST and name Prof. Ivan Viola as your faculty of interest. Before that, you are welcome to write to us.</p>`;
+  const general=`<p>Maybe we can include a general text here.</p>
+  <p>this case would be if we are not looking for a specific position but willing to discuss opportunities</p>`;
   let box;
   if(mode==="closed") box=`<div class="callout" data-positions><h2>Open positions</h2><p>We don’t have open positions at the moment. Please check this page again later.</p>
     <p class="muted">You are still welcome to write to us about future opportunities.</p><div class="btns"><a class="btn" href="mailto:${PI_EMAIL}">Contact Prof. Ivan Viola</a></div></div>`;
@@ -243,7 +244,7 @@ function route(){
   const navName = name==="paper"?"publications":name;
   document.querySelectorAll("#mainNav a").forEach(a=>{ if(a.getAttribute("href")==="#"+navName) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   if(name==="paper") renderPaper(arg);
-  else if(name==="home"){ renderHome(); rendered.home=true; }
+    else if(name==="home"){ renderHome(); rendered.home=true; }
   else if(!rendered[name]){ ({home:renderHome,publications:renderPublications,software:renderSoftware,people:renderPeople,news:renderNews,join:renderJoin})[name](); rendered[name]=true; }
   const titles={home:"",publications:"Publications",paper:arg&&PUB[arg]?PUB[arg].title.split(":")[0]:"Paper",software:"Software & Data",people:"People",news:"News",join:"Join us"};
   document.title=(titles[name]?titles[name]+" · ":"")+"VIOLAB · KAUST";

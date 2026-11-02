@@ -25,7 +25,7 @@ const previewUI=$("previewUI"), labUI=$("labUI"), promptEl=$("prompt"), toastEl=
 const helpEl=$("help"), joyEl=$("joy"), card=$("card");
 $("helpList").innerHTML = isTouch
   ? "<dt>Walk</dt><dd>Tap where you want to go</dd><dt>Turn</dt><dd>Drag with one finger</dd><dt>Talk</dt><dd>Tap a person</dd><dt>Rooms</dt><dd>The Rooms button shows room and desk numbers</dd>"
-  : "<dt>Walk</dt><dd>Arrow keys ← ↑ → ↓ (or W A S D), or click where you want to go</dd><dt>Turn</dt><dd>Drag with the mouse (3D view)</dd><dt>Zoom</dt><dd>Mouse wheel</dd><dt>Talk</dt><dd>Click a person</dd><dt>N</dt><dd>Show or hide room and desk numbers</dd>";
+  : "<dt>Walk</dt><dd>Arrow keys ← ↑ → ↓ (or W A S D), or click where you want to go</dd><dt>Turn</dt><dd>Drag with the mouse (3D view)</dd><dt>Zoom</dt><dd>Mouse wheel</dd><dt>Talk</dt><dd>Click a person or E </dd><dt>N</dt><dd>Show or hide room and desk numbers</dd>";
 $("previewHint").textContent = isTouch ? "Tap to walk around and meet the team" : "Walk around with your keyboard and mouse";
 
 // the changing "O"
