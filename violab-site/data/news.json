@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Chat Modeling is published in IEEE TVCG",
+    "date": "2026",
+    "text": "An agent framework that turns natural language, research papers and the current scene into 3D modeling steps, so bioscientists can build models of the structures they study by chatting.",
+    "images": [
+      "images/papers/ChatModeling_1.jpg"
+    ],
+    "paper": "chat-modeling"
+  },
+  {
+    "title": "AIvaluateXR is published in IEEE TVCG",
+    "date": "2026",
+    "text": "We present AIvaluateXR, a comprehensive evaluation framework for benchmarking large language models (LLMs) running on XR devices. To demonstrate the framework, we deploy 17 selected LLMs across four XR platforms—Magic Leap 2, Meta Quest 3, Vivo X100s Pro, and Apple Vision Pro—and conduct extensive evaluations of latency, memory usage, power consumption, and output quality.",
+    "images": [
+      "images/papers/LoXR4Nanovis.jpg"
+    ],
+    "paper": "aivaluatexr"
+  },
+  {
+    "title": "New preprint: ClickAIXR",
+    "date": "2026",
+    "text": "ClickAIXR enables precise object-centered interaction in XR by combining controller-based selection with an on-device Vision-Language Model (VLM). It performs all inference locally, reducing latency and preserving privacy.",
+    "images": [
+      "images/papers/clickxr.jpg"
+    ],
+    "paper": "clickaixr"
+  },
+  {
+    "title": "MidSurfer is published in IEEE Computer Graphics and Applications",
+    "date": "2025",
+    "text": "MidSurfer introduces a novel, parameter-free method for extracting mid-surfaces from segmented volumetric data.",
+    "images": [
+      "images/papers/midsurfer.jpg"
+    ],
+    "paper": "midsurfer"
+  },
+  {
+    "title": "VOICE is published in IEEE TVCG",
+    "date": "2025",
+    "text": "We present VOICE, a novel approach to science communication that connects the conversational capabilities of large language models with interactive exploratory visualization.",
+    "images": [
+      "images/papers/VOICE.jpg"
+    ],
+    "paper": "voice"
+  },
+  {
+    "title": "LLMs on XR (LoXR) is published in IEEE VR Workshops",
+    "date": "2025",
+    "text": "This paper presents LoXR, a performance evaluation of Large Language Models (LLMs) executed locally on XR devices.",
+    "images": [
+      "images/papers/Poster2.jpg"
+    ],
+    "paper": "llms-on-xr-loxr"
+  },
+  {
+    "title": "DiffFit is published in IEEE TVCG",
+    "date": "2024",
+    "text": "We introduce DiffFit, a differentiable algorithm for fitting protein atomistic structures into experimental reconstructed Cryo-Electron Microscopy (cryo-EM) volume map. This process is essential in structural biology to semi-automatically reconstruct large meso-scale models of complex protein assemblies and complete cellular structures that are based on measured cryo-EM data.",
+    "images": [
+      "images/papers/DiffFit.jpg"
+    ],
+    "paper": "difffit"
+  },
+  {
+    "title": "Nanomatrix is published in IEEE TVCG",
+    "date": "2024",
+    "text": "We present a novel method for the interactive construction and rendering of extremely large molecular scenes, capable of representing multiple biological cells in atomistic detail. Our approach leverages an on-demand, view-dependent procedural generation strategy to overcome memory limitations and achieve high-resolution rendering of scenes containing trillions of atoms.",
+    "images": [
+      "images/papers/Nanomatrix-result_01.jpg"
+    ],
+    "paper": "nanomatrix"
+  },
+  {
+    "title": "Towards Differentiable Electron Microscopy Simulation is published in IEEE PacificVis",
+    "date": "2024",
+    "text": "We present a new differentiable microscopy simulation system that allows us to generate cryo-EM micrographs of complex scenes of biological structures, and to solve inverse problems through optimization, such as estimation of microscope parameters and denoising.",
+    "images": [
+      "images/papers/DiffTEM-teaser.jpg"
+    ],
+    "paper": "difftem"
+  },
+  {
+    "title": "New preprint: Nanouniverse",
+    "date": "2024",
+    "text": "Nanouniverse introduces a novel method for rendering massive molecular scenes using hardware-accelerated ray tracing, overcoming GPU memory constraints with virtual instantiation. This approach reduces memory usage while maintaining atomistic detail in scenes with trillions of atoms, enabling interactive rendering and completely free user exploration.",
+    "images": [
+      "images/papers/Nanouniverse-teaser.jpg"
+    ],
+    "paper": "nanouniverse"
+  },
+  {
+    "title": "Dr. KID wins a Best Paper Honorable Mention at IEEE VIS 2023",
+    "date": "2023",
+    "text": "Dr. KID is an algorithm that uses isometric decomposition for the physicalization of potato-shaped organic models in a puzzle fashion.",
+    "images": [
+      "images/papers/DrKID.jpg"
+    ],
+    "paper": "drkid"
+  },
+  {
+    "title": "Volume conductor is published in The Visual Computer",
+    "date": "2023",
+    "text": "We present a smart visibility system that enables per-instance control of object visibility in crowded volumetric data, improving exploration by grouping objects and automatically sparsifying dense volumes based on membership predicates and view context.",
+    "images": [
+      "images/papers/Volume_conductor_01.jpg"
+    ],
+    "paper": "volume-conductor"
+  }
+]

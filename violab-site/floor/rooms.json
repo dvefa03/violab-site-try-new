@@ -1,0 +1,656 @@
+[
+ {
+  "number": "2011",
+  "name": "Men Toilet",
+  "x": 137.61,
+  "z": 18.7
+ },
+ {
+  "number": "2012",
+  "name": "Women Toilet",
+  "x": 138.07,
+  "z": 23.25
+ },
+ {
+  "number": "2013",
+  "name": "Electrical",
+  "x": 131.9,
+  "z": 18.27
+ },
+ {
+  "number": "2014",
+  "name": "Ter",
+  "x": 131.88,
+  "z": 23.17
+ },
+ {
+  "number": "2023",
+  "name": "Electrical",
+  "x": 72.82,
+  "z": 18.57
+ },
+ {
+  "number": "2024",
+  "name": "Ter",
+  "x": 72.97,
+  "z": 23.48
+ },
+ {
+  "number": "2029",
+  "name": "Service Elev. Lobby",
+  "x": 38.05,
+  "z": 23.9
+ },
+ {
+  "number": "2031",
+  "name": "Men Toilet",
+  "x": 31.36,
+  "z": 19.04
+ },
+ {
+  "number": "2032",
+  "name": "Women Toilet",
+  "x": 31.83,
+  "z": 23.15
+ },
+ {
+  "number": "2033",
+  "name": "Ter",
+  "x": 14.7,
+  "z": 23.02
+ },
+ {
+  "number": "2034",
+  "name": "Electrical",
+  "x": 14.59,
+  "z": 18.66
+ },
+ {
+  "number": "2035",
+  "name": "Eastern Restroom",
+  "x": 38.01,
+  "z": 18.32
+ },
+ {
+  "number": "2036",
+  "name": "Janitor",
+  "x": 38.33,
+  "z": 20.84
+ },
+ {
+  "number": "2038",
+  "name": "Tea",
+  "x": 138.29,
+  "z": 12.29
+ },
+ {
+  "number": "2039",
+  "name": "Tea",
+  "x": 18.71,
+  "z": 24.0
+ },
+ {
+  "number": "2040",
+  "name": "Fire Command",
+  "x": 69.1,
+  "z": 17.28
+ },
+ {
+  "number": "2101",
+  "name": "Open Office",
+  "x": 26.49,
+  "z": 21.05
+ },
+ {
+  "number": "2102",
+  "name": "Reception",
+  "x": 5.55,
+  "z": 11.35
+ },
+ {
+  "number": "2103",
+  "name": "Open Office",
+  "x": 6.69,
+  "z": 27.86
+ },
+ {
+  "number": "2104",
+  "name": "Office",
+  "x": 8.58,
+  "z": 34.35
+ },
+ {
+  "number": "2105",
+  "name": "Store-Rc",
+  "x": 15.25,
+  "z": 29.37
+ },
+ {
+  "number": "2106",
+  "name": "Open Office",
+  "x": 30.42,
+  "z": 27.17
+ },
+ {
+  "number": "2107",
+  "name": "Small Conference",
+  "x": 2.52,
+  "z": 33.03
+ },
+ {
+  "number": "2108",
+  "name": "Office",
+  "x": 2.24,
+  "z": 29.26
+ },
+ {
+  "number": "2110",
+  "name": "Office",
+  "x": 9.82,
+  "z": 23.97
+ },
+ {
+  "number": "2111",
+  "name": "Office",
+  "x": 8.1,
+  "z": 20.45
+ },
+ {
+  "number": "2112",
+  "name": "Office",
+  "x": 9.27,
+  "z": 17.48
+ },
+ {
+  "number": "2113",
+  "name": "Office",
+  "x": 2.25,
+  "z": 12.03
+ },
+ {
+  "number": "2114",
+  "name": "Small Conf.",
+  "x": 2.47,
+  "z": 8.73
+ },
+ {
+  "number": "2115",
+  "name": "Office",
+  "x": 8.76,
+  "z": 5.93
+ },
+ {
+  "number": "2116",
+  "name": "Office",
+  "x": 14.34,
+  "z": 6.05
+ },
+ {
+  "number": "2117",
+  "name": "Office",
+  "x": 18.88,
+  "z": 6.06
+ },
+ {
+  "number": "2118",
+  "name": "Office",
+  "x": 22.61,
+  "z": 6.05
+ },
+ {
+  "number": "2119",
+  "name": "Office",
+  "x": 27.09,
+  "z": 6.05
+ },
+ {
+  "number": "2121",
+  "name": "Corridor",
+  "x": 21.62,
+  "z": 20.58
+ },
+ {
+  "number": "2122",
+  "name": "Office",
+  "x": 18.43,
+  "z": 16.9
+ },
+ {
+  "number": "2123",
+  "name": "Print",
+  "x": 18.65,
+  "z": 21.07
+ },
+ {
+  "number": "2124",
+  "name": "Office",
+  "x": 1.78,
+  "z": 19.18
+ },
+ {
+  "number": "2125",
+  "name": "Office",
+  "x": 1.77,
+  "z": 22.65
+ },
+ {
+  "number": "2138",
+  "name": "Corridor",
+  "x": 15.87,
+  "z": 27.19
+ },
+ {
+  "number": "2151",
+  "name": "Stair A",
+  "x": 12.65,
+  "z": 34.02
+ },
+ {
+  "number": "2152",
+  "name": "Stair B",
+  "x": 75.82,
+  "z": 34.7
+ },
+ {
+  "number": "2153",
+  "name": "Stair C",
+  "x": 140.07,
+  "z": 7.11
+ },
+ {
+  "number": "2154",
+  "name": "Stair  D",
+  "x": 138.56,
+  "z": 29.01
+ },
+ {
+  "number": "2155",
+  "name": "Stair E",
+  "x": 153.11,
+  "z": 49.25
+ },
+ {
+  "number": "2156",
+  "name": "Corridor",
+  "x": 118.04,
+  "z": 49.39
+ },
+ {
+  "number": "2157",
+  "name": "Corridor",
+  "x": 118.08,
+  "z": 3.23
+ },
+ {
+  "number": "2161",
+  "name": "Mechanical Chase",
+  "x": 12.02,
+  "z": 21.05
+ },
+ {
+  "number": "2162",
+  "name": "Mechanical Chase",
+  "x": 15.42,
+  "z": 32.18
+ },
+ {
+  "number": "2163",
+  "name": "Mechanical Chase",
+  "x": 47.37,
+  "z": 21.02
+ },
+ {
+  "number": "2164",
+  "name": "Mechanical Chase",
+  "x": 76.37,
+  "z": 21.13
+ },
+ {
+  "number": "2165",
+  "name": "Mechanical Chase",
+  "x": 73.35,
+  "z": 32.3
+ },
+ {
+  "number": "2166",
+  "name": "Mechanical Chase",
+  "x": 135.5,
+  "z": 9.95
+ },
+ {
+  "number": "2167",
+  "name": "Mechanical Chase",
+  "x": 135.39,
+  "z": 32.07
+ },
+ {
+  "number": "2199",
+  "name": "Vestibule",
+  "x": 57.77,
+  "z": 9.48
+ },
+ {
+  "number": "2200",
+  "name": "Reception",
+  "x": 53.68,
+  "z": 10.69
+ },
+ {
+  "number": "2201",
+  "name": "Elevator Lobby",
+  "x": 44.27,
+  "z": 20.96
+ },
+ {
+  "number": "2202",
+  "name": "Large Conference",
+  "x": 52.7,
+  "z": 21.06
+ },
+ {
+  "number": "2203",
+  "name": "Corridor",
+  "x": 57.59,
+  "z": 20.73
+ },
+ {
+  "number": "2204",
+  "name": "Open Office",
+  "x": 53.74,
+  "z": 27.22
+ },
+ {
+  "number": "2205",
+  "name": "Open Lab Area",
+  "x": 62.16,
+  "z": 20.97
+ },
+ {
+  "number": "2206",
+  "name": "Office",
+  "x": 46.41,
+  "z": 29.07
+ },
+ {
+  "number": "2207",
+  "name": "Office",
+  "x": 46.4,
+  "z": 32.3
+ },
+ {
+  "number": "2208",
+  "name": "Office",
+  "x": 42.77,
+  "z": 32.39
+ },
+ {
+  "number": "2209",
+  "name": "Office",
+  "x": 42.78,
+  "z": 29.08
+ },
+ {
+  "number": "2210",
+  "name": "Open Office",
+  "x": 44.7,
+  "z": 36.69
+ },
+ {
+  "number": "2220",
+  "name": "Office",
+  "x": 32.23,
+  "z": 6.05
+ },
+ {
+  "number": "2221",
+  "name": "Office",
+  "x": 36.54,
+  "z": 6.36
+ },
+ {
+  "number": "2222",
+  "name": "Office",
+  "x": 41.55,
+  "z": 6.05
+ },
+ {
+  "number": "2223",
+  "name": "Office",
+  "x": 44.63,
+  "z": 6.05
+ },
+ {
+  "number": "2224",
+  "name": "Office",
+  "x": 48.12,
+  "z": 5.83
+ },
+ {
+  "number": "2225",
+  "name": "Open Office",
+  "x": 28.6,
+  "z": 9.82
+ },
+ {
+  "number": "2298",
+  "name": "Corridor",
+  "x": 70.01,
+  "z": 14.87
+ },
+ {
+  "number": "2299",
+  "name": "Corridor",
+  "x": 66.46,
+  "z": 19.87
+ },
+ {
+  "number": "2300",
+  "name": "Office",
+  "x": 69.53,
+  "z": 20.55
+ },
+ {
+  "number": "2301",
+  "name": "Office",
+  "x": 69.53,
+  "z": 23.97
+ },
+ {
+  "number": "2302",
+  "name": "Data Center",
+  "x": 70.18,
+  "z": 29.5
+ },
+ {
+  "number": "2303",
+  "name": "Data Center",
+  "x": 75.84,
+  "z": 29.46
+ },
+ {
+  "number": "2304",
+  "name": "Exhibit/Showcase Area",
+  "x": 83.39,
+  "z": 27.1
+ },
+ {
+  "number": "2306",
+  "name": "Corridor",
+  "x": 73.74,
+  "z": 27.18
+ },
+ {
+  "number": "2400",
+  "name": "Vestibule",
+  "x": 113.69,
+  "z": 20.68
+ },
+ {
+  "number": "2401",
+  "name": "Prefunction",
+  "x": 121.83,
+  "z": 29.25
+ },
+ {
+  "number": "2402",
+  "name": "Reception Lobby",
+  "x": 120.23,
+  "z": 19.58
+ },
+ {
+  "number": "2403",
+  "name": "Elevator Lobby",
+  "x": 125.5,
+  "z": 20.71
+ },
+ {
+  "number": "2410",
+  "name": "Hallway",
+  "x": 136.35,
+  "z": 27.28
+ },
+ {
+  "number": "2413",
+  "name": "Vis Lab",
+  "x": 148.95,
+  "z": 34.33
+ },
+ {
+  "number": "2414",
+  "name": "Corridor",
+  "x": 134.54,
+  "z": 34.24
+ },
+ {
+  "number": "2415",
+  "name": "(Future) Data Room",
+  "x": 150.74,
+  "z": 44.42
+ },
+ {
+  "number": "2416",
+  "name": "Data Room",
+  "x": 138.15,
+  "z": 43.91
+ },
+ {
+  "number": "2417",
+  "name": "Projection",
+  "x": 133.76,
+  "z": 41.67
+ },
+ {
+  "number": "2418",
+  "name": "Multi Use",
+  "x": 123.23,
+  "z": 41.74
+ },
+ {
+  "number": "2419",
+  "name": "Vestibule",
+  "x": 124.71,
+  "z": 34.79
+ },
+ {
+  "number": "2420",
+  "name": "Vcc Laboratory",
+  "x": 149.86,
+  "z": 19.63
+ },
+ {
+  "number": "2421",
+  "name": "Mechanical",
+  "x": 128.86,
+  "z": 10.42
+ },
+ {
+  "number": "2422",
+  "name": "Tech Support",
+  "x": 132.24,
+  "z": 12.23
+ },
+ {
+  "number": "2423",
+  "name": "Vestibule",
+  "x": 141.86,
+  "z": 3.42
+ },
+ {
+  "number": "2424",
+  "name": "Laser Lab",
+  "x": 149.2,
+  "z": 9.68
+ },
+ {
+  "number": "2425",
+  "name": "Store Room",
+  "x": 148.49,
+  "z": 24.34
+ },
+ {
+  "number": "2426",
+  "name": "Vestibule",
+  "x": 147.97,
+  "z": 30.2
+ },
+ {
+  "number": "2427",
+  "name": "Tech Support",
+  "x": 119.82,
+  "z": 35.17
+ },
+ {
+  "number": "2428",
+  "name": "Vis Star Lab",
+  "x": 120.92,
+  "z": 9.91
+ },
+ {
+  "number": "2429",
+  "name": "Janitor",
+  "x": 135.31,
+  "z": 12.1
+ },
+ {
+  "number": "2431",
+  "name": "Corridor",
+  "x": 141.87,
+  "z": 19.37
+ },
+ {
+  "number": "2501",
+  "name": "Elev. 01",
+  "x": 128.59,
+  "z": 24.04
+ },
+ {
+  "number": "2502",
+  "name": "Elev. 02",
+  "x": 128.64,
+  "z": 21.11
+ },
+ {
+  "number": "2503",
+  "name": "Elev. 03",
+  "x": 128.59,
+  "z": 17.98
+ },
+ {
+  "number": "2504",
+  "name": "Elev. 04",
+  "x": 41.2,
+  "z": 17.86
+ },
+ {
+  "number": "2505",
+  "name": "Elev. 05",
+  "x": 41.1,
+  "z": 20.96
+ },
+ {
+  "number": "2506",
+  "name": "Elev. 06",
+  "x": 41.2,
+  "z": 23.73
+ }
+]

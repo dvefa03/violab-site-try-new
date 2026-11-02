@@ -1,0 +1,242 @@
+[
+  {
+    "id": "ivan-viola",
+    "name": "Ivan Viola",
+    "role": "Professor, Computer Science",
+    "group": "Principal Investigators",
+    "seat": "office_2124",
+    "email": "ivan.viola@kaust.edu.sa",
+    "scholar": "https://scholar.google.com/citations?user=ELMPg_gAAAAJ&hl=en",
+    "web": "https://cemse.kaust.edu.sa/profiles/ivan-viola",
+    "research": "Visual computing, multi-scale 3D visualization, modeling, nanovisualization, biology",
+    "shirt": "#5B5FC7",
+    "papers": [
+      "clickaixr",
+      "nanouniverse",
+      "chat-modeling",
+      "aivaluatexr",
+      "midsurfer",
+      "voice",
+      "llms-on-xr-loxr",
+      "difffit",
+      "nanomatrix",
+      "difftem",
+      "drkid",
+      "volume-conductor",
+      "tomographicreconstruction",
+      "nanootzi",
+      "nanotilus",
+      "molecumentary",
+      "data-driven-colormap",
+      "multiscale-unfolding-illustratively-visu",
+      "multi-level-area-balancing-of-clustered-",
+      "modeling-in-the-time-of-covid-19",
+      "adenita",
+      "homomorphic-encrypted-volume-rendering",
+      "visual-abstraction",
+      "hyperlabels",
+      "multi-scale-procedural-animations-of-mic",
+      "scale-trotter",
+      "metabopolis",
+      "data-driven-colormap-optimization-for-2d",
+      "parallel-generation-and-visualization-of",
+      "multiscale-molecular-visualization",
+      "cuttlefish"
+    ]
+  },
+  {
+    "id": "alexandre-kouyoumdjian",
+    "name": "Alexandre A. Kouyoumdjian",
+    "role": "Research Scientist, Computer Science",
+    "group": "Research Scientists",
+    "web": "https://cemse.kaust.edu.sa/profiles/alexandre-kouyoumdjian",
+    "research": "Visualization, computer graphics, virtual reality",
+    "papers": [
+      "clickaixr",
+      "aivaluatexr",
+      "llms-on-xr-loxr"
+    ]
+  },
+  {
+    "id": "dawar-khan",
+    "name": "Dawar Khan",
+    "role": "Postdoctoral Research Fellow, Computer Science",
+    "group": "Postdoctoral Fellows",
+    "web": "https://cemse.kaust.edu.sa/profiles/dawar-khan",
+    "research": "Visualization, computer graphics",
+    "papers": [
+      "clickaixr",
+      "aivaluatexr",
+      "midsurfer",
+      "llms-on-xr-loxr",
+      "difffit",
+      "drkid"
+    ]
+  },
+  {
+    "id": "alexandra-irger",
+    "name": "Alexandra Irger",
+    "role": "M.S. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/alexandra-irger",
+    "research": "Scientific visualization, computer graphics, machine learning",
+    "papers": [
+      "voice"
+    ]
+  },
+  {
+    "id": "da-li",
+    "name": "Da Li",
+    "role": "M.S. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/da-li",
+    "research": "Computer graphics, scientific visualization, machine learning",
+    "papers": []
+  },
+  {
+    "id": "deng-luo",
+    "name": "Deng Luo",
+    "role": "Ph.D. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/deng-luo",
+    "research": "Bioinformatics, artificial intelligence, nanovisualization",
+    "papers": [
+      "voice",
+      "difffit",
+      "modeling-in-the-time-of-covid-19"
+    ]
+  },
+  {
+    "id": "donggang-jia",
+    "name": "Donggang Jia",
+    "role": "Ph.D. Student, Computer Science",
+    "group": "Students",
+    "seat": "_2106_ws19",
+    "web": "https://cemse.kaust.edu.sa/profiles/donggang-jia",
+    "research": "Computer graphics, visualization",
+    "papers": [
+      "chat-modeling",
+      "aivaluatexr",
+      "voice",
+      "llms-on-xr-loxr"
+    ]
+  },
+  {
+    "id": "eva-bones",
+    "name": "Eva Bones",
+    "role": "Ph.D. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/eva-bones",
+    "research": "Computer graphics, scientific visualization, machine learning",
+    "papers": [
+      "midsurfer"
+    ]
+  },
+  {
+    "id": "ngan-nguyen",
+    "name": "Ngan Nguyen",
+    "role": "Ph.D. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/ngan-nguyen",
+    "research": "Computer graphics, scientific visualization, machine learning",
+    "papers": [
+      "difftem",
+      "nanootzi",
+      "modeling-in-the-time-of-covid-19"
+    ]
+  },
+  {
+    "id": "omar-mena",
+    "name": "Omar Mena Facio",
+    "role": "M.S. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/omar-mena-facio",
+    "research": "Computer graphics, scientific visualization, machine learning",
+    "papers": [
+      "clickaixr",
+      "aivaluatexr",
+      "llms-on-xr-loxr"
+    ]
+  },
+  {
+    "id": "ruwaydah-alharbi",
+    "name": "Ruwaydah Alharbi",
+    "role": "Ph.D. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/ruwaydah-alharbi",
+    "research": "Here we will write a short brief of their research field.",
+    "papers": [
+      "nanouniverse",
+      "nanomatrix",
+      "volume-conductor",
+      "nanotilus",
+      "modeling-in-the-time-of-covid-19"
+    ]
+  },
+  {
+    "id": "zainab-alsuwaykit",
+    "name": "Zainab Alsuwaykit",
+    "role": "Ph.D. Student, Computer Science",
+    "group": "Students",
+    "web": "https://cemse.kaust.edu.sa/profiles/zainab-alsuwaykit",
+    "research": "Here we will write a short brief of their research field.",
+    "papers": [
+      "difffit"
+    ]
+  },
+  {
+    "id": "aidana-nurakhmetova",
+    "name": "Aidana Nurakhmetova",
+    "role": "Visiting Student, Visual Intelligence Lab",
+    "group": "Visiting Scholars",
+    "web": "https://nanovis.kaust.edu.sa/profiles/aidana-nurakhmetova",
+    "research": "Nanovisualization",
+    "papers": []
+  },
+  {
+    "id": "ciril-bohak",
+    "name": "Ciril Bohak",
+    "role": "Research Scientist, Computer Science",
+    "group": "Alumni",
+    "web": "https://cemse.kaust.edu.sa/profiles/ciril-bohak",
+    "research": "Data visualisation, point cloud",
+    "papers": [
+      "midsurfer",
+      "difftem",
+      "drkid",
+      "volume-conductor",
+      "tomographicreconstruction",
+      "nanootzi",
+      "nanotilus"
+    ]
+  },
+  {
+    "id": "dalal-aldossary",
+    "name": "Dalal E. Aldossary",
+    "role": "M.S. Student (former), Computer Science",
+    "group": "Alumni",
+    "web": "https://cemse.kaust.edu.sa/profiles/dalal-e-aldossary",
+    "research": "Machine learning, computer vision",
+    "papers": []
+  },
+  {
+    "id": "feng-liang",
+    "name": "Feng Liang",
+    "role": "M.S., Computer Science",
+    "group": "Alumni",
+    "web": "https://cemse.kaust.edu.sa/profiles/feng-liang",
+    "research": "Artificial intelligence, computer graphics",
+    "papers": [
+      "difftem"
+    ]
+  },
+  {
+    "id": "yousif-aldolaijan",
+    "name": "Yousif Aldolaijan",
+    "role": "M.S., Computer Science",
+    "group": "Alumni",
+    "web": "https://cemse.kaust.edu.sa/profiles/yousif-aldolaijan",
+    "research": "Computer graphics, embedded systems, distributed systems",
+    "papers": []
+  }
+]

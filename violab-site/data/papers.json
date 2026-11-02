@@ -1,0 +1,1534 @@
+[
+  {
+    "slug": "clickaixr",
+    "title": "ClickAIXR: On-Device Multimodal Vision-Language Interaction with Real-World Objects in Extended Reality",
+    "year": "2026",
+    "preprint": true,
+    "venue": "arXiv preprint, (2026)",
+    "authors": [
+      {
+        "name": "Dawar Khan",
+        "url": "https://dawarkhanuom.github.io/"
+      },
+      {
+        "name": "Alexandre Kouyoumdjian",
+        "url": "https://cemse.kaust.edu.sa/profiles/alexandre-kouyoumdjian"
+      },
+      {
+        "name": "Xinyu Liu",
+        "url": "https://nanovis.kaust.edu.sa/profiles"
+      },
+      {
+        "name": "Omar Mena",
+        "url": "https://cemse.kaust.edu.sa/profiles/omar-mena-facio"
+      },
+      {
+        "name": "Dominik Engel",
+        "url": "https://dominikengel.com/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/profiles/ivan-viola"
+      }
+    ],
+    "brief": "ClickAIXR enables precise object-centered interaction in XR by combining controller-based selection with an on-device Vision-Language Model (VLM). It performs all inference locally, reducing latency and preserving privacy.",
+    "abstract": "ClickAIXR is a novel on-device framework for multimodal vision-language interaction with real-world objects in Extended Reality (XR). Unlike prior systems that rely on cloud-based AI or gaze-based selection, ClickAIXR integrates an on-device Vision-Language Model (VLM) with a controller-based object selection mechanism. This enables users to precisely select objects in XR and ask natural language questions, receiving responses through both text and speech. By performing all inference locally, ClickAIXR reduces latency, preserves privacy, and improves transparency. The object-centered interaction also reduces ambiguity compared to gaze- or voice-only interfaces. The system is implemented using the Magic Leap SDK (C API) with ONNX-based local VLM inference. A user study comparing ClickAIXR with Gemini 2.5 Flash and ChatGPT 5 shows moderate latency and a positive user experience.",
+    "image": "images/papers/clickxr.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://www.nanovis.org/AI4XR.html"
+      },
+      {
+        "kind": "arXiv",
+        "url": "https://arxiv.org/abs/2604.04905"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/nanovis/ClickAIXR"
+      },
+      {
+        "kind": "Video",
+        "url": "https://www.youtube.com/watch?v=Mgra0laoKTc"
+      }
+    ],
+    "bibtex": "",
+    "doi": "",
+    "topic": "xr"
+  },
+  {
+    "slug": "nanouniverse",
+    "title": "Nanouniverse: Virtual Instancing of Structural Detail and Adaptive Shell Mapping",
+    "year": "2024",
+    "preprint": true,
+    "venue": "arXiv preprint,  (2024)",
+    "authors": [
+      {
+        "name": "Ruwayda Alharbi",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ruwaydah-alharbi"
+      },
+      {
+        "name": "Ondřej Strnad",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Markus Hadwiger",
+        "url": "https://cemse.kaust.edu.sa/people/person/markus-hadwiger"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "Nanouniverse introduces a novel method for rendering massive molecular scenes using hardware-accelerated ray tracing, overcoming GPU memory constraints with virtual instantiation. This approach reduces memory usage while maintaining atomistic detail in scenes with trillions of atoms, enabling interactive rendering and completely free user exploration.",
+    "abstract": "Rendering huge biological scenes with atomistic detail presents a significant challenge in molecular visualization due to the memory limitations inherent in traditional rendering approaches. In this paper, we propose a novel method for the interactive rendering of massive molecular scenes based on hardware-accelerated ray tracing. Our approach circumvents GPU memory constraints by introducing virtual instantiation of full-detail scene elements. Using instancing significantly reduces memory consumption while preserving the full atomistic detail of scenes comprising trillions of atoms, with interactive rendering performance and completely free user exploration. We utilize coarse meshes as proxy geometries to approximate the overall shape of biological compartments, and access all atomistic detail dynamically during ray tracing. We do this via a novel adaptive technique utilizing a volumetric shell layer of prisms extruded around proxy geometry triangles, and a virtual volume grid for the interior of each compartment. Our algorithm scales to enormous molecular scenes with minimal memory consumption and the potential to accommodate even larger scenes. Our method also supports advanced effects such as clipping planes and animations. We demonstrate the efficiency and scalability of our approach by rendering tens of instances of Red Blood Cell and SARS-CoV-2 models theoretically containing more than 20 trillion atoms.",
+    "image": "images/papers/Nanouniverse-teaser.jpg",
+    "links": [
+      {
+        "kind": "arXiv",
+        "url": "https://arxiv.org/abs/2404.05116"
+      }
+    ],
+    "bibtex": "@misc{alharbi2024nanouniverse,\nauthor={Ruwayda Alharbi and Ondřej Strnad and Markus Hadwiger and Ivan Viola},\ntitle={Nanouniverse: Virtual Instancing of Structural Detail and Adaptive Shell Mapping},\nyear={2024},\neprint={2404.05116},\narchivePrefix={arXiv},\nprimaryClass={cs.GR}}",
+    "doi": "",
+    "topic": "scale"
+  },
+  {
+    "slug": "chat-modeling",
+    "title": "Chat Modeling: Interaction-Enhanced Agent Framework for Visualizing Literature-Grounded Biological Structures",
+    "year": "2026",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics, vol. 32, no. 8, pp. 7453–7467, Aug. 2026",
+    "authors": [
+      {
+        "name": "Donggang Jia",
+        "url": "https://cemse.kaust.edu.sa/people/person/donggang-jia"
+      },
+      {
+        "name": "Yunhai Wang",
+        "url": "https://www.yunhaiwang.net/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "An agent framework that turns natural language, research papers and the current scene into 3D modeling steps, so bioscientists can build models of the structures they study by chatting.",
+    "abstract": "Bioscientists frequently seek to visualize the biological systems they have empirically characterized and reported in the literature. Realizing such visualizations requires biological structure modeling, an inherently complex process that demands both biological and geometric understanding. This paper addresses the problem of constructing such 3D models for visualization.\n\nIn this paper, we introduce a novel agent framework that mitigates the challenges of operating 3D modeling software by transforming user inputs, including natural language descriptions, research publication content, and textual descriptions of the existing objects and structures in the current scene, into modeling operations in a structured JSON format and final 3D results. The major technical contribution lies in the collaborative agent design that simultaneously supports model planning, execution, and novel user interaction design, such as interactive modeling execution and dynamic widget generation that fuse text and mouse interaction within the chat window. The framework further incorporates a customized modeling memory to enhance user interaction, featuring components such as personalized memory management, feedback collection, and skill library design. This modeling memory is leveraged to enable improved 3D modeling performance over time.\n\nThe quantitative evaluation on our collected dataset showcases the effectiveness of our framework. We also develop a prototype tool, Chat Modeling, and demonstrate its usage through two modeling case studies. Our user study and expert interviews highlight the potential of our approach for use in scientific workflows.",
+    "image": "images/papers/ChatModeling_1.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/TVCG.2026.3694805"
+      },
+      {
+        "kind": "arXiv",
+        "url": "https://arxiv.org/abs/2404.01063"
+      }
+    ],
+    "bibtex": "",
+    "doi": "10.1109/TVCG.2026.3694805",
+    "topic": "conv"
+  },
+  {
+    "slug": "aivaluatexr",
+    "title": "AIvaluateXR: An Evaluation Framework for On-Device AI in XR with Benchmarking Results",
+    "year": "2026",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (IEEE TVCG), 2026",
+    "authors": [
+      {
+        "name": "Dawar Khan",
+        "url": "https://dawarkhanuom.github.io/"
+      },
+      {
+        "name": "Xinyu Liu",
+        "url": "https://nanovis.kaust.edu.sa/profiles"
+      },
+      {
+        "name": "Omar Mena",
+        "url": "https://cemse.kaust.edu.sa/profiles/omar-mena-facio"
+      },
+      {
+        "name": "Donggang Jia",
+        "url": "https://cemse.kaust.edu.sa/profiles/donggang-jia"
+      },
+      {
+        "name": "Alexandre Kouyoumdjian",
+        "url": "https://cemse.kaust.edu.sa/profiles/alexandre-kouyoumdjian"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/profiles/ivan-viola"
+      }
+    ],
+    "brief": "We present AIvaluateXR, a comprehensive evaluation framework for benchmarking large language models (LLMs) running on XR devices. To demonstrate the framework, we deploy 17 selected LLMs across four XR platforms—Magic Leap 2, Meta Quest 3, Vivo X100s Pro, and Apple Vision Pro—and conduct extensive evaluations of latency, memory usage, power consumption, and output quality.",
+    "abstract": "The deployment of large language models (LLMs) on extended reality (XR) devices has great potential to advance human–AI interaction. However, selecting the appropriate model and device for specific tasks remains challenging when performing direct on-device inference.\n\nIn this work, we present AIvaluateXR, a comprehensive evaluation framework for benchmarking LLMs running on XR devices. To demonstrate the framework, we deploy 17 selected LLMs across four XR platforms—Magic Leap 2, Meta Quest 3, Vivo X100s Pro, and Apple Vision Pro—and conduct an extensive evaluation.\n\nOur experimental setup measures four key metrics: performance consistency, processing speed, memory usage, and battery consumption. For each of the 68 model–device pairs, we assess performance under varying string lengths, batch sizes, and thread counts, analyzing the tradeoffs for real-time XR applications.\n\nWe further propose a unified evaluation method based on 3D Pareto Optimality to identify optimal device–model combinations considering both quality and speed objectives. Additionally, we compare the efficiency of on-device LLMs with client–server and cloud-based setups and evaluate their performance on interactive XR tasks.\n\nWe believe our findings provide valuable insights for future optimization of on-device AI systems for XR. The proposed evaluation framework serves as foundational groundwork for future research and development in this emerging area.",
+    "image": "images/papers/LoXR4Nanovis.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/abstract/document/10973004"
+      },
+      {
+        "kind": "arXiv",
+        "url": "https://arxiv.org/abs/2502.15761"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/nanovis/AIvaluateXR"
+      },
+      {
+        "kind": "Supplementary",
+        "url": "download/supplementary_AIvaluateXR.pdf"
+      },
+      {
+        "kind": "Video",
+        "url": "https://youtu.be/agnLlrpLZ1o"
+      }
+    ],
+    "bibtex": "",
+    "doi": "",
+    "topic": "xr"
+  },
+  {
+    "slug": "midsurfer",
+    "title": "MidSurfer: A Parameter-Free Approach for Mid-Surface Extraction from Segmented Volumetric Data",
+    "year": "2025",
+    "preprint": false,
+    "venue": "IEEE Computer Graphics and Applications (CG&A), vol. 45, no. 1, pp. 1–14, Oct. 2025",
+    "authors": [
+      {
+        "name": "Eva Boneš",
+        "url": "https://cemse.kaust.edu.sa/profiles/eva-bones"
+      },
+      {
+        "name": "Dawar Khan",
+        "url": "https://dawarkhanuom.github.io/"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://www.fri.uni-lj.si/en/about-faculty/employees/ciril-bohak"
+      },
+      {
+        "name": "Benjamin A. Barad",
+        "url": "https://www.ohsu.edu/people/benjamin-a-barad-phd"
+      },
+      {
+        "name": "Danielle A. Grotjahn",
+        "url": "https://www.scripps.edu/faculty/grotjahn/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/profiles/ivan-viola"
+      },
+      {
+        "name": "Thomas Theußl",
+        "url": "https://academia.kaust.edu.sa/en/persons/thomas-theussl"
+      }
+    ],
+    "brief": "MidSurfer introduces a novel, parameter-free method for extracting mid-surfaces from segmented volumetric data.",
+    "abstract": "In the field of volumetric data processing and analysis, extracting mid-surfaces from thinly bounded compartments is crucial for tasks such as surface area estimation and accurate modeling of biological structures, yet it has lacked a standardized approach. To bridge this gap, we introduce MidSurfer - a novel parameter-free method for extracting mid-surfaces from segmented volumetric data. Our method produces smooth, uniformly triangulated meshes that accurately capture the structural features of interest. The process begins with the Ridge Field Transformation step that transforms the segmented input data, followed by the Mid-Polyline Extraction Algorithm that works on individual volume slices. Based on the connectivity of components, this step can result in either single or multiple polyline segments that represent the structural features. These segments form a coherent series across the volume, creating a backbone of regularly distributed points on each slice that represents the mid-surface. Subsequently, we employ a Polyline Zipper Algorithm for triangulation that connects these polyline segments across neighboring slices, yielding a detailed triangulated mid-surface mesh. Our findings demonstrate that this method surpasses previous techniques in versatility, simplicity of use, and accuracy. Our approach is now publicly available as a plugin for ParaView, a widely-used multi-platform tool for data analysis and visualization, and can be found at github.com/kaust-vislab/MidSurfer.",
+    "image": "images/papers/midsurfer.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.ieeecomputersociety.org/10.1109/MCG.2025.3624572"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/kaust-vislab/MidSurfer"
+      },
+      {
+        "kind": "Video",
+        "url": "https://www.youtube.com/watch?v=aj_UzkKL0-s"
+      }
+    ],
+    "bibtex": "@ARTICLE{bonevs2024midsurfer,\nauthor={Bone{\\v{s}}, Eva and Dawar Khan and Bohak, Ciril and Barad, Benjamin A and Grotjahn, Danielle A and Viola, Ivan and Theu{\\ss}l, Thomas},\njournal={IEEE Computer Graphics and Applications},\ntitle={MidSurfer: A Parameter-Free Approach for Mid-Surface Extraction From Segmented Volumetric Data},\nyear={2025},\nvolume={45},\nnumber={1},\npages={1-14},\ndoi={10.1109/MCG.2025.3624572},\nurl={https://doi.ieeecomputersociety.org/10.1109/MCG.2025.3624572},\npublisher={IEEE Computer Society},\nmonth=oct,\nkeywords={Surface reconstruction; Data mining; Feature extraction; Biomembranes; Smoothing methods},\nnote={# Joint First Authors}\n}",
+    "doi": "10.1109/MCG.2025.3624572",
+    "topic": "cryo"
+  },
+  {
+    "slug": "voice",
+    "title": "VOICE: Visual Oracle for Interaction, Conversation, and Explanation",
+    "year": "2025",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2025",
+    "authors": [
+      {
+        "name": "Donggang Jia",
+        "url": "https://cemse.kaust.edu.sa/people/person/donggang-jia"
+      },
+      {
+        "name": "Alexandra Irger",
+        "url": "https://cemse.kaust.edu.sa/vcc/people/person/alexandra-irger"
+      },
+      {
+        "name": "Lonni Besançon",
+        "url": "https://liu.se/en/employee/lonbe19"
+      },
+      {
+        "name": "Ondrej Strnad",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Deng Luo",
+        "url": "https://cemse.kaust.edu.sa/people/person/deng-luo"
+      },
+      {
+        "name": "Johanna Björklund",
+        "url": "https://www.umu.se/en/staff/johanna-bjorklund/"
+      },
+      {
+        "name": "Anders Ynnerman",
+        "url": "https://liu.se/en/employee/andyn27"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "We present VOICE, a novel approach to science communication that connects the conversational capabilities of large language models with interactive exploratory visualization.",
+    "abstract": "",
+    "image": "images/papers/VOICE.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/TVCG.2025.3579956"
+      }
+    ],
+    "bibtex": "",
+    "doi": "10.1109/TVCG.2025.3579956",
+    "topic": "conv"
+  },
+  {
+    "slug": "llms-on-xr-loxr",
+    "title": "LLMs on XR (LoXR): Performance Evaluation of LLMs Executed Locally on XR Devices",
+    "year": "2025",
+    "preprint": false,
+    "venue": "IEEE Conference on Virtual Reality and 3D User Interfaces Abstracts and Workshops (VRW)",
+    "authors": [
+      {
+        "name": "Xinyu Liu",
+        "url": "https://nanovis.kaust.edu.sa/profiles"
+      },
+      {
+        "name": "Dawar Khan",
+        "url": "https://dawarkhanuom.github.io/"
+      },
+      {
+        "name": "Omar Mena",
+        "url": "https://cemse.kaust.edu.sa/profiles/omar-mena-facio"
+      },
+      {
+        "name": "Donggang Jia",
+        "url": "https://cemse.kaust.edu.sa/profiles/donggang-jia"
+      },
+      {
+        "name": "Alexandre Kouyoumdjian",
+        "url": "https://cemse.kaust.edu.sa/profiles/alexandre-kouyoumdjian"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/profiles/ivan-viola"
+      }
+    ],
+    "brief": "This paper presents LoXR, a performance evaluation of Large Language Models (LLMs) executed locally on XR devices.",
+    "abstract": "",
+    "image": "images/papers/Poster2.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/VRW66409.2025.00252"
+      },
+      {
+        "kind": "Poster",
+        "url": "download/LoXR_Poster.pdf"
+      }
+    ],
+    "bibtex": "",
+    "doi": "10.1109/VRW66409.2025.00252",
+    "topic": "xr"
+  },
+  {
+    "slug": "difffit",
+    "title": "DiffFit: Visually-Guided Differentiable Fitting of Molecule Structures to Cryo-EM Map",
+    "year": "2024",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2024",
+    "authors": [
+      {
+        "name": "Deng Luo",
+        "url": "https://cemse.kaust.edu.sa/profiles/deng-luo"
+      },
+      {
+        "name": "Zainab Alsuwaykit",
+        "url": "https://cemse.kaust.edu.sa/profiles/zainab-alsuwaykit"
+      },
+      {
+        "name": "Dawar Khan",
+        "url": "https://cemse.kaust.edu.sa/profiles/dawar-khan"
+      },
+      {
+        "name": "Ondřej Strnad",
+        "url": "https://cemse.kaust.edu.sa/profiles/ondrej-strnad"
+      },
+      {
+        "name": "Tobias Isenberg",
+        "url": "https://tobias.isenberg.cc/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/profiles/ivan-viola"
+      }
+    ],
+    "brief": "We introduce DiffFit, a differentiable algorithm for fitting protein atomistic structures into experimental reconstructed Cryo-Electron Microscopy (cryo-EM) volume map. This process is essential in structural biology to semi-automatically reconstruct large meso-scale models of complex protein assemblies and complete cellular structures that are based on measured cryo-EM data.",
+    "abstract": "We introduce DiffFit, a differentiable algorithm for fitting protein atomistic structures into experimental reconstructed Cryo-Electron Microscopy (cryo-EM) volume map. This process is essential in structural biology to semi-automatically reconstruct large meso-scale models of complex protein assemblies and complete cellular structures that are based on measured cryo-EM data. Current approaches require manual fitting in 3D that already results in approximately aligned structures followed by an automated fine-tuning of the alignment. With our DiffFit approach, we enable domain scientists to automatically fit new structures and visualize the fitting results for inspection and interactive revision. Our fitting begins with differentiable 3D rigid transformations of the protein atom coordinates, followed by sampling the density values at its atom coordinates from the target cryo-EM volume. To ensure a meaningful correlation between the sampled densities and the protein structure, we propose a novel loss function based on a multi-resolution volume-array approach and the exploitation of the negative space. Such loss function serves as a critical metric for assessing the fitting quality, ensuring both fitting accuracy and improved visualization of the results. We assessed the placement quality of DiffFit with several large, realistic datasets and found its quality to be superior to that of previous methods. We further evaluated our method in two use cases. First, we demonstrate its use in the process of automating the integration of known composite structures into larger protein complexes. Second, we show that it facilitates the fitting of predicted protein domains into volume densities to aid researchers in the identification of unknown proteins. We open-sourced (github.com/nanovis/DiffFitViewer) DiffFit as a plugin in ChimeraX. All supplemental materials are available at osf.io/5tx4q.",
+    "image": "images/papers/DiffFit.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/10672541"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/nanovis/DiffFitViewer"
+      },
+      {
+        "kind": "Data",
+        "url": "https://osf.io/5tx4q"
+      }
+    ],
+    "bibtex": "@article{DiffFIt10290929,\nauthor={Luo, Deng and Alsuwaykit, Zainab  and Khan, Dawar and  Strnad, Ondřej and  Isenberg, Tobias and Viola, Ivan}, \njournal={IEEE Transactions on Visualization and Computer Graphics}\ntitle={DiffFit: Visually-Guided Differentiable Fitting of Molecule Structures to Cryo-EM Map},\nyear={2024},\ndoi={ 10.1109/TVCG.2024.3456404}, \nprimaryClass={q-bio.QM} \n}",
+    "doi": "10.1109/TVCG.2024.3456404",
+    "topic": "cryo"
+  },
+  {
+    "slug": "nanomatrix",
+    "title": "Nanomatrix: Scalable Construction of Crowded Biological Environments",
+    "year": "2024",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics, 2024",
+    "authors": [
+      {
+        "name": "Ruwayda Alharbi",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ruwaydah-alharbi"
+      },
+      {
+        "name": "Ondřej Strnad",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Tobias Klein",
+        "url": "https://www.cg.tuwien.ac.at/staff/TobiasKlein"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "We present a novel method for the interactive construction and rendering of extremely large molecular scenes, capable of representing multiple biological cells in atomistic detail. Our approach leverages an on-demand, view-dependent procedural generation strategy to overcome memory limitations and achieve high-resolution rendering of scenes containing trillions of atoms.",
+    "abstract": "We present a novel method for the interactive construction and rendering of extremely large molecular scenes, capable of representing multiple biological cells in atomistic detail. Our method is tailored for scenes, which are procedurally constructed, based on a given set of building rules. Rendering of large scenes normally requires the entire scene available in-core, or alternatively, it requires out-of-core management to load data into the memory hierarchy as a part of the rendering loop. Instead of out-of-core memory management, we propose to procedurally generate the scene on-demand on the fly. The key idea is a positional- and view-dependent procedural scene-construction strategy, where only a fraction of the atomistic scene around the camera is available in the GPU memory at any given time. The atomistic detail is populated into a uniform-space partitioning using a grid that covers the entire scene. Most of the grid cells are not filled with geometry, only those are populated that are potentially seen by the camera. The atomistic detail is populated in a compute shader and its representation is connected with acceleration data structures for hardware ray-tracing of modern GPUs. Objects which are far away, where atomistic detail is not perceivable from a given viewpoint, are represented by a triangle mesh mapped with a seamless texture, generated from the rendering of geometry from atomistic detail. The algorithm consists of two pipelines, the construction-compute pipeline, and the rendering pipeline, which work together to render molecular scenes at an atomistic resolution far beyond the limit of the GPU memory containing trillions of atoms. We demonstrate our technique on multiple models of SARS-CoV-2 and the red blood cell.",
+    "image": "images/papers/Nanomatrix-result_01.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/10552440"
+      }
+    ],
+    "bibtex": "@ARTICLE{Nanomatrix,\nauthor={Alharbi, Ruwayda and Strnad, Ondrej and Klein, Tobias and Viola, Ivan},\njournal={IEEE Transactions on Visualization and Computer Graphics},\ntitle={Nanomatrix: Scalable Construction of Crowded Biological Environments},\nyear={2024},\ndoi={10.1109/TVCG.2024.3411786}}",
+    "doi": "10.1109/TVCG.2024.3411786",
+    "topic": "scale"
+  },
+  {
+    "slug": "difftem",
+    "title": "Towards Differentiable Electron Microscopy Simulation: Methods and Applications",
+    "year": "2024",
+    "preprint": false,
+    "venue": "IEEE 16th Pacific Visualization Symposium (PacificVis), 2024",
+    "authors": [
+      {
+        "name": "Ngan Nguyen",
+        "url": "https://cemse.kaust.edu.sa/people/person/ngan-nguyen"
+      },
+      {
+        "name": "Feng Liang",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/feng-liang"
+      },
+      {
+        "name": "Dominik Engel",
+        "url": "https://www.uni-ulm.de/en/in/mi/institute/staff/dominik-engel/"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ciril-bohak-0"
+      },
+      {
+        "name": "Ondřej Strnad",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Timo Ropinski",
+        "url": "https://www.uni-ulm.de/en/in/mi/institute/staff/timo-ropinski/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "We present a new differentiable microscopy simulation system that allows us to generate cryo-EM micrographs of complex scenes of biological structures, and to solve inverse problems through optimization, such as estimation of microscope parameters and denoising.",
+    "abstract": "We propose a new microscopy simulation system that can depict atomistic models in a micrograph visual style, similar to physical electron microscopy imaging results. This system is scalable, able to represent the simulation of electron microscopy of twenty complex viral particles, and synthesizes the image faster than previous approaches. Additionally, the simulator is differentiable in the deterministic and stochastic stages that form signal and noise representations in the micrograph. This allows for solving inverse problems by means of optimization and thus allows for the generation of microscopy simulations using parameter settings estimated from real data. We demonstrate this capability through two applications: (1) estimating the parameters of the modulation transfer function defining the detector properties of the simulated and real micrographs and (2) denoising the real data based on parameters optimized from the simulated examples using gradient descent. While current simulators do not support any parameter estimation due to their forward-only design, we show that the results obtained using estimated parameters are very similar to real micrographs. Additionally, we evaluate the denoising capabilities of our approach and show that the results are competitive with state-of-the-art methods. Denoised micrographs exhibit less noise in the tomographic reconstruction of tilt-series, facilitating visualization of microscopy tomography using direct volume rendering by reducing the visual dominance of noise.",
+    "image": "images/papers/DiffTEM-teaser.jpg",
+    "links": [
+      {
+        "kind": "arXiv",
+        "url": "https://arxiv.org/abs/2205.04464"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/nanovis/diff-tem-release"
+      }
+    ],
+    "bibtex": "@article{Ngan_2024,\nauthor={Nguyen, Ngan and Liang, Feng and Engel, Dominik and Bohak, Ciril and Wonka, Peter and Ropinski, Timo and Viola, Ivan},\nbooktitle={2024 IEEE 16th Pacific Visualization Symposium (PacificVis)},\ntitle={Towards Differentiable Electron Microscopy Simulation: Methods and Applications},\nyear={2024},\ndoi={10.1109/PacificVis60374.2024.00016}\n}",
+    "doi": "10.1109/PacificVis60374.2024.00016",
+    "topic": "cryo"
+  },
+  {
+    "slug": "drkid",
+    "title": "Dr. KID: Direct Remeshing and K-set Isometric Decomposition for Scalable Physicalization of Organic Shapes",
+    "year": "2023",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics",
+    "authors": [
+      {
+        "name": "Dawar Khan",
+        "url": "https://cemse.kaust.edu.sa/profiles/dawar-khan"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://cemse.kaust.edu.sa/profiles/ciril-bohak"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/profiles/ivan-viola"
+      }
+    ],
+    "brief": "Dr. KID is an algorithm that uses isometric decomposition for the physicalization of potato-shaped organic models in a puzzle fashion.",
+    "abstract": "Dr. KID is an algorithm that uses isometric decomposition for the physicalization of potato-shaped organic models in a puzzle fashion. The algorithm begins with creating a simple, regular triangular surface mesh of organic shapes, followed by iterative k-means clustering and remeshing. For clustering, we need similarity between triangles (segments) which is defined as a distance function. The distance function maps each triangle's shape to a single point in the virtual 3D space. Thus, the distance between the triangles indicates their degree of dissimilarity. K-means clustering uses this distance and sorts of segments into k classes. After this, remeshing is applied to minimize the distance between triangles within the same cluster by making their shapes identical. Clustering and remeshing are repeated until the distance between triangles in the same cluster reaches an acceptable threshold. We adopt a curvature-aware strategy to determine the surface thickness and finalize puzzle pieces for 3D printing. Identical hinges and holes are created for assembling the puzzle components. For smoother outcomes, we use triangle subdivision along with curvature-aware clustering, generating curved triangular patches for 3D printing. Our algorithm was evaluated using various models, and the 3D-printed results were analyzed. Findings indicate that our algorithm performs reliably on target organic shapes with minimal loss of input geometry.",
+    "image": "images/papers/DrKID.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/10290929"
+      },
+      {
+        "kind": "Video",
+        "url": "https://www.youtube.com/watch?v=1MByeDBLgK0&t=3s"
+      },
+      {
+        "kind": "Video",
+        "url": "https://www.youtube.com/watch?v=sLQKDHY370A"
+      }
+    ],
+    "bibtex": "@article{10290929,\nauthor={Khan, Dawar and Bohak, Ciril and Viola, Ivan},\njournal={IEEE Transactions on Visualization and Computer Graphics}\ntitle={Dr. KID: Direct Remeshing and K-set Isometric Decomposition for Scalable Physicalization of Organic Shapes},\nyear={2023},\ndoi={10.1109/TVCG.2023.3326595}}",
+    "doi": "10.1109/TVCG.2023.3326595",
+    "topic": "",
+    "award": "IEEE VIS 2023 Best Paper Honorable Mention"
+  },
+  {
+    "slug": "volume-conductor",
+    "title": "Volume conductor: interactive visibility management for crowded volumes",
+    "year": "2023",
+    "preprint": false,
+    "venue": "The visual computer, 2023",
+    "authors": [
+      {
+        "name": "Žiga Lesar",
+        "url": "https://fri.uni-lj.si/en/about-faculty/employees/ziga-lesar"
+      },
+      {
+        "name": "Ruwayda Alharbi",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ruwaydah-alharbi"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ciril-bohak"
+      },
+      {
+        "name": "Ondřej Strnad",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Christoph Heinzl",
+        "url": "https://www.digital.uni-passau.de/en/profiles/professor-christoph-heinzl"
+      },
+      {
+        "name": "Matija Marolt",
+        "url": "https://fri.uni-lj.si/en/about-faculty/employees/matija-marolt"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "We present a smart visibility system that enables per-instance control of object visibility in crowded volumetric data, improving exploration by grouping objects and automatically sparsifying dense volumes based on membership predicates and view context.",
+    "abstract": "We present a novel smart visibility system for visualizing crowded volumetric data containing many object instances. The presented approach allows users to form groups of objects through membership predicates and to individually control the visibility of the instances in each group. Unlike previous smart visibility approaches, our approach controls the visibility on a per-instance basis and decides which instances are displayed or hidden based on the membership predicates and the current view. Thus, cluttered and dense volumes that are notoriously difficult to explore effectively are automatically sparsified so that the essential information is extracted and presented to the user. The proposed system is generic and can be easily integrated into existing volume rendering applications and applied to many different domains. We demonstrate the use of the volume conductor for visualizing fiber-reinforced polymers and intracellular organelle structures.",
+    "image": "images/papers/Volume_conductor_01.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://link.springer.com/article/10.1007/s00371-023-02828-8"
+      }
+    ],
+    "bibtex": "﻿@Article{VolumeConductor,\nauthor={Lesar, {\\v{Z}}iga and Alharbi, Ruwayda and Bohak, Ciril and Strnad, Ond{\\v{r}}ej and Heinzl, Christoph and Marolt, Matija and Viola, Ivan},\ntitle={Volume conductor: interactive visibility management for crowded volumes},\njournal={The Visual Computer},\nyear={2024},\nmonth={Feb},\nday={01},\nvolume={40},\nnumber={2},\npages={1005-1020},\nissn={1432-2315},\ndoi={10.1007/s00371-023-02828-8},\nurl={https://doi.org/10.1007/s00371-023-02828-8}}",
+    "doi": "10.1007/s00371-023-02828-8",
+    "topic": ""
+  },
+  {
+    "slug": "tomographicreconstruction",
+    "title": "GPU Accelerated 3D Tomographic Reconstruction and Visualization from Noisy Electron Microscopy Tilt-Series",
+    "year": "2022",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2022",
+    "authors": [
+      {
+        "name": "Julio Rey Ramirez",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/julio-rey-ramirez"
+      },
+      {
+        "name": "Peter Rautek",
+        "url": "https://cemse.kaust.edu.sa/people/person/peter-rautek"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ciril-bohak-0"
+      },
+      {
+        "name": "Ondrej Strnad",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Zheyuan Zhang",
+        "url": ""
+      },
+      {
+        "name": "Sai Li",
+        "url": "https://life.tsinghua.edu.cn/lifeen/info/1033/1099.htm"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      },
+      {
+        "name": "Wolfgang Heidrich",
+        "url": "https://www.kaust.edu.sa/en/study/faculty/wolfgang-heidrich"
+      }
+    ],
+    "brief": "We present a novel framework for 3D tomographic reconstruction and visualization of tomograms from noisy electron microscopy tilt-series.",
+    "abstract": "We present a novel framework for 3D tomographic reconstruction and visualization of tomograms from noisy electron microscopy tilt-series. Our technique takes as an input aligned tilt-series from cryogenic electron microscopy and creates denoised 3D tomograms using a proximal jointly-optimized approach that iteratively performs reconstruction and denoising, relieving the users of the need to select appropriate denoising algorithms in the pre-reconstruction or post-reconstruction steps. The whole process is accelerated by exploiting parallelism on modern GPUs, and the results can be visualized immediately after the reconstruction using volume rendering tools incorporated in the framework. We show that our technique can be used with multiple combinations of reconstruction algorithms and regularizers, thanks to the flexibility provided by proximal algorithms. Additionally, the reconstruction framework is open-source and can be easily extended with additional reconstruction and denoising methods. Furthermore, our approach enables visualization of reconstruction error throughout the iterative process within the reconstructed tomogram and on projection planes of the input tilt-series. We evaluate our approach in comparison with state-of-the-art approaches and additionally show how our error visualization can be used for reconstruction evaluation.",
+    "image": "images/papers/TomographicReconstruction-small.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/9992117"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/juareyra/Proximal_CryoET"
+      }
+    ],
+    "bibtex": "@article{9992117,\nauthor={Ramirez, Julio Rey and Rautek, Peter and Bohak, Ciril and Strnad, Ondřej and Zhang, Zheyuan and Li, Sai and Viola, Ivan and Heidrich, Wolfgang},\njournal={IEEE Transactions on Visualization and Computer Graphics},\ntitle={GPU Accelerated 3D Tomographic Reconstruction and Visualization from Noisy Electron Microscopy Tilt-Series},\nyear={2022},\ndoi={10.1109/TVCG.2022.3230445}}",
+    "doi": "10.1109/TVCG.2022.3230445",
+    "topic": "cryo"
+  },
+  {
+    "slug": "nanootzi",
+    "title": "Finding Nano-Ötzi: Cryo-Electron Tomography Visualization Guided by Learned Segmentation",
+    "year": "2022",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2022",
+    "authors": [
+      {
+        "name": "Ngan Nguyen",
+        "url": "https://cemse.kaust.edu.sa/people/person/ngan-nguyen"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ciril-bohak-0"
+      },
+      {
+        "name": "Dominik Engel",
+        "url": "https://www.uni-ulm.de/en/in/mi/institute/staff/dominik-engel/"
+      },
+      {
+        "name": "Peter Mindek",
+        "url": "https://www.cg.tuwien.ac.at/staff/PeterMindek"
+      },
+      {
+        "name": "Ondřej Strnad",
+        "url": "https://cemse.kaust.edu.sa/cs/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Peter Wonka",
+        "url": "https://www.kaust.edu.sa/en/study/faculty/peter-wonka"
+      },
+      {
+        "name": "Sai Li",
+        "url": "https://life.tsinghua.edu.cn/lifeen/info/1033/1099.htm"
+      },
+      {
+        "name": "Timo Ropinski",
+        "url": "https://www.uni-ulm.de/en/in/mi/institute/staff/timo-ropinski/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "A semi-supervised approach combining the advantages of a weak segmentation algorithm and a powerful deep-learning-based segmentation algorithm for the segmentation of Cryo-Electron data which is used in the proposed volume visualization where deep-learning-based segmentation is used as a component for segmentation-aware transfer function design.",
+    "abstract": "Cryo-electron tomography (cryo-ET) is a new 3D imaging technique with unprecedented potential for resolving submicron structural details. Existing volume visualization methods, however, are not able to reveal details of interest due to low signal-to-noise ratio. In order to design more powerful transfer functions, we propose leveraging soft segmentation as an explicit component of visualization for noisy volumes. Our technical realization is based on semi-supervised learning, where we combine the advantages of two segmentation algorithms. First, the weak segmentation algorithm provides good results for propagating sparse user-provided labels to other voxels in the same volume and is used to generate dense pseudo-labels. Second, the powerful deep-learning-based segmentation algorithm learns from these pseudo-labels to generalize the segmentation to other unseen volumes, a task that the weak segmentation algorithm fails at completely. The proposed volume visualization uses deep-learning-based segmentation as a component for segmentation-aware transfer function design. Appropriate ramp parameters can be suggested automatically through frequency distribution analysis.Furthermore, our visualization uses gradient-free ambient occlusion shading to further suppress the visual presence of noise, and to give structural detail the desired prominence. The cryo-ET data studied in our technical experiments are based on the highest-quality tilted series of intact SARS-CoV-2 virions. Our technique shows the high impact in target sciences for visual data analysis of very noisy volumes that cannot be visualized with existing techniques.",
+    "image": "images/papers/NanoOetzi-small.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/9806341"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/nanovis/nano-oetzi"
+      },
+      {
+        "kind": "Data",
+        "url": "https://repository.kaust.edu.sa/handle/10754/676709"
+      }
+    ],
+    "bibtex": "@article{Ngan_2022,\nauthor={Nguyen, Ngan and Bohak, Ciril and Engel, Dominik and Mindek, Peter and Strnad, Ondřej and Wonka, Peter and Li, Sai and Ropinski, Timo and Viola, Ivan},\njournal={IEEE Transactions on Visualization and Computer Graphics},\ntitle={Finding Nano-Ötzi: Cryo-Electron Tomography Visualization Guided by Learned Segmentation},\nyear={2022},\ndoi={10.1109/TVCG.2022.3186146}\n}",
+    "doi": "10.1109/TVCG.2022.3186146",
+    "topic": "cryo"
+  },
+  {
+    "slug": "nanotilus",
+    "title": "Nanotilus: Generator of Immersive Guided-Tours in Crowded 3D Environments",
+    "year": "2021",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2021",
+    "authors": [
+      {
+        "name": "Ruwayda Alharbi",
+        "url": "https://cemse.kaust.edu.sa/vcc/people/person/ruwaydah-alharbi"
+      },
+      {
+        "name": "Ondrej Strnad",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Laura Luidolt",
+        "url": "https://www.cg.tuwien.ac.at/staff/Laura-RLuidolt"
+      },
+      {
+        "name": "Manuela Waldner",
+        "url": "https://www.cg.tuwien.ac.at/staff/ManuelaWaldner"
+      },
+      {
+        "name": "David Kouril",
+        "url": "https://www.cg.tuwien.ac.at/staff/DavidKou%C5%99il"
+      },
+      {
+        "name": "Ciril Bohak",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ciril-bohak-0"
+      },
+      {
+        "name": "Tobias Klein",
+        "url": "https://www.cg.tuwien.ac.at/staff/TobiasKlein"
+      },
+      {
+        "name": "Eduard Gröller",
+        "url": "https://www.cg.tuwien.ac.at/staff/EduardGr%C3%B6ller"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "Nanotilus is a guided-tour generator for immersive display environments to communicate multi-scale, crowded, scientifically accurate 3D models representing the structure of complex biological entities.",
+    "abstract": "This paper proposes Nanotilus -- a new visibility and guidance approach for very dense environments that generates an endoscopic inside-out experience instead of outside-in viewing, preserving the immersive aspect of virtual reality. The approach consists of two novel, tightly coupled mechanisms that control scene sparsification simultaneously with camera path planning. The sparsification strategy is localized around the camera and is realized as a multi-scale, multi-shell, variety-preserving technique. When Nanotilus dives into the structures to capture internal details residing on multiple scales, it guides the camera using depth-based path planning. In addition to sparsification and path planning, we complete the tour generation with an animation controller, textual annotation, and text-to-visualization conversion. We demonstrate the generated guided tours on mesoscopic biological models -- SARS-CoV-2 and HIV. We evaluate the Nanotilus experience with a baseline outside-in sparsification and navigational technique in a formal user study with 29 participants. While users can maintain a better overview using the outside-in sparsification, the study confirms our hypothesis that Nanotilus leads to stronger engagement and immersion.",
+    "image": "images/papers/Nanotilus-small.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/9645360"
+      },
+      {
+        "kind": "Video",
+        "url": "download/Nanotilus/Nanotilus_Submission_Video.mp4"
+      },
+      {
+        "kind": "Video",
+        "url": "download/Nanotilus/Nanotilus_Sample_tour_SARS-COV-2_model.mp4"
+      },
+      {
+        "kind": "Video",
+        "url": "download/Nanotilus/Nanotilus_Sample_tour_HIV_model.mp4"
+      }
+    ],
+    "bibtex": "@article{9645360,\nauthor={Alharbi, Ruwayda and Strnad, Ondrej and Luidolt, Laura R. and Waldner, Manuela and Kouril, David and Bohak, Ciril and Klein, Tobias and Groeller, Eduard and Viola, Ivan},\njournal={IEEE Transactions on Visualization and Computer Graphics},\ntitle={Nanotilus: Generator of Immersive Guided-Tours in Crowded 3D Environments},\nyear={2021},\ndoi={10.1109/TVCG.2021.3133592}}",
+    "doi": "10.1109/TVCG.2021.3133592",
+    "topic": ""
+  },
+  {
+    "slug": "molecumentary",
+    "title": "Molecumentary: Adaptable Narrated Documentaries Using Molecular Visualization",
+    "year": "2021",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2021",
+    "authors": [
+      {
+        "name": "David Kouril",
+        "url": "https://www.cg.tuwien.ac.at/staff/DavidKou%C5%99il"
+      },
+      {
+        "name": "Ondrej Strnad",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Peter Mindek",
+        "url": "https://www.cg.tuwien.ac.at/staff/PeterMindek"
+      },
+      {
+        "name": "Sarkis Halladjian",
+        "url": "https://aviz.fr/halladjian"
+      },
+      {
+        "name": "Tobias Isenberg",
+        "url": "https://tobias.isenberg.cc"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "Molecumentary is a method for producing documentary-style content using real-time scientific visualization.",
+    "abstract": "We present a method for producing documentary-style content using real-time scientific visualization. We introduce molecumentaries, i.e., molecular documentaries featuring structural models from molecular biology, created through adaptable methods instead of the rigid traditional production pipeline. Our work is motivated by the rapid evolution of scientific visualization and it potential in science dissemination. Without some form of explanation or guidance, however, novices and lay-persons often find it difficult to gain insights from the visualization itself. We integrate such knowledge using the verbal channel and provide it along an engaging visual presentation. To realize the synthesis of a molecumentary, we provide technical solutions along two major production steps: (1) preparing a story structure and (2) turning the story into a concrete narrative. In the first step, we compile information about the model from heterogeneous sources into a story graph. We combine local knowledge with external sources to complete the story graph and enrich the final result. In the second step, we synthesize a narrative, i.e., story elements presented in sequence, using the story graph. We then traverse the story graph and generate a virtual tour, using automated camera and visualization transitions. We turn texts written by domain experts into verbal representations using text-to-speech functionality and provide them as a commentary. Using the described framework, we synthesize fly-throughs with descriptions: automatic ones that mimic a manually authored documentary or semi-automatic ones which guide the documentary narrative solely through curated textual input.",
+    "image": "images/papers/molecumentary-small.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/TVCG.2021.3130670"
+      }
+    ],
+    "bibtex": "@article{9627526,\nauthor={Kouril, David and Strnad, Ondrej and Mindek, Peter and Halladjian, Sarkis and Isenberg, Tobias and Groeller, Eduard and Viola, Ivan},\njournal={IEEE Transactions on Visualization and Computer Graphics}, \ntitle={Molecumentary: Adaptable Narrated Documentaries Using Molecular Visualization}, \nyear={2021},\nvolume={},\nnumber={},\npages={1-1},\ndoi={10.1109/TVCG.2021.3130670}}",
+    "doi": "10.1109/TVCG.2021.3130670",
+    "topic": ""
+  },
+  {
+    "slug": "data-driven-colormap",
+    "title": "Data-driven Colormap Adjustment for Exploring Spatial Variations in Scalar Fields",
+    "year": "2021",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2021",
+    "authors": [
+      {
+        "name": "Qiong Zeng",
+        "url": "https://qiongzn.github.io/"
+      },
+      {
+        "name": "Changhe Tu",
+        "url": "http://irc.cs.sdu.edu.cn/~chtu/index.html"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      },
+      {
+        "name": "Yunhai Wang",
+        "url": "http://www.yunhaiwang.net/"
+      }
+    ],
+    "brief": "A colormap adjustment as an objective function, composed of a boundary term and a fidelity term, which is flexible enough to support interactive functionalities.",
+    "abstract": "Colormapping is an effective and popular visualization technique for analyzing patterns in scalar fields. Scientists usually adjust a default colormap to show hidden patterns by shifting the colors in a trial-and-error process. To improve efficiency, efforts have been made to automate the colormap adjustment process based on data properties (e.g., statistical data value or distribution). However, as the data properties have no direct correlation to the spatial variations, previous methods may be insufficient to reveal the dynamic range of spatial variations hidden in the data. To address the above issues, we conduct a pilot analysis with domain experts and summarize three requirements for the colormap adjustment process. Based on the requirements, we formulate colormap adjustment as an objective function, composed of a boundary term and a fidelity term, which is flexible enough to support interactive functionalities. We compare our approach with alternative methods under a quantitative measure and a qualitative user study (25 participants), based on a set of data with broad distribution diversity. We further evaluate our approach via three case studies with six domain experts. Our method is not necessarily more optimal than alternative methods of revealing patterns, but rather is an additional color adjustment option for exploring data with a dynamic range of spatial variations.",
+    "image": "images/papers/data-driven_colormap-small.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/TVCG.2021.3109014"
+      }
+    ],
+    "bibtex": "@article{Zeng2021,\nauthor = {Qiong Zeng and Yongwei Zhao and Yinqiao Wang and Jian Zhang and Yi Cao and Changhe Tu and Ivan Viola and Yunhai Wang},\njournal = {{IEEE} Transactions on Visualization and Computer Graphics (TVCG)\"},\ntitle = {Data-driven Colormap Adjustment for Exploring Spatial Variations in Scalar Fields},\nyear = {2021},\ndoi = {10.1109/TVCG.2021.3109014}\n}",
+    "doi": "10.1109/TVCG.2021.3109014",
+    "topic": ""
+  },
+  {
+    "slug": "multiscale-unfolding-illustratively-visu",
+    "title": "Multiscale Unfolding: Illustratively Visualizing the Whole Genome at a Glance",
+    "year": "2021",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2021",
+    "authors": [
+      {
+        "name": "Sarkis Halladjian",
+        "url": "https://aviz.fr/halladjian"
+      },
+      {
+        "name": "David Kouril",
+        "url": "https://www.cg.tuwien.ac.at/staff/DavidKou%C5%99il"
+      },
+      {
+        "name": "Haichao Miao",
+        "url": "https://mhaichao.github.io/"
+      },
+      {
+        "name": "Eduard Groeller",
+        "url": "https://www.cg.tuwien.ac.at/staff/EduardGr%C3%B6ller"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      },
+      {
+        "name": "Tobias Isenberg",
+        "url": "https://tobias.isenberg.cc/"
+      }
+    ],
+    "brief": "Multiscale Unfolding, an interactive technique for illustratively visualizing multiple hierarchical scales of DNA in a single view, showing the genome at different scales and demonstrating how one scale spatially folds into the next.",
+    "abstract": "",
+    "image": "images/papers/multiscale-unfolding-1.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/TVCG.2021.3065443"
+      }
+    ],
+    "bibtex": "@article{Halladjian2021,\nauthor = {Sarkis Halladjian and David Kouril and Haichao Miao and Eduard Groeller and Ivan Viola and Tobias Isenberg},\njournal = {{IEEE} Transactions on Visualization and Computer Graphics (TVCG)\"},\ntitle = {Multiscale Unfolding: Illustratively Visualizing the Whole Genome at a Glance},\nyear = {2021},\ndoi = {10.1109/TVCG.2021.3065443}\n}",
+    "doi": "10.1109/TVCG.2021.3065443",
+    "topic": ""
+  },
+  {
+    "slug": "multi-level-area-balancing-of-clustered-",
+    "title": "Multi-level Area Balancing of Clustered Graphs",
+    "year": "2020",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics (TVCG), 2020",
+    "authors": [
+      {
+        "name": "Hsiang-Yun Wu",
+        "url": "https://www.cg.tuwien.ac.at/staff/Hsiang-YunWu"
+      },
+      {
+        "name": "Martin Nöllenburg",
+        "url": "https://www.ac.tuwien.ac.at/people/noellenburg/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "We present a multi-level area balancing technique for laying out clustered graphs to facilitate a comprehensive understanding of the complex relationships...",
+    "abstract": "",
+    "image": "images/papers/Multi-level_Area_Balancing-single.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://doi.org/10.1109/TVCG.2020.3038154"
+      }
+    ],
+    "bibtex": "@article{Wu2020,\nauthor = {Hsiang-Yun Wu and Martin Nöllenburg and Ivan Viola},\njournal = {{IEEE} Transactions on Visualization and Computer Graphics (TVCG)\"},\ntitle = {Multi-level Area Balancing of Clustered Graphs},\nyear = {2020},\ndoi = {10.1109/TVCG.2020.3038154}\n}",
+    "doi": "10.1109/TVCG.2020.3038154",
+    "topic": ""
+  },
+  {
+    "slug": "modeling-in-the-time-of-covid-19",
+    "title": "Modeling in the Time of COVID-19: Statistical and Rule-based Mesoscale Models",
+    "year": "2020",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics, 2020",
+    "authors": [
+      {
+        "name": "Ngan Nguyen",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ngan-nguyen"
+      },
+      {
+        "name": "Ondrej Strnad",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ondrej-strnad"
+      },
+      {
+        "name": "Tobias Klein",
+        "url": "https://www.cg.tuwien.ac.at/staff/TobiasKlein"
+      },
+      {
+        "name": "Deng Luo",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/deng-luo"
+      },
+      {
+        "name": "Ruwayda Alharbi",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ruwayda-alharbi"
+      },
+      {
+        "name": "Peter Wonka",
+        "url": "https://www.kaust.edu.sa/en/study/faculty/peter-wonka"
+      },
+      {
+        "name": "Peter Mindek",
+        "url": "https://www.cg.tuwien.ac.at/staff/PeterMindek"
+      },
+      {
+        "name": "David Goodsell",
+        "url": "https://ccsb.scripps.edu/goodsell/"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "We present a new technique for the rapid modeling and construction of scientifically accurate mesoscale biological models...",
+    "abstract": "",
+    "image": "images/papers/teaser-outside.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "http://hdl.handle.net/10754/662746"
+      },
+      {
+        "kind": "Software",
+        "url": "download/MesoCraft_1.2.4.zip"
+      },
+      {
+        "kind": "Data",
+        "url": "download/modeling_v1.0.3.zip"
+      },
+      {
+        "kind": "Video",
+        "url": "https://youtu.be/IB3ujgoniVQ"
+      },
+      {
+        "kind": "Video",
+        "url": "https://youtu.be/Eam5P7rYmQY"
+      },
+      {
+        "kind": "Video",
+        "url": "https://youtu.be/g-N18-DZbvw"
+      }
+    ],
+    "bibtex": "@article{Nguyen2020,\nauthor = {Ngan Nguyen and Ondrej Strnad and Tobias Klein and Deng Luo and Ruwayda Alharbi and Peter Wonka and Martina Maritan and Peter Mindek and Ludovic Autin and David S. Goodsell and Ivan Viola},\njournal = {IEEE Transactions on Visualization and Computer Graphics},\ntitle = {Modeling in the Time of COVID-19: Statistical and Rule-based Mesoscale Models},\nyear = {2020},\ndoi = {10.1109/TVCG.2020.3030415}\n}",
+    "doi": "10.1109/TVCG.2020.3030415",
+    "topic": ""
+  },
+  {
+    "slug": "adenita",
+    "title": "Adenita: interactive 3D modelling and visualization of DNA nanostructures",
+    "year": "2020",
+    "preprint": false,
+    "venue": "Nucleic Acids Research, 2020",
+    "authors": [
+      {
+        "name": "Elisa de Llano",
+        "url": ""
+      },
+      {
+        "name": "Haichao Miao",
+        "url": ""
+      },
+      {
+        "name": "Yasaman Ahmadi",
+        "url": ""
+      },
+      {
+        "name": "Amanda J Wilson",
+        "url": ""
+      },
+      {
+        "name": "Morgan Beeby",
+        "url": ""
+      },
+      {
+        "name": "Ivan Viola",
+        "url": ""
+      },
+      {
+        "name": "Ivan Barisic",
+        "url": ""
+      }
+    ],
+    "brief": "The increasing complexity of novel applications requires significant computational support for the design, modelling and analysis of DNA nanostructures...",
+    "abstract": "",
+    "image": "images/papers/adenita.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://www.samson-connect.net/element/dda2a078-1ab6-96ba-0d14-ee1717632d7a.html"
+      },
+      {
+        "kind": "Code",
+        "url": "https://github.com/edellano/Adenita-SAMSON-Edition"
+      }
+    ],
+    "bibtex": "@article{deLlano_2020,\nauthor = {de Llano, Elisa and Miao, Haichao and Ahmadi, Yasaman and Wilson, Amanda J and Beeby, Morgan and Viola, Ivan and Barisic, Ivan},\ntitle = {Adenita: interactive 3D modelling and visualization of DNA nanostructures},\njournal = {Nucleic Acids Research},\nvolume = {48},\nnumber = {15},\npages = {8269-8275},\nyear = {2020},\nmonth = {07},\nissn = {0305-1048},\ndoi = {10.1093/nar/gkaa593},\nurl = {https://doi.org/10.1093/nar/gkaa593}\n}",
+    "doi": "10.1093/nar/gkaa593",
+    "topic": ""
+  },
+  {
+    "slug": "homomorphic-encrypted-volume-rendering",
+    "title": "Homomorphic-Encrypted Volume Rendering",
+    "year": "2020",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics, 2020",
+    "authors": [
+      {
+        "name": "Sebastian Mazza",
+        "url": "mailto:sebastian@mazza.at"
+      },
+      {
+        "name": "Daniel Patel",
+        "url": "mailto:danielpatel.no@gmail.com"
+      },
+      {
+        "name": "Ivan Viola",
+        "url": "https://cemse.kaust.edu.sa/nanovis/people/person/ivan-viola"
+      }
+    ],
+    "brief": "Some rendering tasks require the highest level of confidentiality so that no other party, besides the owner, can read or see the sensitive data...",
+    "abstract": "",
+    "image": "images/papers/homomorphic-encrypted.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://ieeexplore.ieee.org/document/9222562"
+      }
+    ],
+    "bibtex": "@article{Mazza_2020,\nauthor = {S. {Mazza} and D. {Patel} and I. {Viola}},\njournal = {IEEE Transactions on Visualization and Computer Graphics}, \ntitle = {Homomorphic-Encrypted Volume Rendering}, \nyear = {2020},\npages = {1-1},\ndoi = {10.1109/TVCG.2020.3030436}\n}",
+    "doi": "10.1109/TVCG.2020.3030436",
+    "topic": ""
+  },
+  {
+    "slug": "visual-abstraction",
+    "title": "Visual Abstraction",
+    "year": "2020",
+    "preprint": false,
+    "venue": "Foundations of Data Visualization, 2020",
+    "authors": [
+      {
+        "name": "I. Viola",
+        "url": ""
+      },
+      {
+        "name": "M. Chen",
+        "url": ""
+      },
+      {
+        "name": "T. Isenberg",
+        "url": ""
+      }
+    ],
+    "brief": "The concept of abstraction as it is used in visualization and put it on a solid formal footing ...",
+    "abstract": "",
+    "image": "images/papers/visual_abstraction.jpg",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://link.springer.com/chapter/10.1007%2F978-3-030-34444-3_2"
+      }
+    ],
+    "bibtex": "@inbook{Viola_2020,\nauthor = {I. Viola and M. Chen and T. Isenberg},\ntitle = {Visual Abstraction},\nbookTitle = {Foundations of Data Visualization},\nyear = {2020},\npages = {15--37},\nisbn = {978-3-030-34444-3},\ndoi = {10.1007/978-3-030-34444-3_2},\nurl = {https://doi.org/10.1007/978-3-030-34444-3_2},\n}",
+    "doi": "10.1007/978-3-030-34444-3_2",
+    "topic": ""
+  },
+  {
+    "slug": "hyperlabels",
+    "title": "HyperLabels: Browsing of Dense and Hierarchical Molecular 3D Models",
+    "year": "2020",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics",
+    "authors": [
+      {
+        "name": "D. Kouril",
+        "url": ""
+      },
+      {
+        "name": "T. Isenberg",
+        "url": ""
+      },
+      {
+        "name": "B. Kozlikova",
+        "url": ""
+      },
+      {
+        "name": "M. Meyer",
+        "url": ""
+      },
+      {
+        "name": "M.E. Gröller",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "PDF",
+        "url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9007694"
+      },
+      {
+        "kind": "Project page",
+        "url": "https://www.cg.tuwien.ac.at/research/publications/2020/kouril-2020-hyperlabels/"
+      }
+    ],
+    "bibtex": "@article{kouril_2020,\nauthor = {D. {Kouřil} and T. {Isenberg} and B. {Kozlikova} and M. {Meyer} and E. {Groeller} and I. {Viola}},\njournal = {IEEE Transactions on Visualization and Computer Graphics},\ntitle = {HyperLabels: Browsing of Dense and Hierarchical Molecular 3D Models},\nyear = {2020},\nvolume = {},\nnumber = {},\npages = {1-1}\n}",
+    "doi": "",
+    "topic": ""
+  },
+  {
+    "slug": "multi-scale-procedural-animations-of-mic",
+    "title": "Multi-Scale Procedural Animations of Microtubule Dynamics Based on Measured Data",
+    "year": "2019",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics",
+    "authors": [
+      {
+        "name": "T. Klein",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      },
+      {
+        "name": "M.E. Gröller",
+        "url": ""
+      },
+      {
+        "name": "P. Mindek",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "PDF",
+        "url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8807314"
+      },
+      {
+        "kind": "Project page",
+        "url": "https://www.cg.tuwien.ac.at/research/publications/2019/klein_2019_PMP/"
+      }
+    ],
+    "bibtex": "@article{Klein_2020,\nauthor = {T. {Klein} and I. {Viola} and E. {Gröller} and P. {Mindek}},\njournal = {IEEE Transactions on Visualization and Computer Graphics},\ntitle = {Multi-Scale Procedural Animations of Microtubule Dynamics Based on Measured Data},\nyear = {2020},\nvolume = {26},\nnumber = {1},\npages = {622-632}\n}",
+    "doi": "",
+    "topic": ""
+  },
+  {
+    "slug": "scale-trotter",
+    "title": "Scale Trotter: Illustrative Visual Travels across Negative Scales",
+    "year": "2019",
+    "preprint": false,
+    "venue": "IEEE Transactions on Visualization and Computer Graphics",
+    "authors": [
+      {
+        "name": "S. Halladjian",
+        "url": ""
+      },
+      {
+        "name": "H. Miao",
+        "url": ""
+      },
+      {
+        "name": "D. Kouril",
+        "url": ""
+      },
+      {
+        "name": "M.E. Gröller",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      },
+      {
+        "name": "T. Isenberg",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "PDF",
+        "url": "https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8805465"
+      },
+      {
+        "kind": "Project page",
+        "url": "https://tobias.isenberg.cc/VideosAndDemos/Halladjian2020SIV"
+      }
+    ],
+    "bibtex": "@artice{Halladjian_2020,\nauthor = {S. {Halladjian} and H. {Miao} and D. {Kouřil} and M.E. {Gröller} and I. {Viola} and T. {Isenberg}},\njournal = {IEEE Transactions on Visualization and Computer Graphics},\ntitle = {Scale Trotter: Illustrative Visual Travels Across Negative Scales},\nyear = {2020},\nvolume = {26},\nnumber = {1},\npages = {654-664}\n}",
+    "doi": "",
+    "topic": ""
+  },
+  {
+    "slug": "metabopolis",
+    "title": "Metabopolis: Scalable Network Layout for Biological Pathway Diagrams in Urban Map Style",
+    "year": "2019",
+    "preprint": false,
+    "venue": "BMC Bioinformatics 20 (1), 187",
+    "authors": [
+      {
+        "name": "H.Y. Wu",
+        "url": ""
+      },
+      {
+        "name": "M. Nöllenburg",
+        "url": ""
+      },
+      {
+        "name": "F.L. Sousa",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "PDF",
+        "url": "https://bmcbioinformatics.biomedcentral.com/track/pdf/10.1186/s12859-019-2779-4"
+      },
+      {
+        "kind": "Project page",
+        "url": "https://www.cg.tuwien.ac.at/research/publications/2019/wu-2019-bmc/"
+      }
+    ],
+    "bibtex": "@article{wu_2019,\ntitle ={Metabopolis: Scalable Network Layout for Biological Pathway Diagrams in Urban Map Style},\nauthor ={H.Y. Wu and M. N\\\"{o}llenburg and F.L. Sousa and I. Viola},\nyear ={2019},\nmonth = {may},\ndoi ={http://doi.org/10.1186/s12859-019-2779-4},\njournal ={BMC Bioinformatics},\nnumber ={187},\nvolume = {20},\npages ={1--20}\n}",
+    "doi": "10.1186/s12859-019-2779-4",
+    "topic": ""
+  },
+  {
+    "slug": "data-driven-colormap-optimization-for-2d",
+    "title": "Data-Driven Colormap Optimization for 2D Scalar Field Visualization",
+    "year": "2019",
+    "preprint": false,
+    "venue": "2019 IEEE Visualization Conference (VIS), 266-270",
+    "authors": [
+      {
+        "name": "Q. Zeng",
+        "url": ""
+      },
+      {
+        "name": "Y. Wang",
+        "url": ""
+      },
+      {
+        "name": "J. Zhang",
+        "url": ""
+      },
+      {
+        "name": "W. Zhang",
+        "url": ""
+      },
+      {
+        "name": "C. Tu",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      },
+      {
+        "name": "Y. Wang",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "PDF",
+        "url": "http://www.yunhaiwang.net/SciVis2019/colorProject/coloropt.pdf"
+      },
+      {
+        "kind": "Project page",
+        "url": "http://www.yunhaiwang.net/SciVis2019/colorProject/index.html"
+      }
+    ],
+    "bibtex": "@inproceedings{Zeng_2019,\nTitle = {Data-Driven Colormap Optimization for 2D Scalar Field Visualization},\nAuthor = {Qiong Zeng and Yinqiao Wang and Jian Zhang and Wenting Zhang and Changhe Tu and Ivan Voila and Yunhai Wang},\nbooktitle = {IEEE VIS},\nYear = {2019}\n}",
+    "doi": "",
+    "topic": ""
+  },
+  {
+    "slug": "parallel-generation-and-visualization-of",
+    "title": "Parallel Generation and Visualization of Bacterial Genome Structures",
+    "year": "2019",
+    "preprint": false,
+    "venue": "Computer Graphics Forum 38 (7), 57-68",
+    "authors": [
+      {
+        "name": "T. Klein",
+        "url": ""
+      },
+      {
+        "name": "P. Mindek",
+        "url": ""
+      },
+      {
+        "name": "L. Autin",
+        "url": ""
+      },
+      {
+        "name": "D.S. Goodsell",
+        "url": ""
+      },
+      {
+        "name": "A.J. Olson",
+        "url": ""
+      },
+      {
+        "name": "E.M. Gröller",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "Project page",
+        "url": "https://www.cg.tuwien.ac.at/research/publications/2019/klein_2019_PGG/"
+      }
+    ],
+    "bibtex": "@article{Klein_2019,\nauthor = {Klein, T. and Mindek, P. and Autin, L. and Goodsell, D.S. and Olson, A.J. and Gröller, E.M. and Viola, I.},\ntitle = {Parallel Generation and Visualization of Bacterial Genome Structures},\njournal = {Computer Graphics Forum},\nvolume = {38},\nnumber = {7},\npages = {57-68},\ndoi = {10.1111/cgf.13816},\nurl = {https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13816},\nyear = {2019}\n}",
+    "doi": "10.1111/cgf.13816",
+    "topic": ""
+  },
+  {
+    "slug": "multiscale-molecular-visualization",
+    "title": "Multiscale Molecular Visualization",
+    "year": "2019",
+    "preprint": false,
+    "venue": "Journal of molecular biology 431 (6), 1049-1070",
+    "authors": [
+      {
+        "name": "H. Miao",
+        "url": ""
+      },
+      {
+        "name": "T. Klein",
+        "url": ""
+      },
+      {
+        "name": "D. Kouřil",
+        "url": ""
+      },
+      {
+        "name": "P. Mindek",
+        "url": ""
+      },
+      {
+        "name": "K. Schatz",
+        "url": ""
+      },
+      {
+        "name": "M.E. Gröller",
+        "url": ""
+      },
+      {
+        "name": "B. Kozlíková",
+        "url": ""
+      },
+      {
+        "name": "T. Isenberg",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "Paper",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0022283618310490/pdfft?isDTMRedir=true&download=true"
+      },
+      {
+        "kind": "Project page",
+        "url": "https://www.cg.tuwien.ac.at/research/publications/2019/Miao_2019/"
+      }
+    ],
+    "bibtex": "@article{Miao2019,\nauthor = {H. Miao and T. Klein and D. Kouřil and P. Mindek and K. Schatz and E.M. Gröller and B. Kozlíková and T. Isenberg and I. Viola},\ntitle = {Multiscale Molecular Visualization},\njournal = {Journal of Molecular Biology},\nvolume = {431},\nnumber = {6},\npages = {1049 - 1070},\nyear = {2019},\nissn = {0022-2836},\ndoi = {https://doi.org/10.1016/j.jmb.2018.09.004},\nurl = {http://www.sciencedirect.com/science/article/pii/S0022283618310490}\n}",
+    "doi": "10.1016/j.jmb.2018.09.004",
+    "topic": ""
+  },
+  {
+    "slug": "cuttlefish",
+    "title": "Cuttlefish: Color Mapping for Dynamic Multi‐Scale Visualizations",
+    "year": "2019",
+    "preprint": false,
+    "venue": "Computer Graphics Forum",
+    "authors": [
+      {
+        "name": "N. Waldin",
+        "url": ""
+      },
+      {
+        "name": "M. Waldner",
+        "url": ""
+      },
+      {
+        "name": "M. Le Muzic",
+        "url": ""
+      },
+      {
+        "name": "E. Gröller",
+        "url": ""
+      },
+      {
+        "name": "D.S. Goodsell",
+        "url": ""
+      },
+      {
+        "name": "L. Autin",
+        "url": ""
+      },
+      {
+        "name": "A.J. Olson",
+        "url": ""
+      },
+      {
+        "name": "I. Viola",
+        "url": ""
+      }
+    ],
+    "brief": "",
+    "abstract": "",
+    "image": "",
+    "links": [
+      {
+        "kind": "PDF",
+        "url": "https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/cgf.13611?download=true"
+      },
+      {
+        "kind": "Project page",
+        "url": "https://www.cg.tuwien.ac.at/research/publications/2019/waldin-2019-ccm/"
+      }
+    ],
+    "bibtex": "@article{Waldin_2019,\nauthor = {Waldin, N. and Waldner, M. and Le Muzic, M. and Gröller, E. and Goodsell, D. S. and Autin, L. and Olson, A. J. and Viola, I.},\ntitle = {Cuttlefish: Color Mapping for Dynamic Multi-Scale Visualizations},\njournal = {Computer Graphics Forum},\nvolume = {38},\nnumber = {6},\npages = {150-164},\ndoi = {10.1111/cgf.13611},\nurl = {https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.13611},\nyear = {2019}\n}",
+    "doi": "10.1111/cgf.13611",
+    "topic": ""
+  }
+]

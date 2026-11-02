@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VIOLAB · Visual Intelligence and Other-cool-things Lab · KAUST</title>
+<meta name="description" content="VIOLAB at KAUST: creating next-generation computer graphics and visualization technology for depicting the life forms across all scales, from atoms to organisms.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#" aria-label="VIOLAB home"><b>VIOLAB</b></a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">Menu</button>
+    <nav id="mainNav" aria-label="Main">
+      <a href="#home">Home</a><a href="#publications">Publications</a><a href="#software">Software &amp; Data</a><a href="#people">People</a><a href="#news">News</a><a href="#join">Join us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <!-- HOME (the 3D stage lives here and is never removed) -->
+  <section class="page wrap" data-page="home">
+    <div class="intro">
+      <h1>Visual Intelligence and <span class="oword" id="oword">Other cool things</span> Lab</h1>
+      <p>Creating next-generation computer graphics and visualization technology for depicting the life forms across all scales, from atoms to organisms.</p>
+    </div>
+
+    <div class="stage-slot" id="slot">
+      <div class="stage" id="stage">
+        <canvas id="c" aria-label="3D map of Building 1, Level 2 with lab members at their desks"></canvas>
+        <div class="loading" id="loading">Building the floor…</div>
+        <span class="badge gpanel">Building 1, Level 2</span>
+        <div class="style-switch gpanel preview-switch" role="group" aria-label="View"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="2d" aria-pressed="false">2D map</button></div>
+        <div class="preview-ui" id="previewUI">
+          <button class="enter" id="enterBtn" type="button">Explore the floor</button>
+          <span class="hint gpanel" id="previewHint">Walk around with your keyboard and mouse</span>
+        </div>
+        <div class="lab-ui" id="labUI" hidden>
+          <div class="topbar">
+            <div class="goto gpanel">
+              <label for="gotoInput">Go to</label>
+              <input id="gotoInput" list="gotoList" placeholder="A person or a room number" autocomplete="off">
+              <datalist id="gotoList"></datalist>
+            </div>
+            <div class="spacer"></div>
+            <div class="style-switch gpanel" role="group" aria-label="View"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="2d" aria-pressed="false">2D map</button></div>
+            <button class="btn-g rooms-btn" type="button" data-rooms aria-pressed="false">Rooms</button>
+            <button class="btn-g" id="helpToggle" type="button" aria-label="Show controls">?</button>
+            <button class="btn-g" id="exitBtn" type="button">✕ Exit</button>
+          </div>
+          <div class="help gpanel" id="help" role="note"><strong>How to move</strong><dl id="helpList"></dl></div>
+          <div class="minimap gpanel" id="minimap"><canvas id="mini" width="626" height="208" aria-label="Floor map. Click to jump there."></canvas><span>Click the map to jump there</span></div>
+          <button class="prompt" id="prompt" type="button" hidden></button>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>
+          <div class="joy" id="joy" hidden><span></span></div>
+          <aside class="card" id="card" hidden role="dialog" aria-labelledby="cardName" tabindex="-1">
+            <button class="card-close" id="cardClose" type="button" aria-label="Close">✕</button>
+            <div class="card-head"><img id="cardImg" alt=""><div><h3 id="cardName"></h3><p class="card-role" id="cardRole"></p></div></div>
+            <p class="card-research" id="cardResearch"></p>
+            <div class="actions">
+              <a class="primary" id="aEmail" href="#">Email</a>
+              <a id="aChat" href="#" target="_blank" rel="noopener">Chat</a>
+              <a id="aWeb" href="#" target="_blank" rel="noopener">Website</a>
+              <a id="aScholar" href="#" target="_blank" rel="noopener">Google Scholar</a>
+            </div>
+            <h4 id="cardPapersH">Recent papers</h4><ul id="cardPapers"></ul>
+            <p class="card-more"><a id="aAll" href="#">See all papers</a></p>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-head"><h2>Latest papers</h2><a href="#publications">All publications</a></div>
+    <div class="grid c4" id="homePapers"></div>
+
+    <div class="sec-head"><h2>What we work on</h2><a href="#publications">All publications</a></div>
+    <div class="grid fieldgrid" id="homeTopics"></div>
+
+    <div class="sec-head"><h2>News</h2><a href="#news">All news</a></div>
+    <div class="grid c3" id="homeNews"></div>
+  </section>
+
+  <section class="page wrap" data-page="publications" hidden></section>
+  <section class="page wrap" data-page="paper" hidden></section>
+  <section class="page wrap" data-page="software" hidden></section>
+  <section class="page wrap" data-page="people" hidden></section>
+  <section class="page wrap" data-page="news" hidden></section>
+  <section class="page wrap" data-page="join" hidden></section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>VIOLAB · Building 1, Level 2 · KAUST, Thuwal, Saudi Arabia</span>
+    <span><a href="https://github.com/kaust-violab" target="_blank" rel="noopener">GitHub</a> · <a href="https://twitter.com/nanovis_group" target="_blank" rel="noopener">X</a> · <a href="mailto:ivan.viola@kaust.edu.sa">Contact</a></span>
+  </div>
+</footer>
+
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

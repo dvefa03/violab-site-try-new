@@ -1,0 +1,238 @@
+[
+  {
+    "title": "MesoCraft",
+    "text": "MesoCraft is a mesoscale modeling application for manual, procedural and rule-based modeling of mesoscale molecular models.",
+    "links": [
+      {
+        "label": "Executable (v. 1.2.4)",
+        "url": "download/MesoCraft_1.2.4.zip"
+      },
+      {
+        "label": "Manual",
+        "url": "download/MesoCraft_1.3.0.pdf"
+      },
+      {
+        "label": ".model format description",
+        "url": "download/model-file-format.pdf"
+      },
+      {
+        "label": "Atomistic model of a SARS-CoV-2 virion",
+        "url": "download/SARS-CoV-2.mesoCraft"
+      },
+      {
+        "label": "Atomistic model of an Escherichia virus T4 bacteriophage",
+        "url": "download/T4_Virus_Version_3.6.mesoCraft"
+      },
+      {
+        "label": "Modeling in the Time of COVID-19: Statistical and Rule-based",
+        "url": "https://doi.org/10.1109/TVCG.2020.3030415"
+      }
+    ],
+    "image": "images/software/mesocraft-screenshot-001.jpg",
+    "kind": "Application"
+  },
+  {
+    "title": "VolWeb",
+    "text": "VolWeb is a WebGPU and WASM based volume renderer for visualizing multi-channel volumetric data. Volume rendering is done using ray casting and is combined with local ambient occlusion and soft shadows.",
+    "links": [
+      {
+        "label": "Online demo (works in Chrome and Chrome Canary)",
+        "url": "https://www.nanovis.org/nano-oetzi-webgpu/"
+      },
+      {
+        "label": "GitHub repository",
+        "url": "https://github.com/nanovis/nano-oetzi-webgpu"
+      },
+      {
+        "label": "Finding Nano-Ötzi: Semi-Supervised Volume Visualization for ",
+        "url": "https://doi.org/10.48550/arXiv.2104.01554"
+      }
+    ],
+    "image": "images/software/volweb.jpg",
+    "kind": "Application"
+  },
+  {
+    "title": "Shader Editor",
+    "text": "This project is a WGSL online editor and compiler based on WebGPU/Emscripten and Dawn. Users could write shaders to do the pixel-level operations. During each frame, different input uniforms are fed into shaders to utilise mouse, time and texture information. After logging in, users could save shaders and upload textures..",
+    "links": [
+      {
+        "label": "WebGPU",
+        "url": "https://gpuweb.github.io/gpuweb/"
+      },
+      {
+        "label": "Emscripten",
+        "url": "https://emscripten.org/"
+      },
+      {
+        "label": "Dawn",
+        "url": "https://dawn.googlesource.com/dawn"
+      },
+      {
+        "label": "Online demo",
+        "url": "https://shadereditor.kaust.edu.sa"
+      },
+      {
+        "label": "GitHub repository",
+        "url": "https://github.com/nanovis/Shader-Editor"
+      }
+    ],
+    "image": "images/software/Shadereditor.jpg",
+    "kind": "Application"
+  },
+  {
+    "title": "WebGPU C++ WASM - Hello triangle",
+    "text": "This sample combines several technologies. The goal was to have a C++ triangle rendering code using WebGPU that can be compiled both for desktop (using the Dawn library) and web (using WebAssembly and its WebGPU support).",
+    "links": [
+      {
+        "label": "Executable (Desktop x64)",
+        "url": "download/WebRenderer (x64).zip"
+      },
+      {
+        "label": "Executable (WASM)",
+        "url": "download/WebRenderer (wasm).zip"
+      },
+      {
+        "label": "Source Code (zip archive)",
+        "url": "download/WebRenderer-main.zip"
+      }
+    ],
+    "image": "images/software/webrenderer-screenshot.jpg",
+    "kind": "Code"
+  },
+  {
+    "title": "WebGPU DVR in Rust",
+    "text": "Demonstration WebGPU DVR application developed in Rust which can run as a standalone application or can be build into a WebAssambley application which runs in the web browser. We demonstrate how one can keep one codebase for concurrent development of native and web-based application.",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/nanovis/Wenderer"
+      }
+    ],
+    "image": "images/software/wenderer-screenshot.jpg",
+    "kind": "Code"
+  },
+  {
+    "title": "OpenGL Holographic Remoting",
+    "text": "Example demonstrates how one can use OpenGL to render to DirectX canvas within Hololens application. This allows users to easily adapt their OpenGL application and run them on the Hololens.",
+    "links": [
+      {
+        "label": "Executable",
+        "url": "download/OpenGLOnHoloLens2.zip"
+      },
+      {
+        "label": "Source Code (on GitHub)",
+        "url": "https://github.com/nanovis/MixedReality-HolographicRemoting-Samples.git"
+      }
+    ],
+    "image": "images/software/holographic-remoting-screenshot-big.jpg",
+    "kind": "Code"
+  },
+  {
+    "title": "SARS-Cov-2",
+    "text": "The latest version of the SARS-CoV-2 particle. The model was created using the MesoCraft tool. The membrane part of the model was created described in our paper. The internal part in this version of the model is based on work of Sai Li. The whole model consists of approx. 2000 proteins and 200000 lipids.",
+    "links": [
+      {
+        "label": "Tobias Klein",
+        "url": "https://www.cg.tuwien.ac.at/staff/TobiasKlein"
+      },
+      {
+        "label": "Peter Mindek",
+        "url": "https://www.cg.tuwien.ac.at/staff/PeterMindek"
+      },
+      {
+        "label": "paper",
+        "url": "https://violab.science/modeling_in_the_time_of_COVID_19.html"
+      },
+      {
+        "label": "Sai Li",
+        "url": "https://www.sciencedirect.com/science/article/pii/S0092867420311594"
+      },
+      {
+        "label": "SARS-CoV-2 (v6)",
+        "url": "download/sars_cov2_v6.zip"
+      },
+      {
+        "label": "SARS-CoV-2 (v6 in blood plasma)",
+        "url": "download/sars_cov2_v6_blood.zip"
+      }
+    ],
+    "image": "images/software/model_sars.jpg",
+    "kind": "Mesoscale model"
+  },
+  {
+    "title": "Bacteriophage T4 Atomistic Model",
+    "text": "This is a WISE [1] internship project aimed at building the atomistic model for bacteriophage T4. The most up-to-date structural data and knowledge are first collected and then fed into the in-house modeling tool called MesoCraft. Most proteins' structures are collected from the PDB database. When this is not available, AlphaFold2 and SWISS-MODEL are the main tools used to perform the prediction of the protein's structure from its amino acid sequence. Please refer to the \"YouTube - Bacteriophage T4 Atomistic Model Structural Biology Background\" link below for more information.",
+    "links": [
+      {
+        "label": "Isometric_mutant_type_T4_v3.zip",
+        "url": "download/T4_v3.zip"
+      },
+      {
+        "label": "YouTube - Bacteriophage T4 Atomistic Model Structural Biolog",
+        "url": "https://www.youtube.com/watch?v=bbQZ0acRGbA&ab_channel=Nanovis"
+      },
+      {
+        "label": "Atomistic model of an Escherichia virus T4 bacteriophage",
+        "url": "download/T4_Virus_Version_3.6.mesoCraft"
+      },
+      {
+        "label": "Video - Bacteriophage T4 Atomistic Model Structure",
+        "url": "download/T4_pres_v3-structure.mp4"
+      },
+      {
+        "label": "WISE Presentation Slides: Nanovis 3D Modelling Internship",
+        "url": "https://docs.google.com/presentation/d/1ApLEhLnFl2km4CDXpl4nEwuuTGqEjjs-GdKGEidijLY/edit?usp=sharing"
+      }
+    ],
+    "image": "images/software/model_T4_isometric_type.jpg",
+    "kind": "Mesoscale model"
+  },
+  {
+    "title": "Integrin-Talin Complex Atomistic Model",
+    "text": "Template_p1_to_be_updated. This is a WISE [1] internship project aimed at building the atomistic model for bacteriophage T4. The most up-to-date structural data and knowledge are first collected and then fed into the in-house modeling tool called MesoCraft. Most proteins' structures are collected from the PDB database. When this is not available, AlphaFold2 and SWISS-MODEL are the main tools used to perform the prediction of the protein's structure from its amino acid sequence. Please refer to the \"YouTube - Bacteriophage T4 Atomistic Model Structural Biology Background\" link below for more information.",
+    "links": [
+      {
+        "label": "Isometric_mutant_type_T4_v3.zip",
+        "url": "download/T4_v3.zip"
+      },
+      {
+        "label": "YouTube - Bacteriophage T4 Atomistic Model Structural Biolog",
+        "url": "https://www.youtube.com/watch?v=bbQZ0acRGbA&ab_channel=Nanovis"
+      },
+      {
+        "label": "Video - Bacteriophage T4 Atomistic Model Structure",
+        "url": "download/T4_pres_v3-structure.mp4"
+      },
+      {
+        "label": "WISE Presentation Slides: Nanovis 3D Modelling Internship",
+        "url": "https://docs.google.com/presentation/d/1ApLEhLnFl2km4CDXpl4nEwuuTGqEjjs-GdKGEidijLY/edit?usp=sharing"
+      }
+    ],
+    "image": "images/software/Integrin-Talin-Complex-1.jpg",
+    "kind": "Mesoscale model"
+  },
+  {
+    "title": "Chloroplast Atomistic Model",
+    "text": "In this project, we created an atomistic model of a chloroplast with all the proteins in the outer and inner membranes involved in the precursor protein import channel. This model also includes a model of a thylakoid made by another intern [1]. All of this combines biological structures with modeling technology to create a better visual understanding of the chloroplast. This report results from a WISE [2] project to build an atomistic model of a chloroplast in Arabidopsis thaliana. This plant is well known for its comprehensive proteome database. The latest structural data of the chloroplast is found and fed into the in-house modeling software, MesoCraft, which can manipulate proteins and digital meshes and construct them rapidly using rules.",
+    "links": [
+      {
+        "label": "https://www.nanovis.org/Thylakoid-model.html",
+        "url": "https://www.nanovis.org/Thylakoid-model.html"
+      },
+      {
+        "label": "Slides: WISE 2022 | Visualization Internship | Chloroplast M",
+        "url": "https://docs.google.com/presentation/d/16Y09JduJT3O66VCMFltmfb7mJCB3nPfxiBsxB9hAlrU/edit?usp=sharing"
+      },
+      {
+        "label": "Chloroplast modeling files",
+        "url": "https://drive.google.com/drive/folders/1fQg-ohCutQgKwbpLZwAFOd1OHuKZrRtO?usp=sharing"
+      },
+      {
+        "label": "Chloroplast Model Report",
+        "url": "https://docs.google.com/document/d/1GFSowzRcOHh4RHz3Wx14jHqfs0u4QuI4E5pECJSgnZ0/edit?usp=sharing"
+      }
+    ],
+    "image": "images/software/Chloroplast-model-1.jpg",
+    "kind": "Mesoscale model"
+  }
+]

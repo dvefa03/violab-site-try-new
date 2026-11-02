@@ -1,0 +1,28 @@
+[
+  {
+    "id": "conv",
+    "name": "Conversational Visualization",
+    "text": ""
+  },
+  {
+    "id": "xr",
+    "name": "AI (LLMs/VLMs)",
+    "text": "AI for XR explores the intersection of artificial intelligence and immersive extended reality systems. Our research focuses on on-device AI—deploying and evaluating large language models (LLMs) directly on XR headsets. This approach enables real-time, private, and interactive AI applications without relying on cloud or server infrastructure. Our framework supports benchmarking across XR platforms in terms of inference speed, memory usage, and user experience. We are also developing vision-language models tailored for XR environments (VLMs for XR), which have numerous real-world applications, particularly in 3D scene understanding, perception, and natural multimodal interactions, with impactful use cases in fields such as healthcare, education, and beyond."
+  },
+  {
+    "id": "meso",
+    "name": "Mesoscale Modeling",
+    "text": "",
+    "software": "MesoCraft, the SARS-CoV-2, T4 and Chloroplast models"
+  },
+  {
+    "id": "scale",
+    "name": "Scalable Visualization",
+    "text": ""
+  },
+  {
+    "id": "cryo",
+    "name": "Cryo-EM Visualization",
+    "text": ""
+  }
+]
