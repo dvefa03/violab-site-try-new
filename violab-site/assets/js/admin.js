@@ -46,7 +46,9 @@ function setImage(path, dataURL){ pendingImages[path] = dataURL; try{ window.IMA
 /* ---------------- GitHub saving ---------------- */
 async function gh(path, method, body){
   let r;
-  try{ r = await fetch(`https://api.github.com/repos/${cfg.repo}/${path}`, { method: method||"GET",
+  // no "/" at the end of the address: GitHub does not answer browser requests to ".../repo/"
+  const url = `https://api.github.com/repos/${cfg.repo.trim().replace(/^\/+|\/+$/g,"")}` + (path ? "/" + path : "");
+  try{ r = await fetch(url, { method: method||"GET",
     headers: { Authorization: `Bearer ${cfg.token}`, Accept: "application/vnd.github+json" }, body: body ? JSON.stringify(body) : undefined }); }
   catch(e){ throw new Error("the browser could not reach GitHub. Open the real website (…github.io/…), not a preview, and turn off ad or content blockers for it"); }
   if(!r.ok){ let t = ""; try{ t = (await r.json()).message; }catch(e){} throw new Error(`GitHub said ${r.status}${t?": "+t:""}`); }
