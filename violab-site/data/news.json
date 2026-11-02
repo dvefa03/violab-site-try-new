@@ -1,5 +1,13 @@
 [
   {
+    "title": "news-test",
+    "date": "2 November 2026",
+    "text": "news-test",
+    "images": [
+      "images/news/news-test-mvyzx50p.jpg"
+    ]
+  },
+  {
     "title": "Chat Modeling is published in IEEE TVCG",
     "date": "2026",
     "text": "An agent framework that turns natural language, research papers and the current scene into 3D modeling steps, so bioscientists can build models of the structures they study by chatting.",
