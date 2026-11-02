@@ -238,5 +238,24 @@
     "web": "https://cemse.kaust.edu.sa/profiles/yousif-aldolaijan",
     "research": "Computer graphics, embedded systems, distributed systems",
     "papers": []
+  },
+  {
+    "id": "try1",
+    "name": "TRY1",
+    "role": "Ph.D",
+    "group": "Students",
+    "avatar": {
+      "hairStyle": "short",
+      "hair": "#3A2A20",
+      "shirt": "#5b5fc7",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    },
+    "research": "try try test",
+    "email": "test1@gmail.com",
+    "seat": "_2101_ws04",
+    "papers": []
   }
 ]
