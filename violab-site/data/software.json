@@ -56,18 +56,6 @@
     "text": "This project is a WGSL online editor and compiler based on WebGPU/Emscripten and Dawn. Users could write shaders to do the pixel-level operations. During each frame, different input uniforms are fed into shaders to utilise mouse, time and texture information. After logging in, users could save shaders and upload textures..",
     "links": [
       {
-        "label": "WebGPU",
-        "url": "https://gpuweb.github.io/gpuweb/"
-      },
-      {
-        "label": "Emscripten",
-        "url": "https://emscripten.org/"
-      },
-      {
-        "label": "Dawn",
-        "url": "https://dawn.googlesource.com/dawn"
-      },
-      {
         "label": "Online demo",
         "url": "https://shadereditor.kaust.edu.sa"
       },
@@ -132,20 +120,6 @@
     "text": "The latest version of the SARS-CoV-2 particle. The model was created using the MesoCraft tool. The membrane part of the model was created described in our paper. The internal part in this version of the model is based on work of Sai Li. The whole model consists of approx. 2000 proteins and 200000 lipids.",
     "links": [
       {
-        "label": "Tobias Klein",
-        "url": "https://www.cg.tuwien.ac.at/staff/TobiasKlein"
-      },
-      {
-        "label": "Peter Mindek",
-        "url": "https://www.cg.tuwien.ac.at/staff/PeterMindek"
-      },
-      {
-        "label": "paper",
-        "url": "https://violab.science/modeling_in_the_time_of_COVID_19.html"
-      },
-      {
-        "label": "Sai Li",
-        "url": "https://www.sciencedirect.com/science/article/pii/S0092867420311594"
       },
       {
         "label": "SARS-CoV-2 (v6)",
@@ -157,7 +131,8 @@
       }
     ],
     "image": "images/software/model_sars.jpg",
-    "kind": "Mesoscale model"
+    "kind": "Mesoscale model",
+    "paper": "modeling-in-the-time-of-covid-19"
   },
   {
     "title": "Bacteriophage T4 Atomistic Model",
