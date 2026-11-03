@@ -1,29 +1,5 @@
 [
  {
-  "number": "2011",
-  "name": "Men Toilet",
-  "x": 137.61,
-  "z": 18.7
- },
- {
-  "number": "2012",
-  "name": "Women Toilet",
-  "x": 138.07,
-  "z": 23.25
- },
- {
-  "number": "2013",
-  "name": "Electrical",
-  "x": 131.9,
-  "z": 18.27
- },
- {
-  "number": "2014",
-  "name": "Ter",
-  "x": 131.88,
-  "z": 23.17
- },
- {
   "number": "2023",
   "name": "Electrical",
   "x": 72.82,
@@ -76,12 +52,6 @@
   "name": "Janitor",
   "x": 38.33,
   "z": 20.84
- },
- {
-  "number": "2038",
-  "name": "Tea",
-  "x": 138.29,
-  "z": 12.29
  },
  {
   "number": "2039",
@@ -251,36 +221,7 @@
   "x": 75.82,
   "z": 34.7
  },
- {
-  "number": "2153",
-  "name": "Stair C",
-  "x": 140.07,
-  "z": 7.11
- },
- {
-  "number": "2154",
-  "name": "Stair  D",
-  "x": 138.56,
-  "z": 29.01
- },
- {
-  "number": "2155",
-  "name": "Stair E",
-  "x": 153.11,
-  "z": 49.25
- },
- {
-  "number": "2156",
-  "name": "Corridor",
-  "x": 118.04,
-  "z": 49.39
- },
- {
-  "number": "2157",
-  "name": "Corridor",
-  "x": 118.08,
-  "z": 3.23
- },
+ 
  {
   "number": "2161",
   "name": "Mechanical Chase",
@@ -310,12 +251,6 @@
   "name": "Mechanical Chase",
   "x": 73.35,
   "z": 32.3
- },
- {
-  "number": "2166",
-  "name": "Mechanical Chase",
-  "x": 135.5,
-  "z": 9.95
  },
  {
   "number": "2167",
@@ -478,168 +413,6 @@
   "name": "Corridor",
   "x": 73.74,
   "z": 27.18
- },
- {
-  "number": "2400",
-  "name": "Vestibule",
-  "x": 113.69,
-  "z": 20.68
- },
- {
-  "number": "2401",
-  "name": "Prefunction",
-  "x": 121.83,
-  "z": 29.25
- },
- {
-  "number": "2402",
-  "name": "Reception Lobby",
-  "x": 120.23,
-  "z": 19.58
- },
- {
-  "number": "2403",
-  "name": "Elevator Lobby",
-  "x": 125.5,
-  "z": 20.71
- },
- {
-  "number": "2410",
-  "name": "Hallway",
-  "x": 136.35,
-  "z": 27.28
- },
- {
-  "number": "2413",
-  "name": "Vis Lab",
-  "x": 148.95,
-  "z": 34.33
- },
- {
-  "number": "2414",
-  "name": "Corridor",
-  "x": 134.54,
-  "z": 34.24
- },
- {
-  "number": "2415",
-  "name": "(Future) Data Room",
-  "x": 150.74,
-  "z": 44.42
- },
- {
-  "number": "2416",
-  "name": "Data Room",
-  "x": 138.15,
-  "z": 43.91
- },
- {
-  "number": "2417",
-  "name": "Projection",
-  "x": 133.76,
-  "z": 41.67
- },
- {
-  "number": "2418",
-  "name": "Multi Use",
-  "x": 123.23,
-  "z": 41.74
- },
- {
-  "number": "2419",
-  "name": "Vestibule",
-  "x": 124.71,
-  "z": 34.79
- },
- {
-  "number": "2420",
-  "name": "Vcc Laboratory",
-  "x": 149.86,
-  "z": 19.63
- },
- {
-  "number": "2421",
-  "name": "Mechanical",
-  "x": 128.86,
-  "z": 10.42
- },
- {
-  "number": "2422",
-  "name": "Tech Support",
-  "x": 132.24,
-  "z": 12.23
- },
- {
-  "number": "2423",
-  "name": "Vestibule",
-  "x": 141.86,
-  "z": 3.42
- },
- {
-  "number": "2424",
-  "name": "Laser Lab",
-  "x": 149.2,
-  "z": 9.68
- },
- {
-  "number": "2425",
-  "name": "Store Room",
-  "x": 148.49,
-  "z": 24.34
- },
- {
-  "number": "2426",
-  "name": "Vestibule",
-  "x": 147.97,
-  "z": 30.2
- },
- {
-  "number": "2427",
-  "name": "Tech Support",
-  "x": 119.82,
-  "z": 35.17
- },
- {
-  "number": "2428",
-  "name": "Vis Star Lab",
-  "x": 120.92,
-  "z": 9.91
- },
- {
-  "number": "2429",
-  "name": "Janitor",
-  "x": 135.31,
-  "z": 12.1
- },
- {
-  "number": "2431",
-  "name": "Corridor",
-  "x": 141.87,
-  "z": 19.37
- },
- {
-  "number": "2501",
-  "name": "Elev. 01",
-  "x": 128.59,
-  "z": 24.04
- },
- {
-  "number": "2502",
-  "name": "Elev. 02",
-  "x": 128.64,
-  "z": 21.11
- },
- {
-  "number": "2503",
-  "name": "Elev. 03",
-  "x": 128.59,
-  "z": 17.98
- },
- {
-  "number": "2504",
-  "name": "Elev. 04",
-  "x": 41.2,
-  "z": 17.86
  },
  {
   "number": "2505",
