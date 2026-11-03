@@ -8,11 +8,21 @@
    photo = "people/name.jpg"  → the face of the pixel avatar is made from it
    ===================================================================== */
 const SITE = window.SITE;
+// ---- field labs (data/labs.json): rooms that show the work of one research field
+const LABS = SITE.labs || [];
+const ORIG_WALLS = FLOOR.walls.slice();                       // used to find where the room walls are
+const inRect = (x,z,r,m) => x>r[0]+m && x<r[2]-m && z>r[1]+m && z<r[3]-m;
+// "merge": open the rooms into one (remove the walls inside, like the two toilets together)
+LABS.filter(l=>l.merge).forEach(l=>{ const keep=s=>!inRect((s[0]+s[2])/2,(s[1]+s[3])/2,l.rect,0.3);
+FLOOR.walls=FLOOR.walls.filter(keep); FLOOR.collide=FLOOR.collide.filter(keep); });
+
 const PUB = Object.fromEntries(SITE.pubs.map(p=>[p.slug,p]));
-// everyone who has a desk (seat) in the members list appears in the lab
-const MEMBERS = SITE.people.filter(p=>p.seat).map(p=>Object.assign({}, p, {
-  papers: (p.papers||[]).slice(0,3).map(s=>({t:PUB[s].title.split(":")[0], v:(PUB[s].venue||"").split(",")[0]+(PUB[s].year?" "+PUB[s].year:""), slug:s}))
-}));
+// everyone who has a desk (seat) in the members list appears on the floor
+function membersNow(){
+  const PUBS = Object.fromEntries(SITE.pubs.map(p=>[p.slug,p]));
+  return SITE.people.filter(p=>p.seat && p.group!=="Alumni").map(p=>Object.assign({}, p, {
+    papers: (p.papers||[]).filter(s=>PUBS[s]).slice(0,3).map(s=>({t:PUBS[s].title.split(":")[0], v:(PUBS[s].venue||"").split(",")[0]+(PUBS[s].year?" "+PUBS[s].year:""), slug:s}))
+  }));
 const START = {x:44.3, z:20.9};          // Elevator lobby 2201
 const PALETTE = {skin:["#F3CFA8","#D9A27A","#B57B55","#8A5A3C","#F6DCC2"], hair:["#2B2233","#5A3A22","#8B5E34","#1B1B1F","#C9903E","#6B4C9A"]};
 
@@ -38,7 +48,14 @@ $("previewHint").textContent = isTouch ? "Tap to walk around and meet the team" 
     el.textContent=cur; h1.style.minHeight=Math.ceil(max)+"px"; };
   fit(); addEventListener("resize",fit); if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fit);
   if(reduceMotion) return;
-  setInterval(()=>{ el.classList.add("out"); setTimeout(()=>{ i=(i+1)%words.length; el.textContent=words[i]; el.classList.remove("out"); },350); },2600);
+  const BASE=words[0], others=words.slice(1);
+  const glitchTo=(w,done)=>{ el.dataset.text=w; el.classList.add("glitch"); setTimeout(()=>{ el.textContent=w; el.dataset.text=w; },180);
+    setTimeout(()=>{ el.classList.remove("glitch"); if(done) done(); },420); };
+  el.dataset.text=BASE;
+  // "Other cool things" 4s then glitch , other word 1.6s 
+  const cycle=()=>{ setTimeout(()=>{ const w=others[i]; i=(i+1)%others.length;
+      glitchTo(w,()=>setTimeout(()=>glitchTo(BASE,cycle),1600)); },4000); };
+  cycle();
 })();
 
 function clamp(v,a,b){ return v<a?a:v>b?b:v; }
@@ -75,7 +92,7 @@ scene.background=new THREE.Color(GROUND.bg);
   const t=new THREE.CanvasTexture(c); t.magFilter=THREE.NearestFilter; t.minFilter=THREE.LinearMipmapLinearFilter;
   t.wrapS=t.wrapT=THREE.RepeatWrapping; t.repeat.set(260/2,140/2);
   const m=new THREE.Mesh(new THREE.PlaneGeometry(260,140),new THREE.MeshBasicMaterial({map:t}));
-  m.rotation.x=-Math.PI/2; m.position.set(78,-0.12,26); scene.add(m);
+  m.rotation.x=-Math.PI/2; m.position.set(46,-0.12,26); scene.add(m);
   groundMesh=m; groundTex=t;
 })();
 
@@ -128,7 +145,11 @@ function wallColors(side,top){
 function b64(s){ const bin=atob(s), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u.buffer; }
 function meshFrom(m,color){
   const p16=new Int16Array(b64(m.p)), p=new Float32Array(p16.length); for(let i=0;i<p.length;i++) p[i]=p16[i]/100;
-  const idx=m.i32?new Uint32Array(b64(m.i)):new Uint16Array(b64(m.i));
+    let idx=m.i32?new Uint32Array(b64(m.i)):new Uint16Array(b64(m.i));
+  const clear=LABS.filter(l=>l.merge).map(l=>l.rect);
+  if(clear.length){ const out=[]; for(let t=0;t<idx.length;t+=3){ const a=idx[t]*3,b=idx[t+1]*3,c=idx[t+2]*3;
+      const cx=(p[a]+p[b]+p[c])/3, cz=(p[a+2]+p[b+2]+p[c+2])/3; if(!clear.some(r=>inRect(cx,cz,r,0.15))) out.push(idx[t],idx[t+1],idx[t+2]); }
+    idx = m.i32 ? new Uint32Array(out) : new Uint16Array(out); }
   const g=new THREE.BufferGeometry(); g.setAttribute("position",new THREE.BufferAttribute(p,3)); g.setIndex(new THREE.BufferAttribute(idx,1));
   g.computeVertexNormals();
   const mesh=new THREE.Mesh(g,new THREE.MeshLambertMaterial({color,side:THREE.DoubleSide}));
@@ -305,7 +326,7 @@ function poseSprite(ch,facing,frame){
 const seatsById={}; FLOOR.seats.forEach(s=>seatsById[s.id]=s);
 const people=[], clickable=[];
 function buildPeople(){
-  MEMBERS.forEach(m=>{
+    membersNow().forEach(m=>{
     const s=seatsById[m.seat];
     if(!s){ console.warn("No workplace called",m.seat,"for",m.name); return; }
     const look=lookFor(m); m._look0=look;
@@ -316,6 +337,13 @@ function buildPeople(){
     
     people.push(m);
   });
+}
+// called after the admin adds, removes or moves a person: rebuild everyone on the floor
+function syncPeople(){
+  if(cardMember) closeCard();
+  people.forEach(m=>{ if(m._ch) scene.remove(m._ch.grp); });
+  people.length=0; clickable.length=0; charsIn2D=null;
+  buildPeople(); fillGoto();
 }
 
 /* ---------------- the visitor ---------------- */
@@ -395,11 +423,12 @@ function walkTo(x,z,talk){
   path=p; pathTalk=talk||null; marker.position.x=p[p.length-1].x; marker.position.z=p[p.length-1].z; marker.visible=!talk; return true;
 }
 const stuckP=new THREE.Vector3(); let stuckT=0;
-function clearPath(){ path=null; pathTalk=null; marker.visible=false; stuckT=0; }
+function clearPath(){ path=null; pathTalk=null; marker.visible=false; stuckT=0; if(typeof pendingThing!=="undefined" && !player.moving) {} }
 function followPath(dt){
   const t=path[0], dx=t.x-player.pos.x, dz=t.z-player.pos.z, d=Math.hypot(dx,dz), sp=4.2;
-  if(d<0.12){ path.shift(); if(!path.length){ const m=pathTalk; clearPath(); player.moving=false; if(m){ player.rot=Math.atan2(m._pos.x-player.pos.x,m._pos.z-player.pos.z); openCard(m); } } return; }
-  const step=Math.min(d,sp*dt); player.pos.x+=dx/d*step; player.pos.z+=dz/d*step; player.moving=true;
+     if(d<0.12){ path.shift(); if(!path.length){ const m=pathTalk; clearPath(); player.moving=false;
+      if(pendingThing){ const t=pendingThing; pendingThing=null; if(Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z)<3.2) openThing(t); }
+      if(m){ player.rot=Math.atan2(m._pos.x-player.pos.x,m._pos.z-player.pos.z); openCard(m); } } return; }
   // give up if something blocks the way for more than a second
   stuckT+=dt; if(stuckT>1.2){ if(Math.hypot(player.pos.x-stuckP.x,player.pos.z-stuckP.z)<0.3){ clearPath(); player.moving=false; return; } stuckT=0; stuckP.copy(player.pos); }
   player.rot=lerpAngle(player.rot,Math.atan2(dx,dz),1-Math.exp(-dt*14)); player.walkT+=dt*sp*2.2;
@@ -408,11 +437,12 @@ function followPath(dt){
 
 /* ---------------- camera ---------------- */
 let mode="preview", trans=0, previewT=0, pendingCard=null, visible=true, time=0;
-const prevPos=new THREE.Vector3(), prevLook=new THREE.Vector3(78,0,26), labPos=new THREE.Vector3(), labLook=new THREE.Vector3(), labSmooth=new THREE.Vector3(), curLook=new THREE.Vector3();
+const prevPos=new THREE.Vector3(), prevLook=new THREE.Vector3(45,0,21), labPos=new THREE.Vector3(), labLook=new THREE.Vector3(), labSmooth=new THREE.Vector3(), curLook=new THREE.Vector3();
 function computePreview(dt){
   if(mode==="preview" && !reduceMotion) previewT+=dt;
-  const a=Math.sin(previewT*0.1)*0.12, R=128*Math.max(1,Math.pow(1.9/camera.aspect,0.85)), el=1.12;
-  prevLook.set(78,0,26);
+    // fit the building (about 90 m x 38 m) in the box at any width
+  const a=Math.sin(previewT*0.1)*0.12, R=74*Math.max(1,Math.pow(2.2/camera.aspect,0.85)), el=1.12;
+  prevLook.set(45,0,21);
   prevPos.set(prevLook.x+Math.sin(a)*R*Math.cos(el), R*Math.sin(el), prevLook.z+Math.cos(a)*R*Math.cos(el));
 }
 const camRay=new THREE.Raycaster(), _cd=new THREE.Vector3();
@@ -484,9 +514,10 @@ function enterLab(focus){
   expandStage(); document.body.style.overflow="hidden";
   previewUI.hidden=true; labUI.hidden=false; showHelp(); mode="toLab";
 }
+   let pendingThing=null;
 function exitLab(){
   if(mode!=="lab") return;
-  closeCard(); promptEl.hidden=true; joyEnd(); for(const k in keys) keys[k]=false;
+    closeCard(); closeThing(); promptEl.hidden=true; joyEnd(); for(const k in keys) keys[k]=false;
   collapseStage(); mode="toPreview";
 }
 function onArrive(){ if(pendingCard){ openCard(pendingCard); pendingCard=null; } }
@@ -532,6 +563,13 @@ function toast(msg){ toastEl.textContent=msg; toastEl.classList.add("show"); cle
 const proj=new THREE.Vector3(), _vd=new THREE.Vector3();
 function viewDepth(x,y,z){ return -_vd.set(x,y,z).applyMatrix4(camera.matrixWorldInverse).z; }
 function updatePrompt(){
+     if(mode==="lab" && !nearMember && nearThing && !thingOpen && !cardMember){
+    const t=nearThing; proj.set(t.pos.x,is2D()?0:1.8,t.pos.z).project(activeCam());
+    const w=canvas.clientWidth,h=canvas.clientHeight; promptEl.style.transform=`translate(${(proj.x+1)/2*w}px,${(1-proj.y)/2*h}px) translate(-50%,-100%)`;
+    const key="t"+things.indexOf(t); if(promptEl.dataset.who!==key){ const verb=t.kind==="paper"?"Look at this paper":t.kind==="model"?"Look at this model":"Open "+t.data.title;
+      promptEl.innerHTML=(isTouch?"":"<kbd>E</kbd>")+verb; promptEl.dataset.who=key; }
+    promptEl.hidden=false; return; }
+
   if(mode!=="lab"||!nearMember||cardMember){ promptEl.hidden=true; return; }
   proj.set(nearMember._pos.x,is2D()?0:1.72,nearMember._pos.z).project(activeCam());
   if(proj.z>1){ promptEl.hidden=true; return; }
@@ -540,12 +578,124 @@ function updatePrompt(){
   if(promptEl.dataset.who!==nearMember.id){ promptEl.innerHTML=(isTouch?"":"<kbd>E</kbd>")+(isTouch?"Tap to talk to ":"Talk to ")+firstName(nearMember); promptEl.dataset.who=nearMember.id; }
   promptEl.hidden=false;
 }
-promptEl.addEventListener("click",()=>{ if(nearMember) openCard(nearMember); });
+promptEl.addEventListener("click",()=>{ if(nearMember) openCard(nearMember); else if(nearThing) openThing(nearThing); });
+
+/* ---------------- field labs: posters of the papers, model stands, boards ---------------- */
+const FIELD_COLORS={cryo:"#5FA8E0",conv:"#E8944A",xr:"#8C7CF0",scale:"#4FB58E",meso:"#E07AA6"};
+const things=[], thingMeshes=[]; let nearThing=null, thingOpen=null, inLab=null;
+function wrapText(g,text,x,y,maxW,lh,maxLines){ const words=String(text).split(" "); let line="", n=0;
+  for(let i=0;i<words.length;i++){ const t=line?line+" "+words[i]:words[i];
+    if(g.measureText(t).width>maxW && line){ if(n===maxLines-1){ while(g.measureText(line+"…").width>maxW) line=line.slice(0,-1); g.fillText(line+"…",x,y+n*lh); return; } g.fillText(line,x,y+n*lh); n++; line=words[i]; } else line=t; }
+  if(line) g.fillText(line,x,y+n*lh); }
+function canvasTex(w,h,draw){ const c=document.createElement("canvas"); c.width=w; c.height=h; const g=c.getContext("2d"); draw(g,c);
+  const t=new THREE.CanvasTexture(c); t.anisotropy=4; t.minFilter=THREE.LinearMipmapLinearFilter; return {t,g,c}; }
+function labelSprite(text,color,h){ const {t,c}=canvasTex(512,96,g=>{ g.font='700 44px "DM Sans", system-ui, sans-serif'; const w=g.measureText(text).width+48;
+    g.canvas.width=Math.ceil(w); g.font='700 44px "DM Sans", system-ui, sans-serif'; roundRect(g,2,2,g.canvas.width-4,92,22); g.fillStyle=color; g.fill();
+    g.fillStyle="#FFFFFF"; g.textBaseline="middle"; g.fillText(text,24,50); });
+  t.needsUpdate=true; const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthWrite:false})); s.scale.set(h*c.width/96,h,1); s.renderOrder=6; return s; }
+function posterTexture(p,col){
+  const W=600,H=440, {t,g}=canvasTex(W,H,g=>{ g.fillStyle="#FFFFFF"; g.fillRect(0,0,W,H); g.fillStyle=col; g.fillRect(0,0,W,12); g.fillRect(0,H-6,W,6);
+    g.fillStyle="#E9EBF5"; g.fillRect(16,26,W-32,280);
+    g.fillStyle="#1F2342"; g.font='700 27px "DM Sans", system-ui, sans-serif'; wrapText(g,p.title,18,344,W-36,32,2);
+    g.fillStyle="#5A5F82"; g.font='500 19px "DM Sans", system-ui, sans-serif'; wrapText(g,(p.venue||"").split(",")[0]+(p.year?" · "+p.year:""),18,416,W-36,22,1); });
+  const src=(window.IMAGES||{})[p.image]; if(src){ const im=new Image(); im.onload=()=>{ const bw=W-32,bh=280, k=Math.max(bw/im.width,bh/im.height), w=im.width*k, h=im.height*k;
+      g.save(); g.beginPath(); g.rect(16,26,bw,bh); g.clip(); g.drawImage(im,16+(bw-w)/2,26+(bh-h)/2,w,h); g.restore(); t.needsUpdate=true; }; im.src=src; }
+  t.needsUpdate=true; return t;
+}
+// spots along the walls of a room (skipping door openings), facing into the room
+function wallSpots(r){
+  const spots=[], step=1.45, hasWall=(x,z)=>ORIG_WALLS.some(([x1,z1,x2,z2])=>{ const dx=x2-x1,dz=z2-z1,l2=dx*dx+dz*dz||1e-9, t=clamp(((x-x1)*dx+(z-z1)*dz)/l2,0,1); return Math.hypot(x-(x1+dx*t),z-(z1+dz*t))<0.3; });
+  const sides=[ {len:r[2]-r[0], at:s=>[r[0]+s,r[1]], ry:0,       n:[0,1]},  {len:r[2]-r[0], at:s=>[r[0]+s,r[3]], ry:Math.PI, n:[0,-1]},
+                {len:r[3]-r[1], at:s=>[r[0],r[1]+s], ry:Math.PI/2, n:[1,0]}, {len:r[3]-r[1], at:s=>[r[2],r[1]+s], ry:-Math.PI/2, n:[-1,0]} ].sort((a,b)=>b.len-a.len);
+  for(const sd of sides){ const k=Math.floor((sd.len-0.9)/step); if(k<1) continue; const start=(sd.len-(k-1)*step)/2;
+    for(let i=0;i<k;i++){ const [x,z]=sd.at(start+i*step), ok=[-0.45,0,0.45].every(o=>hasWall(x+(sd.n[1]?o:0), z+(sd.n[0]?o:0)));
+      if(ok) spots.push({x:x+sd.n[0]*0.14, z:z+sd.n[1]*0.14, ry:sd.ry}); } }
+  return spots;
+}
+function addThing(obj, kind, data, pos){ const t={obj,kind,data,pos}; obj.traverse(o=>{ if(o.isMesh){ o.userData.thing=t; thingMeshes.push(o); } }); things.push(t); return t; }
+function buildLabs(){
+  for(const L of LABS){
+    const r=L.rect, col=FIELD_COLORS[L.field]||"#5B5FC7", papers=SITE.pubs.filter(p=>p.topic===L.field);
+    // floor: soft colour of the field and the room name
+    const w=r[2]-r[0], d=r[3]-r[1];
+    const {t}=canvasTex(Math.round(w*24),Math.round(d*24),(g,c)=>{ g.fillStyle=shade(col,0.8); g.fillRect(0,0,c.width,c.height);   // a calm floor in the field colour
+      g.strokeStyle=shade(col,0.62); g.lineWidth=1; for(let x=0;x<c.width;x+=24){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,c.height); g.stroke(); } for(let y=0;y<c.height;y+=24){ g.beginPath(); g.moveTo(0,y); g.lineTo(c.width,y); g.stroke(); }
+      g.strokeStyle=col; g.lineWidth=6; g.strokeRect(3,3,c.width-6,c.height-6);
+      g.save(); g.translate(c.width/2,c.height/2); if(d>w*1.4) g.rotate(-Math.PI/2); g.fillStyle=col; g.globalAlpha=0.75; g.textAlign="center"; g.textBaseline="middle";
+      g.globalAlpha=0.6; g.font=`700 ${Math.round(0.7*Math.min(Math.max(w,d)*24/(L.name.length*0.62),Math.min(w,d)*24*0.3))}px "DM Sans", system-ui, sans-serif`; g.fillText(L.name,0,0); g.restore(); });
+    t.needsUpdate=true;
+    const fl=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}));
+    fl.rotation.x=-Math.PI/2; fl.position.set(r[0]+w/2,0.008,r[1]+d/2); fl.renderOrder=1; scene.add(fl);
+    // papers as posters on the walls (open halls get stands instead)
+    const spots = L.open ? [] : wallSpots(r);
+    papers.forEach((p,i)=>{
+      let s=spots[i]; if(!s){ const cols=Math.max(1,Math.floor(w/2.2)); s={x:r[0]+1.1+(i%cols)*2.2, z:r[1]+1.4+Math.floor(i/cols)*2.4, ry:0, stand:true}; }
+      const g=new THREE.Group(); g.position.set(s.x,0,s.z); g.rotation.y=s.ry; scene.add(g);
+      const frame=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.88,0.04),new THREE.MeshLambertMaterial({color:col})); frame.position.set(0,1.0,0); g.add(frame);
+      const poster=new THREE.Mesh(new THREE.PlaneGeometry(1.12,0.82),new THREE.MeshBasicMaterial({map:posterTexture(p,col)})); poster.position.set(0,1.0,0.025); g.add(poster);
+      if(s.stand){ const leg=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.6,0.06),new THREE.MeshLambertMaterial({color:"#46536A"})); leg.position.set(0,0.3,-0.04); g.add(leg); }
+      addThing(g,"paper",p,new THREE.Vector3(s.x+Math.sin(s.ry)*0.9,0,s.z+Math.cos(s.ry)*0.9));
+    });
+    // model stands: software and 3D models of this field (from Software & Data)
+    const models=(L.models||[]).map(n=>[...SITE.software,...SITE.models].find(m=>m.title===n)).filter(Boolean);
+    models.forEach((m,i)=>{ const x=L.standsAt? L.standsAt[i][0] : r[0]+w/2, z=L.standsAt? L.standsAt[i][1] : r[1]+2+i*3;
+      const g=new THREE.Group(); g.position.set(x,0,z); scene.add(g);
+      const base=new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.5,0.8,20),new THREE.MeshLambertMaterial({color:"#F2EEE6"})); base.position.y=0.4; g.add(base);
+      const gem=new THREE.Mesh(new THREE.IcosahedronGeometry(0.32,1),new THREE.MeshLambertMaterial({color:col,flatShading:true})); gem.position.y=1.15; g.add(gem);
+      for(let k=0;k<10;k++){ const s=new THREE.Mesh(new THREE.SphereGeometry(0.05,8,6),new THREE.MeshLambertMaterial({color:"#FFFFFF"})); const a=k*2.4, h=Math.cos(k*1.7)*0.9;
+        s.position.set(Math.cos(a)*0.34*Math.sqrt(1-h*h*0.6),1.15+h*0.3,Math.sin(a)*0.34*Math.sqrt(1-h*h*0.6)); g.add(s); }
+      const tag=labelSprite(m.title.length>28?m.title.slice(0,26)+"…":m.title,col,0.28); tag.position.y=1.75; g.add(tag);
+      g.userData.spin=gem; addThing(g,"model",m,new THREE.Vector3(x,0,z+0.9)); collideBox(x,z,0.55);
+    });
+  }
+  // boards in the elevator lobby: latest news and open positions
+  const board=(z,title,lines,link,col)=>{ const {t}=canvasTex(880,480,g=>{ g.fillStyle="#FFFFFF"; g.fillRect(0,0,880,480); g.fillStyle=col; g.fillRect(0,0,880,86);
+      g.fillStyle="#FFFFFF"; g.font='700 46px "DM Sans", system-ui, sans-serif'; g.fillText(title,32,58);
+      g.fillStyle="#1F2342"; g.font='600 28px "DM Sans", system-ui, sans-serif'; lines.forEach((l,i)=>{ g.fillStyle=i%2?"#5A5F82":"#1F2342"; wrapText(g,l,32,140+i*58,816,32,1); }); });
+    t.needsUpdate=true; const g=new THREE.Group(); g.position.set(46.25,0,z); g.rotation.y=-Math.PI/2; scene.add(g);
+    const fr=new THREE.Mesh(new THREE.BoxGeometry(2.1,1.18,0.04),new THREE.MeshLambertMaterial({color:col})); fr.position.y=1.0; g.add(fr);
+    const pl=new THREE.Mesh(new THREE.PlaneGeometry(2.02,1.1),new THREE.MeshBasicMaterial({map:t})); pl.position.set(0,1.0,0.025); g.add(pl);
+    addThing(g,"link",{title,link},new THREE.Vector3(45.2,0,z)); };
+  const news=(SITE.news||[]).slice(0,3), P=SITE.positions||{mode:"general",positions:[]};
+  board(18.4,"News",news.flatMap(n=>[n.title,n.date]).slice(0,6),"#news","#5B5FC7");
+  const jl = P.mode==="closed" ? ["No open positions at the moment.","Check again later, or write to us."] : P.mode==="specific" ? (P.positions||[]).slice(0,3).flatMap(p=>[p.title,p.deadline?("Apply by "+p.deadline):""]) : ["We welcome MS and PhD students,","postdocs and research scientists."];
+  board(23.4,"Join us",jl.concat(["Click to read more"]),"#join","#2FBF7A");
+}
+function collideBox(x,z,r){ FLOOR.collide.push([x-r,z-r,x+r,z-r],[x+r,z-r,x+r,z+r],[x+r,z+r,x-r,z+r],[x-r,z+r,x-r,z-r]);
+  [[x-r,z-r,x+r,z-r],[x+r,z-r,x+r,z+r],[x+r,z+r,x-r,z+r],[x-r,z+r,x-r,z-r]].forEach(s=>{ const k=Math.floor(x/CELL)+","+Math.floor(z/CELL); if(!GRID.has(k)) GRID.set(k,[]); GRID.get(k).push(s); }); }
+function updateThings(dt){
+  nearThing=null; let best=2.3;
+  for(const t of things){ if(t.obj.userData.spin) t.obj.userData.spin.rotation.y+=dt*0.7;
+    if(mode!=="lab") continue; const d=Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z); if(d<best){ best=d; nearThing=t; } }
+  if(mode==="lab"){ const L=LABS.find(l=>inRect(player.pos.x,player.pos.z,l.rect,0)); if(L!==inLab){ inLab=L;
+      if(L){ const n=SITE.pubs.filter(p=>p.topic===L.field).length; toast(`Welcome to the ${L.name}`+(n?` · ${n} paper${n>1?"s":""}`:"")); } } }
+}
+// the card for a poster, a model or a board
+const tcard=document.createElement("aside"); tcard.className="card"; tcard.hidden=true; tcard.tabIndex=-1; tcard.setAttribute("role","dialog");
+labUI.appendChild(tcard);
+function openThing(t){
+  if(t.kind==="link"){ exitLab(); setTimeout(()=>{ location.hash=t.data.link; },reduceMotion?0:760); return; }
+  closeCard(); thingOpen=t; const d=t.data, IMG=(window.IMAGES||{})[d.image];
+  const btns=(t.kind==="paper" ? d.links.map(l=>({label:({Code:"GitHub",PDF:"PDF",Paper:"Paper",arXiv:"arXiv",Data:"Data",Video:"Video"})[l.kind]||l.kind,url:l.url})) : (d.links||[]).slice(0,4).map(l=>({label:l.label,url:l.url})));
+  tcard.innerHTML=`<button class="card-close" type="button" aria-label="Close">✕</button>
+    ${IMG?`<img src="${IMG}" alt="" style="width:100%;border-radius:12px;margin:0 0 12px;max-height:180px;object-fit:cover">`:""}
+    <h3 style="padding-right:30px">${escapeHTML(d.title)}</h3>
+    <p class="card-role">${escapeHTML(t.kind==="paper"?((d.venue||"").split(",")[0]+(d.year?" · "+d.year:"")):d.kind||"")}</p>
+    <p class="card-research">${escapeHTML(t.kind==="paper"?d.brief:d.text||"")}</p>
+    <div class="actions">${btns.map((b,i)=>`<a${i===0?' class="primary"':""} href="${escapeHTML(b.url)}" target="_blank" rel="noopener">${escapeHTML(b.label.length>26?b.label.slice(0,24)+"…":b.label)}</a>`).join("")}</div>
+    <p class="card-more"><a href="${t.kind==="paper"?"#paper-"+d.slug:"#software"}" data-inside>${t.kind==="paper"?"Open the paper page":"See it in Software & Data"}</a></p>`;
+  tcard.querySelector(".card-close").onclick=closeThing;
+  tcard.querySelector("[data-inside]").onclick=e=>{ e.preventDefault(); const h=e.currentTarget.getAttribute("href"); exitLab(); setTimeout(()=>{ location.hash=h; },reduceMotion?0:760); };
+  tcard.hidden=false; promptEl.hidden=true; tcard.focus({preventScroll:true});
+}
+function closeThing(){ if(!thingOpen) return; tcard.hidden=true; thingOpen=null; }
+tcard.addEventListener("keydown",e=>{ if(e.code==="Escape"){ e.stopPropagation(); closeThing(); } });
+function escapeHTML(s){ return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
 
 /* ---------------- go to + minimap ---------------- */
 function fillGoto(){
   const dl=$("gotoList"); const opts=[];
-  people.forEach(m=>opts.push(m.name));
+  people.forEach(m=>opts.push(m.name)); LABS.forEach(l=>opts.push(l.name));
   ROOMS.forEach(r=>opts.push(`${r.number} ${r.name}`));
   dl.innerHTML=opts.map(o=>`<option value="${o.replace(/"/g,"&quot;")}"></option>`).join("");
 }
@@ -553,6 +703,8 @@ function gotoValue(v){
   v=v.trim(); if(!v) return;
   const m=people.find(p=>p.name.toLowerCase()===v.toLowerCase()) || people.find(p=>p.name.toLowerCase().includes(v.toLowerCase()));
   if(m){ placeNear(m); toast("You are next to "+m.name); return true; }
+  const L=LABS.find(l=>l.name.toLowerCase()===v.toLowerCase()) || LABS.find(l=>l.name.toLowerCase().includes(v.toLowerCase()));
+  if(L){ teleport((L.rect[0]+L.rect[2])/2,(L.rect[1]+L.rect[3])/2); return true; }
   const num=(v.match(/\d{4}/)||[])[0];
   const r=ROOMS.find(r=>r.number===num) || ROOMS.find(r=>r.name.toLowerCase()===v.toLowerCase());
   if(r){ teleport(r.x,r.z); toast(`${r.name} ${r.number}`); return true; }
@@ -566,6 +718,9 @@ function buildMini(){
   miniBase=document.createElement("canvas"); miniBase.width=mini.width; miniBase.height=mini.height;
   const g=miniBase.getContext("2d"); g.fillStyle=DARK?"#2E3354":"#D3D7E6"; g.fillRect(0,0,mini.width,mini.height);
   g.imageSmoothingEnabled=true; g.drawImage(floorImg,0,0,mini.width,mini.height);
+  const sx=mini.width/FW, sz=mini.height/FH;
+  LABS.forEach(l=>{ const c=FIELD_COLORS[l.field]||"#5B5FC7"; g.globalAlpha=0.45; g.fillStyle=c; g.fillRect(l.rect[0]*sx,l.rect[1]*sz,(l.rect[2]-l.rect[0])*sx,(l.rect[3]-l.rect[1])*sz); g.globalAlpha=1; g.strokeStyle=c; g.lineWidth=2; g.strokeRect(l.rect[0]*sx,l.rect[1]*sz,(l.rect[2]-l.rect[0])*sx,(l.rect[3]-l.rect[1])*sz); });
+
 }
 function drawMini(){
   if(!miniBase) return;
@@ -589,9 +744,10 @@ canvas.tabIndex=-1;
 window.addEventListener("keydown",e=>{
   if(mode!=="lab") return;
   if(e.target && e.target.tagName==="INPUT") return;
-  if(e.code==="Escape"){ if(cardMember) closeCard(); else exitLab(); return; }
+  if(e.code==="Escape"){ if(cardMember) closeCard(); else if(thingOpen) closeThing(); else exitLab(); return; }
   if(e.code==="KeyN"){ toggleRooms(); return; }
-  if(e.code==="KeyE"){ if(nearMember){ openCard(nearMember); return; } if(cardMember){ closeCard(); return; } }
+  if(e.code==="KeyE"){ if(nearMember){ openCard(nearMember); return; } if(cardMember){ closeCard(); return; }
+  if(thingOpen){ closeThing(); return; } if(nearThing){ openThing(nearThing); return; } }
   keys[e.code]=true;
   if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].includes(e.code)) e.preventDefault();
 });
@@ -638,13 +794,18 @@ function handleTap(e){
     if(d<2.4){ openCard(m); return; }
     // walk to the person, then open their card
     const a=m._face+Math.PI, tx=m._pos.x+Math.sin(a)*1.0, tz=m._pos.z+Math.cos(a)*1.0; walkTo(tx,tz,m); return; }
-  // click on the floor: walk there
+    // a poster, a model or a board: open it when close, otherwise walk there first
+  const th=clickRay.intersectObjects(thingMeshes,false)[0];
+  if(th){ const t=th.object.userData.thing, d=Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z);
+    if(d<3.2){ openThing(t); return; } walkTo(t.pos.x,t.pos.z); pendingThing=t; return; }
+
+   // click on the floor: walk there
   const t=clickRay.ray.direction.y<-0.01 ? -clickRay.ray.origin.y/clickRay.ray.direction.y : -1;
   if(t>0){ const x=clickRay.ray.origin.x+clickRay.ray.direction.x*t, z=clickRay.ray.origin.z+clickRay.ray.direction.z*t; closeCard(); walkTo(x,z); }
 }
 
 let framesRendered=0;
-window.LAB={ state:()=>({x:player.pos.x,z:player.pos.z,yaw,pitch,mode,path:path?path.length:0,grid:!!blocked}), walkTo:(x,z)=>walkTo(x,z), setLook:(id,c)=>{ const m=people.find(p=>p.id===id); if(m) setLook(m,c); }, enter:id=>{ const m=people.find(p=>p.id===id); if(!m) return; const go=()=>{ if(framesRendered<3){ setTimeout(go,60); return; } enterLab(m); }; go(); }, avatar:o=>makeAvatar(Object.assign({shirt:"#5B5FC7"},o)).img, lookFor };
+window.LAB={ syncPeople:()=>syncPeople(), state:()=>({x:player.pos.x,z:player.pos.z,yaw,pitch,mode,path:path?path.length:0,grid:!!blocked}), walkTo:(x,z)=>walkTo(x,z), setLook:(id,c)=>{ const m=people.find(p=>p.id===id); if(m) setLook(m,c); }, enter:id=>{ const m=people.find(p=>p.id===id); if(!m) return; const go=()=>{ if(framesRendered<3){ setTimeout(go,60); return; } enterLab(m); }; go(); }, avatar:o=>makeAvatar(Object.assign({shirt:"#5B5FC7"},o)).img, lookFor };
 
 /* ---------------- loop ---------------- */
 let lastW=0,lastH=0;
@@ -675,7 +836,8 @@ function tick(){
   if(is2D()){ const a=lastW/lastH||1; mapCam.left=-mapZoom*a; mapCam.right=mapZoom*a; mapCam.top=mapZoom; mapCam.bottom=-mapZoom; mapCam.updateProjectionMatrix();
     mapCam.position.set(player.pos.x,120,player.pos.z); mapCam.lookAt(player.pos.x,0,player.pos.z); mapCam.updateMatrixWorld(); }
   applyViewToCharacters();
-  updateVisitor(); updatePeople(dt);
+    updateVisitor(); updatePeople(dt); updateThings(dt);
+  if(thingOpen && Math.hypot(player.pos.x-thingOpen.pos.x,player.pos.z-thingOpen.pos.z)>5) closeThing();
   updatePrompt();
   if(mode!=="preview"&&(miniT+=dt)>0.08){ miniT=0; drawMini(); }
   renderer.render(scene,activeCam()); framesRendered++;
@@ -704,7 +866,7 @@ function start(){
   FW=floorImg.width/16; FH=floorImg.height/16;
   floorMesh.scale.set(FW,FH,1); floorMesh.position.set(FW/2,0,FH/2); floorTex.needsUpdate=true;
   labelMesh.scale.set(FW,FH,1); labelMesh.position.set(FW/2,0.01,FH/2); labelImg.src=FLOOR_LABELS;
-  buildPeople(); fillGoto(); buildMini(); buildWalkGrid(); if(window.APP) APP.labReady(people);
+  buildPeople(); buildLabs(); fillGoto(); buildMini(); buildWalkGrid(); if(window.APP) APP.labReady(people);
   let saved="3d"; try{ saved=localStorage.getItem("violab-floor-view")||"3d"; }catch(e){}
   setView(saved);
   player.rot=0; yaw=Math.PI;
