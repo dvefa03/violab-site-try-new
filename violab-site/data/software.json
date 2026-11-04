@@ -120,8 +120,6 @@
     "text": "The latest version of the SARS-CoV-2 particle. The model was created using the MesoCraft tool. The membrane part of the model was created described in our paper. The internal part in this version of the model is based on work of Sai Li. The whole model consists of approx. 2000 proteins and 200000 lipids.",
     "links": [
       {
-      },
-      {
         "label": "SARS-CoV-2 (v6)",
         "url": "download/sars_cov2_v6.zip"
       },
