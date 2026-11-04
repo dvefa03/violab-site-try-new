@@ -14,8 +14,7 @@ const ORIG_WALLS = FLOOR.walls.slice();                       // used to find wh
 const inRect = (x,z,r,m) => x>r[0]+m && x<r[2]-m && z>r[1]+m && z<r[3]-m;
 // "merge": open the rooms into one (remove the walls inside, like the two toilets together)
 LABS.filter(l=>l.merge).forEach(l=>{ const keep=s=>!inRect((s[0]+s[2])/2,(s[1]+s[3])/2,l.rect,0.3);
-FLOOR.walls=FLOOR.walls.filter(keep); FLOOR.collide=FLOOR.collide.filter(keep); });
-
+  FLOOR.walls=FLOOR.walls.filter(keep); FLOOR.collide=FLOOR.collide.filter(keep); });
 const PUB = Object.fromEntries(SITE.pubs.map(p=>[p.slug,p]));
 // everyone who has a desk (seat) in the members list appears on the floor
 function membersNow(){
@@ -23,6 +22,7 @@ function membersNow(){
   return SITE.people.filter(p=>p.seat && p.group!=="Alumni").map(p=>Object.assign({}, p, {
     papers: (p.papers||[]).filter(s=>PUBS[s]).slice(0,3).map(s=>({t:PUBS[s].title.split(":")[0], v:(PUBS[s].venue||"").split(",")[0]+(PUBS[s].year?" "+PUBS[s].year:""), slug:s}))
   }));
+}
 const START = {x:44.3, z:20.9};          // Elevator lobby 2201
 const PALETTE = {skin:["#F3CFA8","#D9A27A","#B57B55","#8A5A3C","#F6DCC2"], hair:["#2B2233","#5A3A22","#8B5E34","#1B1B1F","#C9903E","#6B4C9A"]};
 
@@ -52,7 +52,7 @@ $("previewHint").textContent = isTouch ? "Tap to walk around and meet the team" 
   const glitchTo=(w,done)=>{ el.dataset.text=w; el.classList.add("glitch"); setTimeout(()=>{ el.textContent=w; el.dataset.text=w; },180);
     setTimeout(()=>{ el.classList.remove("glitch"); if(done) done(); },420); };
   el.dataset.text=BASE;
-  // "Other cool things" 4s then glitch , other word 1.6s 
+  // "Other cool things" 4 s  ->  glitch  ->  other word 1.6 s  ->  glitch  ->  "Other cool things"  ->  next word ...
   const cycle=()=>{ setTimeout(()=>{ const w=others[i]; i=(i+1)%others.length;
       glitchTo(w,()=>setTimeout(()=>glitchTo(BASE,cycle),1600)); },4000); };
   cycle();
@@ -145,7 +145,7 @@ function wallColors(side,top){
 function b64(s){ const bin=atob(s), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return u.buffer; }
 function meshFrom(m,color){
   const p16=new Int16Array(b64(m.p)), p=new Float32Array(p16.length); for(let i=0;i<p.length;i++) p[i]=p16[i]/100;
-    let idx=m.i32?new Uint32Array(b64(m.i)):new Uint16Array(b64(m.i));
+  let idx=m.i32?new Uint32Array(b64(m.i)):new Uint16Array(b64(m.i));
   const clear=LABS.filter(l=>l.merge).map(l=>l.rect);
   if(clear.length){ const out=[]; for(let t=0;t<idx.length;t+=3){ const a=idx[t]*3,b=idx[t+1]*3,c=idx[t+2]*3;
       const cx=(p[a]+p[b]+p[c])/3, cz=(p[a+2]+p[b+2]+p[c+2])/3; if(!clear.some(r=>inRect(cx,cz,r,0.15))) out.push(idx[t],idx[t+1],idx[t+2]); }
@@ -326,7 +326,7 @@ function poseSprite(ch,facing,frame){
 const seatsById={}; FLOOR.seats.forEach(s=>seatsById[s.id]=s);
 const people=[], clickable=[];
 function buildPeople(){
-    membersNow().forEach(m=>{
+  membersNow().forEach(m=>{
     const s=seatsById[m.seat];
     if(!s){ console.warn("No workplace called",m.seat,"for",m.name); return; }
     const look=lookFor(m); m._look0=look;
@@ -334,7 +334,6 @@ function buildPeople(){
     ch.grp.position.set(s.sx??s.x,0,s.sz??s.z);
     m._ch=ch; m._face=s.face||0; m._pos=ch.grp.position; m._seat=s; m._img=ch.av.img;
     ch.sp.userData.member=m; clickable.push(ch.sp);
-    
     people.push(m);
   });
 }
@@ -426,9 +425,10 @@ const stuckP=new THREE.Vector3(); let stuckT=0;
 function clearPath(){ path=null; pathTalk=null; marker.visible=false; stuckT=0; if(typeof pendingThing!=="undefined" && !player.moving) {} }
 function followPath(dt){
   const t=path[0], dx=t.x-player.pos.x, dz=t.z-player.pos.z, d=Math.hypot(dx,dz), sp=4.2;
-     if(d<0.12){ path.shift(); if(!path.length){ const m=pathTalk; clearPath(); player.moving=false;
+  if(d<0.12){ path.shift(); if(!path.length){ const m=pathTalk; clearPath(); player.moving=false;
       if(pendingThing){ const t=pendingThing; pendingThing=null; if(Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z)<3.2) openThing(t); }
       if(m){ player.rot=Math.atan2(m._pos.x-player.pos.x,m._pos.z-player.pos.z); openCard(m); } } return; }
+  const step=Math.min(d,sp*dt); player.pos.x+=dx/d*step; player.pos.z+=dz/d*step; player.moving=true;
   // give up if something blocks the way for more than a second
   stuckT+=dt; if(stuckT>1.2){ if(Math.hypot(player.pos.x-stuckP.x,player.pos.z-stuckP.z)<0.3){ clearPath(); player.moving=false; return; } stuckT=0; stuckP.copy(player.pos); }
   player.rot=lerpAngle(player.rot,Math.atan2(dx,dz),1-Math.exp(-dt*14)); player.walkT+=dt*sp*2.2;
@@ -440,8 +440,8 @@ let mode="preview", trans=0, previewT=0, pendingCard=null, visible=true, time=0;
 const prevPos=new THREE.Vector3(), prevLook=new THREE.Vector3(45,0,21), labPos=new THREE.Vector3(), labLook=new THREE.Vector3(), labSmooth=new THREE.Vector3(), curLook=new THREE.Vector3();
 function computePreview(dt){
   if(mode==="preview" && !reduceMotion) previewT+=dt;
-    // fit the building (about 90 m x 38 m) in the box at any width
-  const a=Math.sin(previewT*0.1)*0.12, R=74*Math.max(1,Math.pow(2.2/camera.aspect,0.85)), el=1.12;
+  // fit the building (about 90 m x 38 m) in the box at any width
+  const a=Math.sin(previewT*0.1)*0.12, R=74*Math.max(1,Math.pow(2.2/camera.aspect,0.9)), el=1.12;
   prevLook.set(45,0,21);
   prevPos.set(prevLook.x+Math.sin(a)*R*Math.cos(el), R*Math.sin(el), prevLook.z+Math.cos(a)*R*Math.cos(el));
 }
@@ -514,10 +514,10 @@ function enterLab(focus){
   expandStage(); document.body.style.overflow="hidden";
   previewUI.hidden=true; labUI.hidden=false; showHelp(); mode="toLab";
 }
-   let pendingThing=null;
+let pendingThing=null;
 function exitLab(){
   if(mode!=="lab") return;
-    closeCard(); closeThing(); promptEl.hidden=true; joyEnd(); for(const k in keys) keys[k]=false;
+  closeCard(); closeThing(); promptEl.hidden=true; joyEnd(); for(const k in keys) keys[k]=false;
   collapseStage(); mode="toPreview";
 }
 function onArrive(){ if(pendingCard){ openCard(pendingCard); pendingCard=null; } }
@@ -563,13 +563,12 @@ function toast(msg){ toastEl.textContent=msg; toastEl.classList.add("show"); cle
 const proj=new THREE.Vector3(), _vd=new THREE.Vector3();
 function viewDepth(x,y,z){ return -_vd.set(x,y,z).applyMatrix4(camera.matrixWorldInverse).z; }
 function updatePrompt(){
-     if(mode==="lab" && !nearMember && nearThing && !thingOpen && !cardMember){
+  if(mode==="lab" && !nearMember && nearThing && !thingOpen && !cardMember){
     const t=nearThing; proj.set(t.pos.x,is2D()?0:1.8,t.pos.z).project(activeCam());
     const w=canvas.clientWidth,h=canvas.clientHeight; promptEl.style.transform=`translate(${(proj.x+1)/2*w}px,${(1-proj.y)/2*h}px) translate(-50%,-100%)`;
     const key="t"+things.indexOf(t); if(promptEl.dataset.who!==key){ const verb=t.kind==="paper"?"Look at this paper":t.kind==="model"?"Look at this model":"Open "+t.data.title;
       promptEl.innerHTML=(isTouch?"":"<kbd>E</kbd>")+verb; promptEl.dataset.who=key; }
     promptEl.hidden=false; return; }
-
   if(mode!=="lab"||!nearMember||cardMember){ promptEl.hidden=true; return; }
   proj.set(nearMember._pos.x,is2D()?0:1.72,nearMember._pos.z).project(activeCam());
   if(proj.z>1){ promptEl.hidden=true; return; }
@@ -720,7 +719,6 @@ function buildMini(){
   g.imageSmoothingEnabled=true; g.drawImage(floorImg,0,0,mini.width,mini.height);
   const sx=mini.width/FW, sz=mini.height/FH;
   LABS.forEach(l=>{ const c=FIELD_COLORS[l.field]||"#5B5FC7"; g.globalAlpha=0.45; g.fillStyle=c; g.fillRect(l.rect[0]*sx,l.rect[1]*sz,(l.rect[2]-l.rect[0])*sx,(l.rect[3]-l.rect[1])*sz); g.globalAlpha=1; g.strokeStyle=c; g.lineWidth=2; g.strokeRect(l.rect[0]*sx,l.rect[1]*sz,(l.rect[2]-l.rect[0])*sx,(l.rect[3]-l.rect[1])*sz); });
-
 }
 function drawMini(){
   if(!miniBase) return;
@@ -747,7 +745,7 @@ window.addEventListener("keydown",e=>{
   if(e.code==="Escape"){ if(cardMember) closeCard(); else if(thingOpen) closeThing(); else exitLab(); return; }
   if(e.code==="KeyN"){ toggleRooms(); return; }
   if(e.code==="KeyE"){ if(nearMember){ openCard(nearMember); return; } if(cardMember){ closeCard(); return; }
-  if(thingOpen){ closeThing(); return; } if(nearThing){ openThing(nearThing); return; } }
+    if(thingOpen){ closeThing(); return; } if(nearThing){ openThing(nearThing); return; } }
   keys[e.code]=true;
   if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space"].includes(e.code)) e.preventDefault();
 });
@@ -794,12 +792,11 @@ function handleTap(e){
     if(d<2.4){ openCard(m); return; }
     // walk to the person, then open their card
     const a=m._face+Math.PI, tx=m._pos.x+Math.sin(a)*1.0, tz=m._pos.z+Math.cos(a)*1.0; walkTo(tx,tz,m); return; }
-    // a poster, a model or a board: open it when close, otherwise walk there first
+  // a poster, a model or a board: open it when close, otherwise walk there first
   const th=clickRay.intersectObjects(thingMeshes,false)[0];
   if(th){ const t=th.object.userData.thing, d=Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z);
     if(d<3.2){ openThing(t); return; } walkTo(t.pos.x,t.pos.z); pendingThing=t; return; }
-
-   // click on the floor: walk there
+  // click on the floor: walk there
   const t=clickRay.ray.direction.y<-0.01 ? -clickRay.ray.origin.y/clickRay.ray.direction.y : -1;
   if(t>0){ const x=clickRay.ray.origin.x+clickRay.ray.direction.x*t, z=clickRay.ray.origin.z+clickRay.ray.direction.z*t; closeCard(); walkTo(x,z); }
 }
@@ -836,7 +833,7 @@ function tick(){
   if(is2D()){ const a=lastW/lastH||1; mapCam.left=-mapZoom*a; mapCam.right=mapZoom*a; mapCam.top=mapZoom; mapCam.bottom=-mapZoom; mapCam.updateProjectionMatrix();
     mapCam.position.set(player.pos.x,120,player.pos.z); mapCam.lookAt(player.pos.x,0,player.pos.z); mapCam.updateMatrixWorld(); }
   applyViewToCharacters();
-    updateVisitor(); updatePeople(dt); updateThings(dt);
+  updateVisitor(); updatePeople(dt); updateThings(dt);
   if(thingOpen && Math.hypot(player.pos.x-thingOpen.pos.x,player.pos.z-thingOpen.pos.z)>5) closeThing();
   updatePrompt();
   if(mode!=="preview"&&(miniT+=dt)>0.08){ miniT=0; drawMini(); }
