@@ -66,7 +66,7 @@ function dataFiles(){ return {
   "data/news.json":   JSON.stringify(S.news, null, 2),
   "data/positions.json": JSON.stringify(S.positions || {mode:"general",positions:[]}, null, 2) }; }
 async function save(what, files){
-  APP.refresh(); decorateSoon();
+  APP.refresh(); if(window.LAB && LAB.syncPeople) LAB.syncPeople(); decorateSoon();
   if(trial){ tell(`Changed in this browser only (trial mode): ${what}`); bar.querySelector("[data-dl]").hidden = false; return true; }
   tell("Saving to GitHub…");
   try{
@@ -195,7 +195,6 @@ function personForm(p){
     else { Object.keys(p).forEach(k => delete p[k]); Object.assign(p, d); if(window.LAB) LAB.setLook(p.id, p.avatar); }
     closeModal();
     await save(`${isNew?"Add":"Update"} member ${d.name}`, ["data/people.json"]);
-    if(isNew || (p && p.seat !== d.seat)) tell("Saved. A new or moved desk shows on the 3D floor after the page reloads.");
   };
 }
 async function removePerson(p){
