@@ -221,7 +221,6 @@
   "x": 75.82,
   "z": 34.7
  },
- 
  {
   "number": "2161",
   "name": "Mechanical Chase",
@@ -251,12 +250,6 @@
   "name": "Mechanical Chase",
   "x": 73.35,
   "z": 32.3
- },
- {
-  "number": "2167",
-  "name": "Mechanical Chase",
-  "x": 135.39,
-  "z": 32.07
  },
  {
   "number": "2199",
@@ -413,6 +406,12 @@
   "name": "Corridor",
   "x": 73.74,
   "z": 27.18
+ },
+ {
+  "number": "2504",
+  "name": "Elev. 04",
+  "x": 41.2,
+  "z": 17.86
  },
  {
   "number": "2505",
