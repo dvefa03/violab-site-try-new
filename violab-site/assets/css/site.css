@@ -53,9 +53,10 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 .intro{padding:12px 0 24px;max-width:880px}
 .intro h1{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.05;margin:0 0 14px;letter-spacing:-.02em}
 /* the changing "O" word: futuristic font and a short glitch when it changes.
-   Put the font files in assets/fonts/. If they are missing, the free Orbitron font is used instead. */
-@font-face{font-family:"Cybertruck";src:url("../fonts/Cybertruck-Regular.woff2") format("woff2"),url("../fonts/Cybertruck-Regular.ttf") format("truetype"),url("../fonts/Cybertruck-Regular.otf") format("opentype");font-display:swap}
-.oword{display:inline-block;position:relative;color:var(--violet);font-family:"Cybertruck","Orbitron","DM Sans",system-ui,sans-serif;font-weight:700;letter-spacing:.02em}
+   The font file is assets/Font/Cybertruck-Regular.ttf (the folder name must match exactly, with the capital F).
+   If it is missing, the free Orbitron font is used instead. */
+@font-face{font-family:"Cybertruck";src:url("../Font/Cybertruck-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+.oword{display:inline-block;position:relative;color:var(--violet);font-family:"Cybertruck","Orbitron","DM Sans",system-ui,sans-serif;font-weight:400;letter-spacing:.02em}
 .oword.glitch{animation:gl-shake .42s steps(2,end)}
 .oword.glitch::before,.oword.glitch::after{content:attr(data-text);position:absolute;inset:0;pointer-events:none}
 .oword.glitch::before{color:#FF3E8A;animation:gl-a .42s steps(3,end) infinite}
