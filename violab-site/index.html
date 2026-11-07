@@ -36,9 +36,9 @@
         <canvas id="c" aria-label="3D map of Building 1, Level 2 with lab members at their desks"></canvas>
         <div class="loading" id="loading">Building the floor…</div>
         <span class="badge gpanel">Building 1, Level 2</span>
-        <div class="style-switch gpanel preview-switch" role="group" aria-label="View"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="2d" aria-pressed="false">2D map</button></div>
+        <div class="style-switch gpanel preview-switch" role="group" aria-label="View"><button type="button" data-view="auto" aria-pressed="true">Auto</button><button type="button" data-view="3d" aria-pressed="false">3D</button><button type="button" data-view="2d" aria-pressed="false">2D map</button></div>
         <div class="preview-ui" id="previewUI">
-          <button class="enter" id="enterBtn" type="button">Explore the floor</button>
+          <button class="enter" id="enterBtn" type="button">Visit us in our natural habitat</button>
           <span class="hint gpanel" id="previewHint">Walk around with your keyboard and mouse</span>
         </div>
         <div class="lab-ui" id="labUI" hidden>
@@ -49,7 +49,7 @@
               <datalist id="gotoList"></datalist>
             </div>
             <div class="spacer"></div>
-            <div class="style-switch gpanel" role="group" aria-label="View"><button type="button" data-view="3d" aria-pressed="true">3D</button><button type="button" data-view="2d" aria-pressed="false">2D map</button></div>
+            <div class="style-switch gpanel" role="group" aria-label="View"><button type="button" data-view="auto" aria-pressed="true">Auto</button><button type="button" data-view="3d" aria-pressed="false">3D</button><button type="button" data-view="2d" aria-pressed="false">2D</button></div>
             <button class="btn-g rooms-btn" type="button" data-rooms aria-pressed="false">Rooms</button>
             <button class="btn-g" id="helpToggle" type="button" aria-label="Show controls">?</button>
             <button class="btn-g" id="exitBtn" type="button">✕ Exit</button>
