@@ -66,7 +66,7 @@ function dataFiles(){ return {
   "data/news.json":   JSON.stringify(S.news, null, 2),
   "data/positions.json": JSON.stringify(S.positions || {mode:"general",positions:[]}, null, 2) }; }
 async function save(what, files){
-  APP.refresh(); if(window.LAB && LAB.syncPeople) LAB.syncPeople(); decorateSoon();
+  APP.refresh(); if(window.LAB && LAB.syncPeople) LAB.syncPeople(); if(window.LAB && LAB.syncLabs) LAB.syncLabs(); decorateSoon();
   if(trial){ tell(`Changed in this browser only (trial mode): ${what}`); bar.querySelector("[data-dl]").hidden = false; return true; }
   tell("Saving to GitHub…");
   try{
