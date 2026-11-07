@@ -34,8 +34,8 @@ const stage=$("stage"), slot=$("slot"), canvas=$("c");
 const previewUI=$("previewUI"), labUI=$("labUI"), promptEl=$("prompt"), toastEl=$("toast");
 const helpEl=$("help"), joyEl=$("joy"), card=$("card");
 $("helpList").innerHTML = isTouch
-  ? "<dt>Walk</dt><dd>Tap where you want to go</dd><dt>Turn</dt><dd>Drag with one finger</dd><dt>Talk</dt><dd>Tap a person</dd><dt>Rooms</dt><dd>The Rooms button shows room and desk numbers</dd>"
-  : "<dt>Walk</dt><dd>Arrow keys ← ↑ → ↓ (or W A S D), or click where you want to go</dd><dt>Turn</dt><dd>Drag with the mouse (3D view)</dd><dt>Zoom</dt><dd>Mouse wheel</dd><dt>Talk</dt><dd>Click a person or E </dd><dt>N</dt><dd>Show or hide room and desk numbers</dd>";
+  ? "<dt>Walk</dt><dd>Tap where you want to go</dd><dt>Camera</dt><dd>Moves close when you reach a person or a poster</dd><dt>Talk</dt><dd>Tap a person</dd><dt>Rooms</dt><dd>The Rooms button shows room and desk numbers</dd>"
+  : "<dt>Walk</dt><dd>Arrow keys ← ↑ → ↓ (or W A S D), or click where you want to go</dd><dt>Camera</dt><dd>Auto: the map from above, and it moves close when you reach a person or a poster</dd><dt>Zoom</dt><dd>Mouse wheel</dd><dt>Talk</dt><dd>Click a person or E </dd><dt>N</dt><dd>Show or hide room and desk numbers</dd>";
 $("previewHint").textContent = isTouch ? "Tap to walk around and meet the team" : "Walk around with your keyboard and mouse";
 
 // the changing "O"
@@ -312,7 +312,7 @@ const _v=new THREE.Vector3();
 function poseSprite(ch,facing,frame){
   const fx=Math.sin(facing), fz=Math.cos(facing);
   let dir, flip;
-  if(is2D()){ dir = fz<-0.6?"back":fz>0.6?"front":"side"; flip = dir==="side" && fx<0; }
+  if(mapLike()){ dir = fz<-0.6?"back":fz>0.6?"front":"side"; flip = dir==="side" && fx<0; }
   else {
     _v.subVectors(ch.grp.position,camera.position); const vx=_v.x, vz=_v.z, l=Math.hypot(vx,vz)||1;
     const dot=(fx*vx+fz*vz)/l, cross=(fx*vz-fz*vx)/l;
@@ -346,13 +346,16 @@ function syncPeople(){
 }
 
 /* ---------------- the visitor ---------------- */
-let VIEW="3d";                         // "3d" or "2d" (map seen from above)
+let VIEW="auto";                       // "auto" (map, 3D close to people and posters), "3d" or "2d"
+let autoK=0, autoTarget=null, mapDist=20;     // autoK: 0 = map from above, 1 = close 3D look
+function mapLike(){ return is2D() || (VIEW==="auto" && mode==="lab" && autoK<0.5); }
 const VISITOR_LOOK={shirt:"#2FBF7A",pants:"#34395F",hat:"cap",hatColor:"#5B5FC7",glasses:"none"};
 const visitor=makeCharacter(VISITOR_LOOK,"You",false);
 const player={pos:new THREE.Vector3(START.x,0,START.z),rot:0,walkT:0,moving:false};
 let yaw=Math.PI, pitch=0.95, dist=11;
 let lastLook=0, dragging=false;
 const keys={}, joy={x:0,y:0};
+let moveYaw=0, wasMoving=false;
 function updatePlayer(dt){
   let ix=0, iz=0;
   if(keys.KeyW||keys.ArrowUp) iz+=1; if(keys.KeyS||keys.ArrowDown) iz-=1;
@@ -361,13 +364,15 @@ function updatePlayer(dt){
   player.moving=len>0.08;
   if(player.moving && path){ clearPath(); }
   if(!player.moving && path){ followPath(dt); collide(player.pos); return; }
+  if(player.moving && !wasMoving) moveYaw = VIEW==="auto" ? camYawNow : (is2D()?0:yaw);
+  wasMoving=player.moving;
   if(player.moving){
-    const my=is2D()?0:yaw, fx=-Math.sin(my), fz=-Math.cos(my), rx=Math.cos(my), rz=-Math.sin(my);
+    const my=VIEW==="auto"?moveYaw:(is2D()?0:yaw), fx=-Math.sin(my), fz=-Math.cos(my), rx=Math.cos(my), rz=-Math.sin(my);
     const dx=rx*ix+fx*iz, dz=rz*ix+fz*iz, sp=(keys.ShiftLeft||keys.ShiftRight)?8:4;
     player.pos.x+=dx*sp*dt; player.pos.z+=dz*sp*dt;
     player.rot=lerpAngle(player.rot,Math.atan2(dx,dz),1-Math.exp(-dt*14));
     player.walkT+=dt*sp*2.2;
-    if(!is2D() && !dragging && iz>0.3 && performance.now()-lastLook>900) yaw=lerpAngle(yaw,player.rot+Math.PI,1-Math.exp(-dt*1.2));
+    if(VIEW==="3d" && !is2D() && !dragging && iz>0.3 && performance.now()-lastLook>900) yaw=lerpAngle(yaw,player.rot+Math.PI,1-Math.exp(-dt*1.2));
   }
   collide(player.pos);
 }
@@ -440,15 +445,45 @@ let mode="preview", trans=0, previewT=0, pendingCard=null, visible=true, time=0;
 const prevPos=new THREE.Vector3(), prevLook=new THREE.Vector3(45,0,21), labPos=new THREE.Vector3(), labLook=new THREE.Vector3(), labSmooth=new THREE.Vector3(), curLook=new THREE.Vector3();
 function computePreview(dt){
   if(mode==="preview" && !reduceMotion) previewT+=dt;
-  // fit the building (about 90 m x 38 m) in the box at any width
-  const a=Math.sin(previewT*0.1)*0.12, R=74*Math.max(1,Math.pow(2.2/camera.aspect,0.9)), el=1.12;
-  prevLook.set(45,0,21);
+  // fit the whole building (about 90 m x 38 m) in the box at any size; on tall (phone) screens it is turned upright
+  const tall=camera.aspect<0.95, el=1.12, a=(tall?Math.PI/2:0)+Math.sin(previewT*0.1)*0.08;
+  const tanV=Math.tan(THREE.MathUtils.degToRad(camera.fov/2)), tanH=tanV*camera.aspect;
+  const halfW=tall?21:47, halfH=(tall?47:21)*Math.sin(el)+4;
+  const R=1.06*Math.max(halfW/tanH, halfH/tanV);
+  prevLook.set(45,0,19);
   prevPos.set(prevLook.x+Math.sin(a)*R*Math.cos(el), R*Math.sin(el), prevLook.z+Math.cos(a)*R*Math.cos(el));
 }
-const camRay=new THREE.Raycaster(), _cd=new THREE.Vector3();
+const camRay=new THREE.Raycaster(), _cd=new THREE.Vector3(); let camYawNow=0;
 let camDist=dist;
+const _al=new THREE.Vector3();
 function computeLab(dt,snap){
   labLook.set(player.pos.x,0.9,player.pos.z);
+  if(VIEW==="auto"){
+    // something interesting close by? (people and posters, models, boards); stay with it until 4 m away
+    let best=null, bd=3.0;
+    if(autoTarget){ const p=autoTarget._pos||autoTarget.pos; if(Math.hypot(player.pos.x-p.x,player.pos.z-p.z)<4) { best=autoTarget; bd=-1; } }
+    if(bd>0){ for(const m of people){ const d=Math.hypot(player.pos.x-m._pos.x,player.pos.z-m._pos.z); if(d<bd){ bd=d; best=m; } }
+      for(const t of things){ if(t.kind==="link") continue; const d=Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z); if(d<bd){ bd=d; best=t; } } }
+    autoTarget = mode==="lab" ? best : null;
+    autoK = snap ? (autoTarget?1:0) : autoK+((autoTarget?1:0)-autoK)*(1-Math.exp(-dt*2.2));
+    const e=autoK*autoK*(3-2*autoK);
+    // the close look
+    let yC=0, lx=player.pos.x, lz=player.pos.z, pC=0.62, dC=7, hC=1.0;
+    if(autoTarget){
+      if(autoTarget.kind==="paper"){        // a poster: stand in front of it, a little to the side, and look at it
+        const g=autoTarget.obj, ry=g.rotation.y; yC=ry+0.55; lx=g.position.x+Math.sin(ry)*0.2; lz=g.position.z+Math.cos(ry)*0.2; pC=0.32; dC=4.6; hC=1.0;
+      } else {                              // a person or a model: from the visitor's side, both in view
+        const tg=autoTarget.obj?autoTarget.obj.position:autoTarget._pos;
+        lx=(player.pos.x+tg.x)/2; lz=(player.pos.z+tg.z)/2; yC=Math.atan2(player.pos.x-tg.x,player.pos.z-tg.z)+0.5;
+      }
+    }
+    const yw=lerpAngle(0,yC,e), pt=1.48+(pC-1.48)*e, ds=mapDist+(dC-mapDist)*e;
+    _al.set(player.pos.x+(lx-player.pos.x)*e, 0.5+(hC-0.5)*e, player.pos.z+(lz-player.pos.z)*e); labLook.copy(_al);
+    const cp=Math.cos(pt); _cd.set(Math.sin(yw)*cp,Math.sin(pt),Math.cos(yw)*cp);
+    const d=_al.clone().addScaledVector(_cd,ds);
+    if(snap) labSmooth.copy(d); else labSmooth.lerp(d,1-Math.exp(-dt*8));
+    labPos.copy(labSmooth); camYawNow=yw; return;
+  }
   if(VIEW==="2d"){ // straight above, at the height that matches the map zoom
     const h=mapZoom/Math.tan(THREE.MathUtils.degToRad(camera.fov/2));
     labSmooth.set(player.pos.x,h,player.pos.z+0.4); labPos.copy(labSmooth); return; }
@@ -472,7 +507,7 @@ function updatePeople(dt){
     m._look = m._look===undefined ? want : lerpAngle(m._look,want,1-Math.exp(-dt*6));
     const waving = mode==="lab" && d<3.2;
     poseSprite(m._ch,m._look, waving ? (Math.floor(time*4)%2?5:4) : 3);
-    { const close=is2D()||(mode==="lab"&&d<6); m._ch.sp.material.depthTest=!close; m._ch.sp.renderOrder=close?(is2D()?6:4):0; }
+    { const close=mapLike()||(mode==="lab"&&d<6); m._ch.sp.material.depthTest=!close; m._ch.sp.renderOrder=close?(mapLike()?6:4):0; }
     m._ch.tag.visible = mode==="preview" ? false : (d<18 && m!==best);
   }
   nearMember=best;
@@ -612,6 +647,9 @@ function wallSpots(r){
   return spots;
 }
 function addThing(obj, kind, data, pos){ const t={obj,kind,data,pos}; obj.traverse(o=>{ if(o.isMesh){ o.userData.thing=t; thingMeshes.push(o); } }); things.push(t); return t; }
+// everything the labs put on the floor, so it can be rebuilt after the admin adds or changes a paper
+const labObjs=[]; let labsBuilt=false;
+function addLab(o){ scene.add(o); labObjs.push(o); return o; }
 function buildLabs(){
   for(const L of LABS){
     const r=L.rect, col=FIELD_COLORS[L.field]||"#5B5FC7", papers=SITE.pubs.filter(p=>p.topic===L.field);
@@ -624,12 +662,12 @@ function buildLabs(){
       g.globalAlpha=0.6; g.font=`700 ${Math.round(0.7*Math.min(Math.max(w,d)*24/(L.name.length*0.62),Math.min(w,d)*24*0.3))}px "DM Sans", system-ui, sans-serif`; g.fillText(L.name,0,0); g.restore(); });
     t.needsUpdate=true;
     const fl=new THREE.Mesh(new THREE.PlaneGeometry(w,d),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}));
-    fl.rotation.x=-Math.PI/2; fl.position.set(r[0]+w/2,0.008,r[1]+d/2); fl.renderOrder=1; scene.add(fl);
+    fl.rotation.x=-Math.PI/2; fl.position.set(r[0]+w/2,0.008,r[1]+d/2); fl.renderOrder=1; addLab(fl);
     // papers as posters on the walls (open halls get stands instead)
     const spots = L.open ? [] : wallSpots(r);
     papers.forEach((p,i)=>{
       let s=spots[i]; if(!s){ const cols=Math.max(1,Math.floor(w/2.2)); s={x:r[0]+1.1+(i%cols)*2.2, z:r[1]+1.4+Math.floor(i/cols)*2.4, ry:0, stand:true}; }
-      const g=new THREE.Group(); g.position.set(s.x,0,s.z); g.rotation.y=s.ry; scene.add(g);
+      const g=new THREE.Group(); g.position.set(s.x,0,s.z); g.rotation.y=s.ry; addLab(g);
       const frame=new THREE.Mesh(new THREE.BoxGeometry(1.2,0.88,0.04),new THREE.MeshLambertMaterial({color:col})); frame.position.set(0,1.0,0); g.add(frame);
       const poster=new THREE.Mesh(new THREE.PlaneGeometry(1.12,0.82),new THREE.MeshBasicMaterial({map:posterTexture(p,col)})); poster.position.set(0,1.0,0.025); g.add(poster);
       if(s.stand){ const leg=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.6,0.06),new THREE.MeshLambertMaterial({color:"#46536A"})); leg.position.set(0,0.3,-0.04); g.add(leg); }
@@ -638,20 +676,20 @@ function buildLabs(){
     // model stands: software and 3D models of this field (from Software & Data)
     const models=(L.models||[]).map(n=>[...SITE.software,...SITE.models].find(m=>m.title===n)).filter(Boolean);
     models.forEach((m,i)=>{ const x=L.standsAt? L.standsAt[i][0] : r[0]+w/2, z=L.standsAt? L.standsAt[i][1] : r[1]+2+i*3;
-      const g=new THREE.Group(); g.position.set(x,0,z); scene.add(g);
+      const g=new THREE.Group(); g.position.set(x,0,z); addLab(g);
       const base=new THREE.Mesh(new THREE.CylinderGeometry(0.42,0.5,0.8,20),new THREE.MeshLambertMaterial({color:"#F2EEE6"})); base.position.y=0.4; g.add(base);
       const gem=new THREE.Mesh(new THREE.IcosahedronGeometry(0.32,1),new THREE.MeshLambertMaterial({color:col,flatShading:true})); gem.position.y=1.15; g.add(gem);
       for(let k=0;k<10;k++){ const s=new THREE.Mesh(new THREE.SphereGeometry(0.05,8,6),new THREE.MeshLambertMaterial({color:"#FFFFFF"})); const a=k*2.4, h=Math.cos(k*1.7)*0.9;
         s.position.set(Math.cos(a)*0.34*Math.sqrt(1-h*h*0.6),1.15+h*0.3,Math.sin(a)*0.34*Math.sqrt(1-h*h*0.6)); g.add(s); }
       const tag=labelSprite(m.title.length>28?m.title.slice(0,26)+"…":m.title,col,0.28); tag.position.y=1.75; g.add(tag);
-      g.userData.spin=gem; addThing(g,"model",m,new THREE.Vector3(x,0,z+0.9)); collideBox(x,z,0.55);
+      g.userData.spin=gem; addThing(g,"model",m,new THREE.Vector3(x,0,z+0.9)); if(!labsBuilt) collideBox(x,z,0.55);
     });
   }
   // boards in the elevator lobby: latest news and open positions
   const board=(z,title,lines,link,col)=>{ const {t}=canvasTex(880,480,g=>{ g.fillStyle="#FFFFFF"; g.fillRect(0,0,880,480); g.fillStyle=col; g.fillRect(0,0,880,86);
       g.fillStyle="#FFFFFF"; g.font='700 46px "DM Sans", system-ui, sans-serif'; g.fillText(title,32,58);
       g.fillStyle="#1F2342"; g.font='600 28px "DM Sans", system-ui, sans-serif'; lines.forEach((l,i)=>{ g.fillStyle=i%2?"#5A5F82":"#1F2342"; wrapText(g,l,32,140+i*58,816,32,1); }); });
-    t.needsUpdate=true; const g=new THREE.Group(); g.position.set(46.25,0,z); g.rotation.y=-Math.PI/2; scene.add(g);
+    t.needsUpdate=true; const g=new THREE.Group(); g.position.set(46.25,0,z); g.rotation.y=-Math.PI/2; addLab(g);
     const fr=new THREE.Mesh(new THREE.BoxGeometry(2.1,1.18,0.04),new THREE.MeshLambertMaterial({color:col})); fr.position.y=1.0; g.add(fr);
     const pl=new THREE.Mesh(new THREE.PlaneGeometry(2.02,1.1),new THREE.MeshBasicMaterial({map:t})); pl.position.set(0,1.0,0.025); g.add(pl);
     addThing(g,"link",{title,link},new THREE.Vector3(45.2,0,z)); };
@@ -659,6 +697,14 @@ function buildLabs(){
   board(18.4,"News",news.flatMap(n=>[n.title,n.date]).slice(0,6),"#news","#5B5FC7");
   const jl = P.mode==="closed" ? ["No open positions at the moment.","Check again later, or write to us."] : P.mode==="specific" ? (P.positions||[]).slice(0,3).flatMap(p=>[p.title,p.deadline?("Apply by "+p.deadline):""]) : ["We welcome MS and PhD students,","postdocs and research scientists."];
   board(23.4,"Join us",jl.concat(["Click to read more"]),"#join","#2FBF7A");
+  labsBuilt=true;
+}
+// after the admin publishes, edits or removes a paper (or news, or positions): new posters and boards at once
+function syncLabs(){
+  closeThing(); autoTarget=null; nearThing=null;
+  labObjs.forEach(o=>{ scene.remove(o); o.traverse(x=>{ if(x.material){ if(x.material.map) x.material.map.dispose(); x.material.dispose(); } }); });
+  labObjs.length=0; things.length=0; thingMeshes.length=0;
+  buildLabs(); buildMini();
 }
 function collideBox(x,z,r){ FLOOR.collide.push([x-r,z-r,x+r,z-r],[x+r,z-r,x+r,z+r],[x+r,z+r,x-r,z+r],[x-r,z+r,x-r,z-r]);
   [[x-r,z-r,x+r,z-r],[x+r,z-r,x+r,z+r],[x+r,z+r,x-r,z+r],[x-r,z+r,x-r,z-r]].forEach(s=>{ const k=Math.floor(x/CELL)+","+Math.floor(z/CELL); if(!GRID.has(k)) GRID.set(k,[]); GRID.get(k).push(s); }); }
@@ -752,7 +798,7 @@ window.addEventListener("keydown",e=>{
 window.addEventListener("keyup",e=>{ keys[e.code]=false; });
 window.addEventListener("blur",()=>{ for(const k in keys) keys[k]=false; });
 canvas.addEventListener("wheel",e=>{ if(mode!=="lab") return; e.preventDefault(); const k=1+Math.sign(e.deltaY)*0.1;
-  if(VIEW==="2d") mapZoom=clamp(mapZoom*k,4,45); else dist=clamp(dist*k,3,48); },{passive:false});
+  if(VIEW==="2d") mapZoom=clamp(mapZoom*k,4,45); else if(VIEW==="auto") mapDist=clamp(mapDist*k,8,70); else dist=clamp(dist*k,3,48); },{passive:false});
 
 let joyId=null, joyO=null, lookId=null, lookLast=null, downAt=null;
 function joyEnd(){ joyId=null; joy.x=joy.y=0; joyEl.hidden=true; }
@@ -773,7 +819,7 @@ canvas.addEventListener("pointermove",e=>{
     joy.x=dx/RR; joy.y=-dy/RR; joyEl.firstElementChild.style.transform=`translate(${dx}px,${dy}px)`;
   } else if(e.pointerId===lookId){
     const dx=e.clientX-lookLast.x, dy=e.clientY-lookLast.y; lookLast={x:e.clientX,y:e.clientY};
-    if(!is2D()){ yaw-=dx*(e.pointerType==="touch"?0.008:0.006); pitch=clamp(pitch+dy*0.004,0.55,1.4); lastLook=performance.now(); }
+    if(VIEW==="3d"&&!is2D()){ yaw-=dx*(e.pointerType==="touch"?0.008:0.006); pitch=clamp(pitch+dy*0.004,0.55,1.4); lastLook=performance.now(); }
   }
 });
 canvas.addEventListener("pointerup",e=>{
@@ -802,7 +848,7 @@ function handleTap(e){
 }
 
 let framesRendered=0;
-window.LAB={ syncPeople:()=>syncPeople(), state:()=>({x:player.pos.x,z:player.pos.z,yaw,pitch,mode,path:path?path.length:0,grid:!!blocked}), walkTo:(x,z)=>walkTo(x,z), setLook:(id,c)=>{ const m=people.find(p=>p.id===id); if(m) setLook(m,c); }, enter:id=>{ const m=people.find(p=>p.id===id); if(!m) return; const go=()=>{ if(framesRendered<3){ setTimeout(go,60); return; } enterLab(m); }; go(); }, avatar:o=>makeAvatar(Object.assign({shirt:"#5B5FC7"},o)).img, lookFor };
+window.LAB={ syncPeople:()=>syncPeople(), syncLabs:()=>syncLabs(), state:()=>({x:player.pos.x,z:player.pos.z,yaw,pitch,mode,path:path?path.length:0,grid:!!blocked,posters:things.filter(t=>t.kind==="paper").length}), walkTo:(x,z)=>walkTo(x,z), setLook:(id,c)=>{ const m=people.find(p=>p.id===id); if(m) setLook(m,c); }, enter:id=>{ const m=people.find(p=>p.id===id); if(!m) return; const go=()=>{ if(framesRendered<3){ setTimeout(go,60); return; } enterLab(m); }; go(); }, avatar:o=>makeAvatar(Object.assign({shirt:"#5B5FC7"},o)).img, lookFor };
 
 /* ---------------- loop ---------------- */
 let lastW=0,lastH=0;
@@ -851,10 +897,10 @@ function applyViewToCharacters(){
     ch.tag.position.y = flat ? 0 : (ch.seated?1.55:1.68); ch.tag.center.set(0.5, flat?-3.6:0.5); });
 }
 function setView(v){
-  VIEW = v==="2d" ? "2d" : "3d";
+  VIEW = v==="2d" ? "2d" : v==="3d" ? "3d" : "auto";
   document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.view===VIEW)));
   computeLab(0,true);
-  try{ localStorage.setItem("violab-floor-view",VIEW); }catch(e){}
+  try{ localStorage.setItem("violab-floor-view2",VIEW); }catch(e){}
 }
 document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",e=>{ e.stopPropagation(); setView(b.dataset.view); }));
 document.querySelectorAll("[data-rooms]").forEach(b=>b.addEventListener("click",()=>toggleRooms()));
@@ -864,7 +910,7 @@ function start(){
   floorMesh.scale.set(FW,FH,1); floorMesh.position.set(FW/2,0,FH/2); floorTex.needsUpdate=true;
   labelMesh.scale.set(FW,FH,1); labelMesh.position.set(FW/2,0.01,FH/2); labelImg.src=FLOOR_LABELS;
   buildPeople(); buildLabs(); fillGoto(); buildMini(); buildWalkGrid(); if(window.APP) APP.labReady(people);
-  let saved="3d"; try{ saved=localStorage.getItem("violab-floor-view")||"3d"; }catch(e){}
+  let saved="auto"; try{ saved=localStorage.getItem("violab-floor-view2")||"auto"; }catch(e){}
   setView(saved);
   player.rot=0; yaw=Math.PI;
   $("loading").remove(); tick();
