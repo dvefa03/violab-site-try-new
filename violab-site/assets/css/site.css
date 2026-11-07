@@ -348,3 +348,20 @@ body.adm-on .site{top:auto}
 .card-more{margin:10px 0 0;font-size:.92rem}.card-more a{color:var(--violet);font-weight:600;text-decoration:none}
 .loading{font-family:"DM Sans",system-ui,sans-serif}
 .stage.fixed{z-index:60}
+
+/* ===== phones: the 3D box and the floor controls ===== */
+@media (max-width:640px){
+  .preview-ui{left:12px;right:12px;bottom:14px}
+  .enter{width:100%;padding:13px 16px;font-size:1rem}
+  .preview-switch{top:10px;left:10px}
+  .badge{top:10px;right:10px;font-size:.75rem}
+  .topbar{gap:6px;left:8px;right:8px;flex-wrap:wrap}
+  .topbar .spacer{display:none}
+  .goto{order:5;flex:1 1 100%;padding:4px 4px 4px 8px}       /* "Go to" gets its own row under the buttons */
+  .goto label{display:none}
+  .goto input{width:100%;padding:7px 8px;font-size:.88rem}
+  .style-switch button{padding:6px 8px;font-size:.8rem}
+  .btn-g{padding:8px 10px;font-size:.85rem}
+  .help{top:calc(100px + env(safe-area-inset-top,0px));left:8px;right:8px;max-width:none;font-size:.84rem;padding:12px 14px}
+  .minimap{right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:5px}
+}
