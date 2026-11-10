@@ -1,7 +1,7 @@
 [
   {"field": "cryo", "name": "Cryo-EM Lab", "rooms": ["2205"], "rect": [58.9, 15.5, 65.7, 25.4]},
   {"field": "conv", "name": "Conversational Visualization Lab", "rooms": ["2302", "2303", "2165", "2152"], "rect": [68.6, 27.8, 78.6, 36.5], "merge": true},
-  {"field": "xr", "name": "AI Lab (LLMs/VLMs)", "rooms": ["2031", "2032"], "rect": [30.2, 15.5, 36.3, 25.4], "merge": true},
-  {"field": "scale", "name": "Scalable Visualization Lab", "rooms": ["2023", "2024"], "rect": [71.8, 15.6, 75.0, 26.6], "merge": true},
+  {"field": "xr", "name": "AI Lab (LLMs/VLMs)", "rooms": ["2204 (cubicles cu01-cu04)"], "rect": [60.05, 27.75, 66.05, 33.75], "merge": true},
+  {"field": "scale", "name": "Scalable Visualization Lab", "rooms": ["2040", "2300", "2301", "2023", "2024"], "rect": [67.8, 15.6, 75.0, 26.6], "merge": true},
   {"field": "meso", "name": "Mesoscale Modeling Hall", "rooms": ["2304"], "rect": [79.5, 14.6, 89.3, 36.4], "open": true, "models": ["MesoCraft", "SARS-Cov-2", "Bacteriophage T4 Atomistic Model", "Integrin-Talin Complex Atomistic Model", "Chloroplast Atomistic Model"], "standsAt": [[82.5, 18.5], [82.5, 22.5], [82.5, 26.5], [82.5, 30.5], [82.5, 34.2]]}
 ]
