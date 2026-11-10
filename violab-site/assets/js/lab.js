@@ -14,7 +14,8 @@ const ORIG_WALLS = FLOOR.walls.slice();                       // used to find wh
 const inRect = (x,z,r,m) => x>r[0]+m && x<r[2]-m && z>r[1]+m && z<r[3]-m;
 // "merge": open the rooms into one (remove the walls inside, like the two toilets together)
 LABS.filter(l=>l.merge).forEach(l=>{ const keep=s=>!inRect((s[0]+s[2])/2,(s[1]+s[3])/2,l.rect,0.3);
-  FLOOR.walls=FLOOR.walls.filter(keep); FLOOR.collide=FLOOR.collide.filter(keep); });
+  FLOOR.walls=FLOOR.walls.filter(keep); FLOOR.collide=FLOOR.collide.filter(keep);
+  FLOOR.seats=FLOOR.seats.filter(s=>!inRect(s.sx??s.x, s.sz??s.z, l.rect, 0)); });
 const PUB = Object.fromEntries(SITE.pubs.map(p=>[p.slug,p]));
 // everyone who has a desk (seat) in the members list appears on the floor
 function membersNow(){
@@ -34,8 +35,8 @@ const stage=$("stage"), slot=$("slot"), canvas=$("c");
 const previewUI=$("previewUI"), labUI=$("labUI"), promptEl=$("prompt"), toastEl=$("toast");
 const helpEl=$("help"), joyEl=$("joy"), card=$("card");
 $("helpList").innerHTML = isTouch
-  ? "<dt>Walk</dt><dd>Tap where you want to go</dd><dt>Camera</dt><dd>Moves close when you reach a person or a poster</dd><dt>Talk</dt><dd>Tap a person</dd><dt>Rooms</dt><dd>The Rooms button shows room and desk numbers</dd>"
-  : "<dt>Walk</dt><dd>Arrow keys ← ↑ → ↓ (or W A S D), or click where you want to go</dd><dt>Camera</dt><dd>Auto: the map from above, and it moves close when you reach a person or a poster</dd><dt>Zoom</dt><dd>Mouse wheel</dd><dt>Talk</dt><dd>Click a person or E </dd><dt>N</dt><dd>Show or hide room and desk numbers</dd>";
+  ? "<dt>Walk</dt><dd>Tap where you want to go</dd><dt>Camera</dt><dd>Moves close when you open a person or a poster</dd><dt>Talk</dt><dd>Tap a person</dd><dt>Rooms</dt><dd>The Rooms button shows room and desk numbers</dd>"
+  : "<dt>Walk</dt><dd>Arrow keys ← ↑ → ↓ (or W A S D), or click where you want to go</dd><dt>Camera</dt><dd>Auto: the map from above. When you open a person or a poster, the camera moves close. Walk again to go back to the map</dd><dt>Zoom</dt><dd>Mouse wheel</dd><dt>Talk</dt><dd>Click a person or E </dd><dt>N</dt><dd>Show or hide room and desk numbers</dd>";
 $("previewHint").textContent = isTouch ? "Tap to walk around and meet the team" : "Walk around with your keyboard and mouse";
 
 // the changing "O"
@@ -281,7 +282,7 @@ function makeAvatar(o){
 const SHIRTS=["#5B5FC7","#2A93B8","#1F9A7C","#D9577F","#E0823A","#8A5FD6","#3A9A62","#C2861A"];
 // The look is saved per person in people.json as "avatar": {shirt, pants, hair, hairStyle, hat, hatColor, glasses}
 function lookFor(m){ const a=m.avatar||{}; return {shirt:a.shirt||m.shirt||SHIRTS[hashIdx(m.id||"x",SHIRTS.length)], pants:a.pants||"#34395F",
-  hair:a.hair||"#3A2A20", hairStyle:a.hairStyle||"short",
+  hair:"#3A2A20", hairStyle:"short",                       // the same hair for everyone
   hat:a.hat||"none", hatColor:a.hatColor||"#E0823A", glasses:(a.glasses===true?"square":a.glasses)||"none"}; }
 function setLook(m,changes){ m.avatar=Object.assign({},m.avatar||{},changes); const look=lookFor(m); m._look0=look; const av=makeAvatar(look);
   if(m._ch){ m._ch.av=av; m._ch.dir=""; } m._img=av.img; if(window.APP) APP.setAvatar(m.id,av.img); if(cardMember===m) $("cardImg").src=av.img; }
@@ -351,7 +352,7 @@ let autoK=0, autoTarget=null, mapDist=20;     // autoK: 0 = map from above, 1 = 
 function mapLike(){ return is2D() || (VIEW==="auto" && mode==="lab" && autoK<0.5); }
 const VISITOR_LOOK={shirt:"#2FBF7A",pants:"#34395F",hat:"cap",hatColor:"#5B5FC7",glasses:"none"};
 const visitor=makeCharacter(VISITOR_LOOK,"You",false);
-const player={pos:new THREE.Vector3(START.x,0,START.z),rot:0,walkT:0,moving:false};
+const player={pos:new THREE.Vector3(START.x,0,START.z),rot:0,walkT:0,moving:false,vx:0,vz:0};
 let yaw=Math.PI, pitch=0.95, dist=11;
 let lastLook=0, dragging=false;
 const keys={}, joy={x:0,y:0};
@@ -364,16 +365,19 @@ function updatePlayer(dt){
   player.moving=len>0.08;
   if(player.moving && path){ clearPath(); }
   if(!player.moving && path){ followPath(dt); collide(player.pos); return; }
-  if(player.moving && !wasMoving) moveYaw = VIEW==="auto" ? camYawNow : (is2D()?0:yaw);
+  if(player.moving && !wasMoving){ moveYaw = VIEW==="auto" ? 0 : (is2D()?0:yaw); if(VIEW==="auto"){ closeCard(); closeThing(); } }
   wasMoving=player.moving;
   if(player.moving){
     const my=VIEW==="auto"?moveYaw:(is2D()?0:yaw), fx=-Math.sin(my), fz=-Math.cos(my), rx=Math.cos(my), rz=-Math.sin(my);
     const dx=rx*ix+fx*iz, dz=rz*ix+fz*iz, sp=(keys.ShiftLeft||keys.ShiftRight)?8:4;
-    player.pos.x+=dx*sp*dt; player.pos.z+=dz*sp*dt;
+    // smooth speed: speeds up and slows down softly instead of jumping
+    const k=1-Math.exp(-dt*10); player.vx+=(dx*sp-player.vx)*k; player.vz+=(dz*sp-player.vz)*k;
+    player.pos.x+=player.vx*dt; player.pos.z+=player.vz*dt;
     player.rot=lerpAngle(player.rot,Math.atan2(dx,dz),1-Math.exp(-dt*14));
     player.walkT+=dt*sp*2.2;
     if(VIEW==="3d" && !is2D() && !dragging && iz>0.3 && performance.now()-lastLook>900) yaw=lerpAngle(yaw,player.rot+Math.PI,1-Math.exp(-dt*1.2));
   }
+  else { const k=1-Math.exp(-dt*12); player.vx-=player.vx*k; player.vz-=player.vz*k; if(Math.abs(player.vx)+Math.abs(player.vz)>0.05){ player.pos.x+=player.vx*dt; player.pos.z+=player.vz*dt; } }
   collide(player.pos);
 }
 
@@ -455,33 +459,34 @@ function computePreview(dt){
 }
 const camRay=new THREE.Raycaster(), _cd=new THREE.Vector3(); let camYawNow=0;
 let camDist=dist;
-const _al=new THREE.Vector3();
+const _al=new THREE.Vector3(), mapFocus=new THREE.Vector3(), mapLook=new THREE.Vector3();
 function computeLab(dt,snap){
   labLook.set(player.pos.x,0.9,player.pos.z);
   if(VIEW==="auto"){
-    // something interesting close by? (people and posters, models, boards); stay with it until 4 m away
-    let best=null, bd=3.0;
-    if(autoTarget){ const p=autoTarget._pos||autoTarget.pos; if(Math.hypot(player.pos.x-p.x,player.pos.z-p.z)<4) { best=autoTarget; bd=-1; } }
-    if(bd>0){ for(const m of people){ const d=Math.hypot(player.pos.x-m._pos.x,player.pos.z-m._pos.z); if(d<bd){ bd=d; best=m; } }
-      for(const t of things){ if(t.kind==="link") continue; const d=Math.hypot(player.pos.x-t.pos.x,player.pos.z-t.pos.z); if(d<bd){ bd=d; best=t; } } }
-    autoTarget = mode==="lab" ? best : null;
-    autoK = snap ? (autoTarget?1:0) : autoK+((autoTarget?1:0)-autoK)*(1-Math.exp(-dt*2.2));
+    // Auto camera: a calm map from above while walking. It only moves close when the visitor opens something
+    // (a person, a poster or a model). Walking again closes the card and the camera goes back to the map.
+    autoTarget = mode==="lab" ? (cardMember || thingOpen || null) : null;
+    autoK = snap ? (autoTarget?1:0) : autoK+((autoTarget?1:0)-autoK)*(1-Math.exp(-dt*3));
     const e=autoK*autoK*(3-2*autoK);
-    // the close look
-    let yC=0, lx=player.pos.x, lz=player.pos.z, pC=0.62, dC=7, hC=1.0;
+    // map follow with a "dead zone": small steps do not move the view, so it does not shake
+    const DZX=2.2, DZZ=1.4;
+    if(snap){ mapFocus.set(player.pos.x,0,player.pos.z); }
+    else { const dx=player.pos.x-mapFocus.x, dz=player.pos.z-mapFocus.z;
+      if(Math.abs(dx)>DZX) mapFocus.x+=dx-Math.sign(dx)*DZX; if(Math.abs(dz)>DZZ) mapFocus.z+=dz-Math.sign(dz)*DZZ; }
+    mapLook.lerp(mapFocus, snap?1:1-Math.exp(-dt*5));
+    let yC=0, lx=mapLook.x, lz=mapLook.z, pC=0.62, dC=7, hC=1.0;
     if(autoTarget){
-      if(autoTarget.kind==="paper"){        // a poster: stand in front of it, a little to the side, and look at it
-        const g=autoTarget.obj, ry=g.rotation.y; yC=ry+0.55; lx=g.position.x+Math.sin(ry)*0.2; lz=g.position.z+Math.cos(ry)*0.2; pC=0.32; dC=4.6; hC=1.0;
+      if(autoTarget.kind==="paper"){        // a poster: in front of it, a little to the side
+        const g=autoTarget.obj, ry=g.rotation.y; yC=ry+0.55; lx=g.position.x+Math.sin(ry)*0.2; lz=g.position.z+Math.cos(ry)*0.2; pC=0.32; dC=4.6;
       } else {                              // a person or a model: from the visitor's side, both in view
         const tg=autoTarget.obj?autoTarget.obj.position:autoTarget._pos;
         lx=(player.pos.x+tg.x)/2; lz=(player.pos.z+tg.z)/2; yC=Math.atan2(player.pos.x-tg.x,player.pos.z-tg.z)+0.5;
       }
     }
     const yw=lerpAngle(0,yC,e), pt=1.48+(pC-1.48)*e, ds=mapDist+(dC-mapDist)*e;
-    _al.set(player.pos.x+(lx-player.pos.x)*e, 0.5+(hC-0.5)*e, player.pos.z+(lz-player.pos.z)*e); labLook.copy(_al);
+    _al.set(mapLook.x+(lx-mapLook.x)*e, 0.5+(hC-0.5)*e, mapLook.z+(lz-mapLook.z)*e); labLook.copy(_al);
     const cp=Math.cos(pt); _cd.set(Math.sin(yw)*cp,Math.sin(pt),Math.cos(yw)*cp);
-    const d=_al.clone().addScaledVector(_cd,ds);
-    if(snap) labSmooth.copy(d); else labSmooth.lerp(d,1-Math.exp(-dt*8));
+    labSmooth.copy(_al).addScaledVector(_cd,ds);
     labPos.copy(labSmooth); camYawNow=yw; return;
   }
   if(VIEW==="2d"){ // straight above, at the height that matches the map zoom
