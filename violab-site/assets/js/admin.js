@@ -171,20 +171,19 @@ function personForm(p){
     <div class="adm-row">${field("Email", inp("pEmail", d.email))}${field("Google Scholar link", inp("pScholar", d.scholar))}</div>
     ${field("Website or KAUST profile", inp("pWeb", d.web))}
     <h3>Avatar</h3>
-    <p class="adm-lead">Everyone has the same friendly face. Choose the hair, clothes and accessories to make each avatar different.</p>
+    <p class="adm-lead">Everyone has the same friendly face and hair. Choose clothes and accessories to make each avatar different.</p>
     <div class="adm-av">
       <img id="pAvImg" alt="Avatar preview">
       <div class="adm-av-grid">
-        ${field("Hair", sel("avHairStyle", AV.hairStyle, a.hairStyle))}${field("Hair color", sel("avHair", AV.hair, a.hair))}
         ${field("Shirt", `<input id="avShirt" type="color" value="${esc(a.shirt)}">`)}${field("Trousers", `<input id="avPants" type="color" value="${esc(a.pants)}">`)}
         ${field("Hat", sel("avHat", AV.hat, a.hat))}${field("Hat color", `<input id="avHatColor" type="color" value="${esc(a.hatColor)}">`)}
         ${field("Glasses", sel("avGlasses", AV.glasses, a.glasses))}
       </div>
     </div>
     <div class="adm-actions"><button class="btn primary" type="button" id="pSave">${isNew?"Add member":"Save changes"}</button><button class="btn" type="button" id="pCancel">Cancel</button></div>`);
-  const look = () => ({ hairStyle:val("avHairStyle"), hair:val("avHair"), shirt:$("avShirt").value, pants:$("avPants").value, hat:val("avHat"), hatColor:$("avHatColor").value, glasses:val("avGlasses") });
+  const look = () => ({ shirt:$("avShirt").value, pants:$("avPants").value, hat:val("avHat"), hatColor:$("avHatColor").value, glasses:val("avGlasses") });
   const preview = () => { $("pAvImg").src = window.LAB ? LAB.avatar(LAB.lookFor({ id:d.id||"new", avatar:look() })) : ""; };
-  ["avHairStyle","avHair","avShirt","avPants","avHat","avHatColor","avGlasses"].forEach(id => { $(id).addEventListener("input", preview); $(id).addEventListener("change", preview); }); preview();
+  ["avShirt","avPants","avHat","avHatColor","avGlasses"].forEach(id => { $(id).addEventListener("input", preview); $(id).addEventListener("change", preview); }); preview();
   $("pCancel").onclick = closeModal;
   $("pSave").onclick = async () => {
     const name = val("pName"); if(!name){ tell("Please write the name.", true); return; }
