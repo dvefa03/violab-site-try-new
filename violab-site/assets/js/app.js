@@ -162,8 +162,11 @@ function renderSoftware(){
   const el=page("software");
   el.innerHTML=`<div class="page-head"><h1>Software &amp; Data</h1><p>Applications, code and mesoscale models from our research.</p></div>
    <div class="filters"><div class="chips" role="group" aria-label="Type">${kinds.map(([k,n])=>`<button class="chip" type="button" data-kind="${k}" aria-pressed="${swState.kind===k}">${n}</button>`).join("")}</div></div>
-   <div class="grid c3" id="swList"></div>`;
-  const draw=()=>{ $("swList").innerHTML=items.filter(r=>!swState.kind||r.kind===swState.kind).map(resTile).join(""); };
+   <div class="grid c3" id="swList"></div><div id="swMore"></div>`;
+  // "featured" (in software.json) = the main, multi-year projects; the others are folded under "Smaller projects"
+  const draw=()=>{ const shown=items.filter(r=>!swState.kind||r.kind===swState.kind), main=shown.filter(r=>r.featured), rest=shown.filter(r=>!r.featured);
+    $("swList").innerHTML=main.map(resTile).join("");
+    $("swMore").innerHTML = rest.length ? `<details class="more-sw"><summary>Smaller projects and code examples <span>(${rest.length})</span></summary><div class="grid c3">${rest.map(resTile).join("")}</div></details>` : ""; };
   el.querySelectorAll("[data-kind]").forEach(b=>b.addEventListener("click",()=>{ swState.kind=b.dataset.kind; el.querySelectorAll("[data-kind]").forEach(x=>x.setAttribute("aria-pressed",x===b)); draw(); }));
   draw();
 }
