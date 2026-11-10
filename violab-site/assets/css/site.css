@@ -55,12 +55,11 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 /* the changing "O" word: futuristic font and a short glitch when it changes.
    The font file is assets/Font/Cybertruck-Regular.ttf (the folder name must match exactly, with the capital F).
    If it is missing, the free Orbitron font is used instead. */
-@font-face{font-family:"Cybertruck";src:url("../Font/Cybertruck-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
-.oword{display:inline-block;position:relative;color:var(--violet);font-family:"Cybertruck","Orbitron","DM Sans",system-ui,sans-serif;font-weight:400;letter-spacing:.02em}
-.oword.glitch{animation:gl-shake .42s steps(2,end)}
+.oword{display:inline-block;position:relative;color:var(--violet);font-family:"Righteous","DM Sans",system-ui,sans-serif;font-weight:400;letter-spacing:.01em}
+.oword.glitch{animation:gl-shake .3s steps(2,end)}
 .oword.glitch::before,.oword.glitch::after{content:attr(data-text);position:absolute;inset:0;pointer-events:none}
-.oword.glitch::before{color:#FF3E8A;animation:gl-a .42s steps(3,end) infinite}
-.oword.glitch::after{color:#22D3C5;animation:gl-b .42s steps(3,end) infinite}
+.oword.glitch::before{color:#FF3E8A;opacity:.55;animation:gl-a .3s steps(3,end) infinite}
+.oword.glitch::after{color:#22D3C5;opacity:.55;animation:gl-b .3s steps(3,end) infinite}
 @keyframes gl-shake{0%{transform:translate(0)}25%{transform:translate(-2px,1px) skewX(-6deg)}50%{transform:translate(2px,-1px) skewX(5deg)}75%{transform:translate(-1px,0)}100%{transform:none}}
 @keyframes gl-a{0%{clip-path:inset(0 0 62% 0);transform:translate(-4px,-1px)}33%{clip-path:inset(28% 0 40% 0);transform:translate(3px,0)}66%{clip-path:inset(70% 0 5% 0);transform:translate(-2px,1px)}100%{clip-path:inset(10% 0 80% 0);transform:translate(4px,0)}}
 @keyframes gl-b{0%{clip-path:inset(60% 0 0 0);transform:translate(4px,1px)}33%{clip-path:inset(5% 0 72% 0);transform:translate(-3px,0)}66%{clip-path:inset(40% 0 30% 0);transform:translate(2px,-1px)}100%{clip-path:inset(80% 0 4% 0);transform:translate(-4px,0)}}
@@ -74,7 +73,7 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 .grid.c3{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
 .tile{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
 .tile .thumb{aspect-ratio:16/10;background:var(--soft);display:block}
-.tile .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.tile .thumb img{width:100%;height:100%;object-fit:contain;display:block;padding:6px}
 .tile .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
 .tile h3{font-size:1.05rem;line-height:1.3;margin:0}
 .tile h3 a{text-decoration:none}
@@ -103,7 +102,7 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 .pub{display:grid;grid-template-columns:220px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid var(--line)}
 @media (max-width:640px){.pub{grid-template-columns:1fr}}
 .pub .thumb{aspect-ratio:16/10;border-radius:12px;overflow:hidden;background:var(--soft);display:block}
-.pub .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pub .thumb img{width:100%;height:100%;object-fit:contain;display:block;padding:6px}
 .pub h3{margin:0 0 4px;font-size:1.12rem;line-height:1.3}
 .pub h3 a{text-decoration:none}
 .pub h3 a:hover{text-decoration:underline}
@@ -147,7 +146,7 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 .news-item{display:grid;grid-template-columns:240px 1fr;gap:26px;padding:26px 0;border-bottom:1px solid var(--line)}
 @media (max-width:640px){.news-item{grid-template-columns:1fr}}
 .news-item .thumb{aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--soft)}
-.news-item .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.news-item .thumb img{width:100%;height:100%;object-fit:contain;display:block;padding:6px}
 .news-item h3{margin:0 0 4px;font-size:1.15rem}
 .news-item time{color:var(--muted);font-size:.9rem}
 .news-item p{margin:8px 0 0;max-width:70ch}
@@ -159,7 +158,7 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 .mini-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
 .mini{display:flex;gap:12px;align-items:center;text-decoration:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px}
 .mini:hover{border-color:var(--violet)}
-.mini img,.mini .ph{width:64px;height:44px;border-radius:8px;object-fit:cover;flex:none;font-size:.8rem}
+.mini img,.mini .ph{width:64px;height:44px;border-radius:8px;object-fit:contain;background:var(--soft);flex:none;font-size:.8rem}
 .mini span{font-size:.9rem;font-weight:600;line-height:1.3}
 
 .callout{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 28px;max-width:760px}
@@ -365,3 +364,9 @@ body.adm-on .site{top:auto}
   .help{top:calc(100px + env(safe-area-inset-top,0px));left:8px;right:8px;max-width:none;font-size:.84rem;padding:12px 14px}
   .minimap{right:8px;bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:5px}
 }
+
+/* software & data: the main projects first, smaller ones folded */
+.more-sw{margin-top:30px;border-top:1px solid var(--line);padding-top:18px}
+.more-sw summary{cursor:pointer;font-weight:600;font-size:1.05rem;color:var(--ink)}
+.more-sw summary span{color:var(--muted);font-weight:400;font-size:.95rem}
+.more-sw .grid{margin-top:16px}
