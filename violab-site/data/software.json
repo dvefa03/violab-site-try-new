@@ -29,7 +29,8 @@
       }
     ],
     "image": "images/software/mesocraft-screenshot-001.jpg",
-    "kind": "Application"
+    "kind": "Application",
+    "featured": true
   },
   {
     "title": "VolWeb",
@@ -49,7 +50,8 @@
       }
     ],
     "image": "images/software/volweb.jpg",
-    "kind": "Application"
+    "kind": "Application",
+    "featured": true
   },
   {
     "title": "Shader Editor",
@@ -65,7 +67,8 @@
       }
     ],
     "image": "images/software/Shadereditor.jpg",
-    "kind": "Application"
+    "kind": "Application",
+    "featured": false
   },
   {
     "title": "WebGPU C++ WASM - Hello triangle",
@@ -85,7 +88,8 @@
       }
     ],
     "image": "images/software/webrenderer-screenshot.jpg",
-    "kind": "Code"
+    "kind": "Code",
+    "featured": false
   },
   {
     "title": "WebGPU DVR in Rust",
@@ -97,7 +101,8 @@
       }
     ],
     "image": "images/software/wenderer-screenshot.jpg",
-    "kind": "Code"
+    "kind": "Code",
+    "featured": false
   },
   {
     "title": "OpenGL Holographic Remoting",
@@ -113,7 +118,8 @@
       }
     ],
     "image": "images/software/holographic-remoting-screenshot-big.jpg",
-    "kind": "Code"
+    "kind": "Code",
+    "featured": false
   },
   {
     "title": "SARS-Cov-2",
@@ -130,7 +136,8 @@
     ],
     "image": "images/software/model_sars.jpg",
     "kind": "Mesoscale model",
-    "paper": "modeling-in-the-time-of-covid-19"
+    "paper": "modeling-in-the-time-of-covid-19",
+    "featured": true
   },
   {
     "title": "Bacteriophage T4 Atomistic Model",
@@ -158,7 +165,8 @@
       }
     ],
     "image": "images/software/model_T4_isometric_type.jpg",
-    "kind": "Mesoscale model"
+    "kind": "Mesoscale model",
+    "featured": true
   },
   {
     "title": "Integrin-Talin Complex Atomistic Model",
@@ -182,7 +190,8 @@
       }
     ],
     "image": "images/software/Integrin-Talin-Complex-1.jpg",
-    "kind": "Mesoscale model"
+    "kind": "Mesoscale model",
+    "featured": true
   },
   {
     "title": "Chloroplast Atomistic Model",
@@ -206,6 +215,7 @@
       }
     ],
     "image": "images/software/Chloroplast-model-1.jpg",
-    "kind": "Mesoscale model"
+    "kind": "Mesoscale model",
+    "featured": true
   }
 ]
