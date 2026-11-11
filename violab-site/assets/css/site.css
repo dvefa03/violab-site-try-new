@@ -55,11 +55,11 @@ h2.sec{font-size:1.5rem;margin:0 0 14px;letter-spacing:-.01em}
 /* the changing "O" word: futuristic font and a short glitch when it changes.
    The font file is assets/Font/Cybertruck-Regular.ttf (the folder name must match exactly, with the capital F).
    If it is missing, the free Orbitron font is used instead. */
-.oword{display:inline-block;position:relative;color:var(--violet);font-family:"Righteous","DM Sans",system-ui,sans-serif;font-weight:400;letter-spacing:.01em}
-.oword.glitch{animation:gl-shake .3s steps(2,end)}
+.oword{display:inline-block;position:relative;color:var(--violet);font-family:"Audiowide","DM Sans",system-ui,sans-serif;font-weight:400;letter-spacing:.01em}
+.oword.glitch{animation:gl-shake .42s steps(2,end)}
 .oword.glitch::before,.oword.glitch::after{content:attr(data-text);position:absolute;inset:0;pointer-events:none}
-.oword.glitch::before{color:#FF3E8A;opacity:.55;animation:gl-a .3s steps(3,end) infinite}
-.oword.glitch::after{color:#22D3C5;opacity:.55;animation:gl-b .3s steps(3,end) infinite}
+.oword.glitch::before{color:#FF3E8A;animation:gl-a .42s steps(3,end) infinite}
+.oword.glitch::after{color:#22D3C5;animation:gl-b .42s steps(3,end) infinite}
 @keyframes gl-shake{0%{transform:translate(0)}25%{transform:translate(-2px,1px) skewX(-6deg)}50%{transform:translate(2px,-1px) skewX(5deg)}75%{transform:translate(-1px,0)}100%{transform:none}}
 @keyframes gl-a{0%{clip-path:inset(0 0 62% 0);transform:translate(-4px,-1px)}33%{clip-path:inset(28% 0 40% 0);transform:translate(3px,0)}66%{clip-path:inset(70% 0 5% 0);transform:translate(-2px,1px)}100%{clip-path:inset(10% 0 80% 0);transform:translate(4px,0)}}
 @keyframes gl-b{0%{clip-path:inset(60% 0 0 0);transform:translate(4px,1px)}33%{clip-path:inset(5% 0 72% 0);transform:translate(-3px,0)}66%{clip-path:inset(40% 0 30% 0);transform:translate(2px,-1px)}100%{clip-path:inset(80% 0 4% 0);transform:translate(-4px,0)}}
