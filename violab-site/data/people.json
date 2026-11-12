@@ -119,7 +119,15 @@
       "aivaluatexr",
       "voice",
       "llms-on-xr-loxr"
-    ]
+    ],
+    "scholar": "https://scholar.google.com/citations?hl=en&user=facBgVgAAAAJ",
+    "avatar": {
+      "shirt": "#5b5fc7",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    }
   },
   {
     "id": "eva-bones",
