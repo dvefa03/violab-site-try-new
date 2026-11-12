@@ -246,5 +246,23 @@
     "web": "https://cemse.kaust.edu.sa/profiles/yousif-aldolaijan",
     "research": "Computer graphics, embedded systems, distributed systems",
     "papers": []
+  },
+  {
+    "id": "yihan-zang",
+    "name": "Yihan Zang",
+    "role": "M.S. Student, Electrical and Computer Engineering",
+    "group": "Students",
+    "avatar": {
+      "shirt": "#4400ff",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    },
+    "email": "yihan.zang@kaust.edu.sa",
+    "scholar": "https://scholar.google.com/citations?user=0klOSu4AAAAJ&hl=en&oi=ao",
+    "web": "https://cemse.kaust.edu.sa/profiles/yihan-zang",
+    "seat": "_2106_ws20",
+    "papers": []
   }
 ]
