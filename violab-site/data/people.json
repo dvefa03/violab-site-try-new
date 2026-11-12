@@ -55,14 +55,21 @@
     "id": "alexandre-kouyoumdjian",
     "name": "Alexandre A. Kouyoumdjian",
     "role": "Research Scientist, Computer Science",
-    "group": "Research Scientists",
+    "group": "Alumni",
     "web": "https://cemse.kaust.edu.sa/profiles/alexandre-kouyoumdjian",
     "research": "Visualization, computer graphics, virtual reality",
     "papers": [
       "clickaixr",
       "aivaluatexr",
       "llms-on-xr-loxr"
-    ]
+    ],
+    "avatar": {
+      "shirt": "#5b5fc7",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    }
   },
   {
     "id": "dawar-khan",
@@ -203,10 +210,17 @@
     "id": "aidana-nurakhmetova",
     "name": "Aidana Nurakhmetova",
     "role": "Visiting Student, Visual Intelligence Lab",
-    "group": "Visiting Scholars",
+    "group": "Alumni",
     "web": "https://nanovis.kaust.edu.sa/profiles/aidana-nurakhmetova",
     "research": "Nanovisualization",
-    "papers": []
+    "papers": [],
+    "avatar": {
+      "shirt": "#5b5fc7",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    }
   },
   {
     "id": "ciril-bohak",
@@ -269,7 +283,7 @@
     "role": "M.S. Student, Electrical and Computer Engineering",
     "group": "Students",
     "avatar": {
-      "shirt": "#4400ff",
+      "shirt": "#05b310",
       "pants": "#34395f",
       "hat": "none",
       "hatColor": "#e0823a",
