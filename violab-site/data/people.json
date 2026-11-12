@@ -221,11 +221,20 @@
   {
     "id": "dalal-aldossary",
     "name": "Dalal E. Aldossary",
-    "role": "M.S. Student (former), Computer Science",
-    "group": "Alumni",
+    "role": "",
+    "group": "Visiting Scholars",
     "web": "https://cemse.kaust.edu.sa/profiles/dalal-e-aldossary",
     "research": "Machine learning, computer vision",
-    "papers": []
+    "papers": [],
+    "scholar": "https://scholar.google.com/citations?user=e3_JelsAAAAJ&hl=en",
+    "seat": "_2225_ws26",
+    "avatar": {
+      "shirt": "#c75ca5",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    }
   },
   {
     "id": "feng-liang",
