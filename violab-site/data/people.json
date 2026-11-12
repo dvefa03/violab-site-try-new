@@ -42,7 +42,14 @@
       "parallel-generation-and-visualization-of",
       "multiscale-molecular-visualization",
       "cuttlefish"
-    ]
+    ],
+    "avatar": {
+      "shirt": "#5b5fc7",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    }
   },
   {
     "id": "alexandre-kouyoumdjian",
