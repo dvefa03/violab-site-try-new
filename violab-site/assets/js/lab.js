@@ -580,9 +580,11 @@ function teleport(x,z){ clearPath(); player.pos.set(x,0,z); collide(player.pos);
 function li(text,sub,slug){ const el=document.createElement("li"), a=document.createElement("a"); a.href="#paper-"+slug; a.textContent=text; a.dataset.slug=slug; el.appendChild(a);
   if(sub){ const s=document.createElement("span"); s.textContent=sub; el.appendChild(s); } return el; }
 function roomName(n){ const r=ROOMS.find(r=>r.number===n); return r? `${r.name} ${r.number}` : `Room ${n}`; }
+// "Desk ws19" for a workstation in an open office, "Office 2124" for a single office
+function deskName(seat){ if(!seat) return ""; if(String(seat.id).startsWith("office_")) return "Office "+seat.room; const ws=String(seat.id).split("_").pop(); return "Desk "+ws; }
 function openCard(m){
   cardMember=m;
-  $("cardImg").src=m._img; $("cardName").textContent=m.name; $("cardRole").textContent=m.role+" · "+roomName(m._seat.room);
+  $("cardImg").src=m._img; $("cardName").textContent=m.name; $("cardRole").textContent=m.role+" · "+deskName(m._seat);
   $("cardResearch").textContent=m.research;
   const set=(id,url)=>{ const a=$(id); a.hidden=!url; if(url) a.href=url; };
   set("aEmail",m.email?"mailto:"+m.email:""); set("aChat",m.chat||""); set("aWeb",m.web||""); set("aScholar",m.scholar||"");
@@ -620,7 +622,7 @@ function updatePrompt(){
 promptEl.addEventListener("click",()=>{ if(nearMember) openCard(nearMember); else if(nearThing) openThing(nearThing); });
 
 /* ---------------- field labs: posters of the papers, model stands, boards ---------------- */
-const FIELD_COLORS={cryo:"#5FA8E0",conv:"#E8944A",xr:"#8C7CF0",scale:"#4FB58E",meso:"#E07AA6"};
+const FIELD_COLORS={cryo:"#5FA8E0",conv:"#E8944A",recon:"#8C7CF0",xr:"#8C7CF0",scale:"#4FB58E",meso:"#E07AA6"};
 const things=[], thingMeshes=[]; let nearThing=null, thingOpen=null, inLab=null;
 function wrapText(g,text,x,y,maxW,lh,maxLines){ const words=String(text).split(" "); let line="", n=0;
   for(let i=0;i<words.length;i++){ const t=line?line+" "+words[i]:words[i];
