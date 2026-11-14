@@ -54,7 +54,7 @@
     ],
     "bibtex": "",
     "doi": "",
-    "topic": "xr"
+    "topic": "conv"
   },
   {
     "slug": "nanouniverse",
@@ -189,7 +189,7 @@
     ],
     "bibtex": "",
     "doi": "",
-    "topic": "xr"
+    "topic": "conv"
   },
   {
     "slug": "midsurfer",
@@ -348,7 +348,7 @@
     ],
     "bibtex": "",
     "doi": "10.1109/VRW66409.2025.00252",
-    "topic": "xr"
+    "topic": "conv"
   },
   {
     "slug": "difffit",
