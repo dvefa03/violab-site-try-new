@@ -54,7 +54,7 @@ function renderHome(){
   P.innerHTML=S.pubs.filter(p=>!p.preprint).slice(0,Math.max(2,columnsOf(P))).map(paperTile).join("");
   $("homeTopics").innerHTML=S.topics.map(t=>{ const ps=S.pubs.filter(p=>p.topic===t.id); const k=ps.find(p=>p.image);
     const sw=t.software&&[...S.software,...S.models].find(r=>r.title===t.software.split(",")[0].trim()); const im=(k&&k.image)||(sw&&sw.image);
-    return `<article class="tile"><a class="thumb" href="#topic-${t.id}" tabindex="-1">${img(im,t.name)}</a><div class="body"><h3><a href="#topic-${t.id}">${esc(t.name)}</a></h3><div class="meta">${ps.length ? ps.length+" paper"+(ps.length===1?"":"s") : (t.software ? "Software and 3D models" : "")}</div></div></article>`; }).join("");
+    return `<article class="tile"><a class="thumb" href="#topic-${t.id}" tabindex="-1">${img(im,t.name)}</a><div class="body"><h3><a href="#topic-${t.id}">${esc(t.name)}</a></h3></div></article>`; }).join("");
   N.innerHTML=S.news.slice(0,Math.max(2,columnsOf(N))).map(newsTile).join("");
 }
 let homeCols="";
