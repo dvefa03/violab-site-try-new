@@ -98,12 +98,19 @@
     "id": "alexandra-irger",
     "name": "Alexandra Irger",
     "role": "M.S. Student, Computer Science",
-    "group": "Students",
+    "group": "Alumni",
     "web": "https://cemse.kaust.edu.sa/profiles/alexandra-irger",
     "research": "Scientific visualization, computer graphics, machine learning",
     "papers": [
       "voice"
-    ]
+    ],
+    "avatar": {
+      "shirt": "#5b5fc7",
+      "pants": "#34395f",
+      "hat": "none",
+      "hatColor": "#e0823a",
+      "glasses": "none"
+    }
   },
   {
     "id": "da-li",
