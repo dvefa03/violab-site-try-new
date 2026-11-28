@@ -347,7 +347,7 @@ function syncPeople(){
 }
 
 /* ---------------- the visitor ---------------- */
-let VIEW="auto";                       // "auto" (map, 3D close to people and posters), "3d" or "2d"
+let VIEW="auto";                       // "auto" (map from above, close-up when something is opened) or "3d"
 let autoK=0, autoTarget=null, mapDist=20;     // autoK: 0 = map from above, 1 = close 3D look
 function mapLike(){ return is2D() || (VIEW==="auto" && mode==="lab" && autoK<0.5); }
 const VISITOR_LOOK={shirt:"#2FBF7A",pants:"#34395F",hat:"cap",hatColor:"#5B5FC7",glasses:"none"};
@@ -459,7 +459,21 @@ function computePreview(dt){
 }
 const camRay=new THREE.Raycaster(), _cd=new THREE.Vector3(); let camYawNow=0;
 let camDist=dist;
-const _al=new THREE.Vector3(), mapFocus=new THREE.Vector3(), mapLook=new THREE.Vector3();
+const _al=new THREE.Vector3(), mapFocus=new THREE.Vector3(), mapLook=new THREE.Vector3(), mapPan=new THREE.Vector3();
+let closeFor=null, closeView=null; const _cr=new THREE.Raycaster(), _co=new THREE.Vector3(), _cv=new THREE.Vector3();
+// try a few camera angles around the person or poster, and keep the first one that a wall does not block
+function pickCloseView(t){
+  let x, z, base, pitches, dists, turns;
+  if(t.kind==="paper"){ const g=t.obj, ry=g.rotation.y; x=g.position.x+Math.sin(ry)*0.2; z=g.position.z+Math.cos(ry)*0.2;
+    base=ry; turns=[0.55,-0.55,0.25,-0.25,0]; pitches=[0.32,0.55,0.8]; dists=[4.6,3.4,2.4]; }
+  else { const tg=t.obj?t.obj.position:t._pos; x=(player.pos.x+tg.x)/2; z=(player.pos.z+tg.z)/2;
+    base=Math.atan2(player.pos.x-tg.x,player.pos.z-tg.z); turns=[0.5,-0.5,0,1.1,-1.1,1.7,-1.7,Math.PI]; pitches=[0.62,0.9,1.15]; dists=[7,5.5]; }
+  const clear=(yw,pt,ds)=>{ if(!wallMesh) return true; const cp=Math.cos(pt);
+    _cv.set(Math.sin(yw)*cp,Math.sin(pt),Math.cos(yw)*cp); _co.set(x,1.0,z); _cr.set(_co,_cv); _cr.far=ds; return _cr.intersectObject(wallMesh,false).length===0; };
+  for(const pt of pitches) for(const ds of dists) for(const tr of turns){ if(clear(base+tr,pt,ds)) return {yaw:base+tr,x,z,pitch:pt,dist:ds}; }
+  return {yaw:base,x,z,pitch:1.3,dist:7};      // nothing clear: look from almost straight above
+}
+let phoneMode=false;                    // true when assets/js/phone.js takes over the touch controls
 function computeLab(dt,snap){
   labLook.set(player.pos.x,0.9,player.pos.z);
   if(VIEW==="auto"){
@@ -474,17 +488,16 @@ function computeLab(dt,snap){
     else { const dx=player.pos.x-mapFocus.x, dz=player.pos.z-mapFocus.z;
       if(Math.abs(dx)>DZX) mapFocus.x+=dx-Math.sign(dx)*DZX; if(Math.abs(dz)>DZZ) mapFocus.z+=dz-Math.sign(dz)*DZZ; }
     mapLook.lerp(mapFocus, snap?1:1-Math.exp(-dt*5));
-    let yC=0, lx=mapLook.x, lz=mapLook.z, pC=0.62, dC=7, hC=1.0;
+    if(snap || player.moving || path) mapPan.multiplyScalar(snap?0:Math.exp(-dt*3));   // walking brings the view back to you
+    const vx=clamp(mapLook.x+mapPan.x,0,FW), vz=clamp(mapLook.z+mapPan.z,0,FH);
+    let yC=0, lx=vx, lz=vz, pC=0.62, dC=7, hC=1.0;
     if(autoTarget){
-      if(autoTarget.kind==="paper"){        // a poster: in front of it, a little to the side
-        const g=autoTarget.obj, ry=g.rotation.y; yC=ry+0.55; lx=g.position.x+Math.sin(ry)*0.2; lz=g.position.z+Math.cos(ry)*0.2; pC=0.32; dC=4.6;
-      } else {                              // a person or a model: from the visitor's side, both in view
-        const tg=autoTarget.obj?autoTarget.obj.position:autoTarget._pos;
-        lx=(player.pos.x+tg.x)/2; lz=(player.pos.z+tg.z)/2; yC=Math.atan2(player.pos.x-tg.x,player.pos.z-tg.z)+0.5;
-      }
+      // the close-up view is chosen once when the card opens: the first angle with no wall in the way
+      if(closeFor!==autoTarget){ closeFor=autoTarget; closeView=pickCloseView(autoTarget); }
+      ({yaw:yC, x:lx, z:lz, pitch:pC, dist:dC}=closeView);
     }
     const yw=lerpAngle(0,yC,e), pt=1.48+(pC-1.48)*e, ds=mapDist+(dC-mapDist)*e;
-    _al.set(mapLook.x+(lx-mapLook.x)*e, 0.5+(hC-0.5)*e, mapLook.z+(lz-mapLook.z)*e); labLook.copy(_al);
+    _al.set(vx+(lx-vx)*e, 0.5+(hC-0.5)*e, vz+(lz-vz)*e); labLook.copy(_al);
     const cp=Math.cos(pt); _cd.set(Math.sin(yw)*cp,Math.sin(pt),Math.cos(yw)*cp);
     labSmooth.copy(_al).addScaledVector(_cd,ds);
     labPos.copy(labSmooth); camYawNow=yw; return;
@@ -812,7 +825,7 @@ function joyEnd(){ joyId=null; joy.x=joy.y=0; joyEl.hidden=true; }
 const clickRay=new THREE.Raycaster(), ndc=new THREE.Vector2();
 canvas.addEventListener("pointerdown",e=>{
   if(mode==="preview"){ downAt={x:e.clientX,y:e.clientY}; return; }
-  if(mode!=="lab") return;
+  if(mode!=="lab" || phoneMode) return;
   canvas.setPointerCapture(e.pointerId);
   const r=canvas.getBoundingClientRect(), x=e.clientX-r.left, y=e.clientY-r.top;
   downAt={x:e.clientX,y:e.clientY,t:performance.now()};
@@ -821,6 +834,7 @@ canvas.addEventListener("pointerdown",e=>{
   } else if(lookId===null){ lookId=e.pointerId; lookLast={x:e.clientX,y:e.clientY}; dragging=true; }
 });
 canvas.addEventListener("pointermove",e=>{
+  if(phoneMode) return;
   if(e.pointerId===joyId){
     let dx=e.clientX-joyO.x, dy=e.clientY-joyO.y; const l=Math.hypot(dx,dy), RR=52; if(l>RR){ dx*=RR/l; dy*=RR/l; }
     joy.x=dx/RR; joy.y=-dy/RR; joyEl.firstElementChild.style.transform=`translate(${dx}px,${dy}px)`;
@@ -831,6 +845,7 @@ canvas.addEventListener("pointermove",e=>{
 });
 canvas.addEventListener("pointerup",e=>{
   if(mode==="preview"){ if(downAt&&Math.hypot(e.clientX-downAt.x,e.clientY-downAt.y)<8) enterLab(); downAt=null; return; }
+  if(phoneMode) return;
   if(e.pointerId===joyId) joyEnd();
   if(e.pointerId===lookId){ lookId=null; dragging=false; if(downAt&&Math.hypot(e.clientX-downAt.x,e.clientY-downAt.y)<7&&performance.now()-downAt.t<500) handleTap(e); }
   downAt=null;
@@ -854,8 +869,38 @@ function handleTap(e){
   if(t>0){ const x=clickRay.ray.origin.x+clickRay.ray.direction.x*t, z=clickRay.ray.origin.z+clickRay.ray.direction.z*t; closeCard(); walkTo(x,z); }
 }
 
+const tapRing=new THREE.Mesh(new THREE.RingGeometry(0.15,0.24,32),new THREE.MeshBasicMaterial({color:0xFFFFFF,transparent:true,opacity:0,depthWrite:false,depthTest:false}));
+tapRing.rotation.x=-Math.PI/2; tapRing.position.y=0.05; tapRing.renderOrder=9; scene.add(tapRing); let tapT=-1;
+function tapFx(clientX,clientY){
+  const r=canvas.getBoundingClientRect(); ndc.set((clientX-r.left)/r.width*2-1,-((clientY-r.top)/r.height)*2+1);
+  clickRay.setFromCamera(ndc,activeCam()); const d=clickRay.ray.direction, o=clickRay.ray.origin;
+  if(d.y>-0.01) return; const t=-o.y/d.y; tapRing.position.set(o.x+d.x*t,0.05,o.z+d.z*t); tapT=0;
+}
+function updateTapFx(dt){ if(tapT<0) return; tapT+=dt; const k=tapT/0.45; if(k>=1){ tapT=-1; tapRing.material.opacity=0; return; }
+  tapRing.scale.setScalar(1+k*2.2); tapRing.material.opacity=0.95*(1-k); }
+
 let framesRendered=0;
-window.LAB={ syncPeople:()=>syncPeople(), syncLabs:()=>syncLabs(), state:()=>({x:player.pos.x,z:player.pos.z,yaw,pitch,mode,path:path?path.length:0,grid:!!blocked,posters:things.filter(t=>t.kind==="paper").length}), walkTo:(x,z)=>walkTo(x,z), setLook:(id,c)=>{ const m=people.find(p=>p.id===id); if(m) setLook(m,c); }, enter:id=>{ const m=people.find(p=>p.id===id); if(!m) return; const go=()=>{ if(framesRendered<3){ setTimeout(go,60); return; } enterLab(m); }; go(); }, avatar:o=>makeAvatar(Object.assign({shirt:"#5B5FC7"},o)).img, lookFor };
+// the small set of controls that assets/js/phone.js uses
+const phoneAPI={
+  enable(){ phoneMode=true; },
+  camera, canvas,
+  mode:()=>mode, view:()=>VIEW, cardOpen:()=>!!(cardMember||thingOpen),
+  tap(x,y){ tapFx(x,y); handleTap({clientX:x,clientY:y}); },
+  // move the map by a finger drag (pixels on screen)
+  pan(dx,dy){ if(VIEW!=="auto") return; const h=canvas.clientHeight||1, mPerPx=2*camDistNow()*Math.tan(THREE.MathUtils.degToRad(camera.fov/2))/h;
+    mapPan.x-=dx*mPerPx; mapPan.z-=dy*mPerPx; },
+  panAmount:()=>Math.hypot(mapPan.x,mapPan.z),
+  recentre(){ mapPan.set(0,0,0); },
+  zoom(k){ if(VIEW==="auto") mapDist=clamp(mapDist/k,8,70); else dist=clamp(dist/k,3,48); },
+  turn(dx,dy){ if(VIEW!=="3d") return; yaw-=dx*0.008; pitch=clamp(pitch+dy*0.004,0.55,1.4); lastLook=performance.now(); },
+  closeCards(){ closeCard(); closeThing(); },
+  goto:v=>gotoValue(v),
+  people:()=>people.map(m=>({id:m.id,name:m.name,img:m._img})),
+  labs:()=>LABS.map(l=>({name:l.name,color:FIELD_COLORS[l.field]||"#5B5FC7"})),
+  onFrame:null
+};
+function camDistNow(){ return VIEW==="auto" ? mapDist+(7-mapDist)*autoK : dist; }
+window.LAB={ phone:phoneAPI, syncPeople:()=>syncPeople(), syncLabs:()=>syncLabs(), state:()=>({x:player.pos.x,z:player.pos.z,yaw,pitch,mode,path:path?path.length:0,grid:!!blocked,posters:things.filter(t=>t.kind==="paper").length}), walkTo:(x,z)=>walkTo(x,z), setLook:(id,c)=>{ const m=people.find(p=>p.id===id); if(m) setLook(m,c); }, enter:id=>{ const m=people.find(p=>p.id===id); if(!m) return; const go=()=>{ if(framesRendered<3){ setTimeout(go,60); return; } enterLab(m); }; go(); }, avatar:o=>makeAvatar(Object.assign({shirt:"#5B5FC7"},o)).img, lookFor };
 
 /* ---------------- loop ---------------- */
 let lastW=0,lastH=0;
@@ -886,7 +931,8 @@ function tick(){
   if(is2D()){ const a=lastW/lastH||1; mapCam.left=-mapZoom*a; mapCam.right=mapZoom*a; mapCam.top=mapZoom; mapCam.bottom=-mapZoom; mapCam.updateProjectionMatrix();
     mapCam.position.set(player.pos.x,120,player.pos.z); mapCam.lookAt(player.pos.x,0,player.pos.z); mapCam.updateMatrixWorld(); }
   applyViewToCharacters();
-  updateVisitor(); updatePeople(dt); updateThings(dt);
+  updateVisitor(); updatePeople(dt); updateThings(dt); updateTapFx(dt);
+  if(phoneMode && LAB.phone.onFrame) LAB.phone.onFrame(dt, autoK);
   if(thingOpen && Math.hypot(player.pos.x-thingOpen.pos.x,player.pos.z-thingOpen.pos.z)>5) closeThing();
   updatePrompt();
   if(mode!=="preview"&&(miniT+=dt)>0.08){ miniT=0; drawMini(); }
@@ -904,7 +950,7 @@ function applyViewToCharacters(){
     ch.tag.position.y = flat ? 0 : (ch.seated?1.55:1.68); ch.tag.center.set(0.5, flat?-3.6:0.5); });
 }
 function setView(v){
-  VIEW = v==="2d" ? "2d" : v==="3d" ? "3d" : "auto";
+  VIEW = v==="3d" ? "3d" : "auto";
   document.querySelectorAll("[data-view]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.view===VIEW)));
   computeLab(0,true);
   try{ localStorage.setItem("violab-floor-view2",VIEW); }catch(e){}
