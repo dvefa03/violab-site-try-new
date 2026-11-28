@@ -27,6 +27,20 @@
   }
   const load = src => new Promise((ok, no) => { const s = document.createElement("script"); s.src = src + "?v=" + Date.now(); s.onload = ok; s.onerror = no; document.body.appendChild(s); });
   await load("assets/js/lab.js");
+  // phones and tablets: the touch controls for the floor (all in phone.js)
+  if(matchMedia("(pointer: coarse)").matches || /[?&#]phone=1\b/.test(location.href)) await load("assets/js/phone.js").catch(() => {});
   await load("assets/js/app.js");
-  await load("assets/js/admin.js");
+
+  // The admin tools are NOT loaded for normal visitors. They are only downloaded when someone
+  // presses Shift + P or opens the address …/#admin.
+  let adminLoading = null;
+  const loadAdmin = () => adminLoading || (adminLoading = load("assets/js/admin.js").catch(e => { adminLoading = null; throw e; }));
+  document.addEventListener("keydown", e => {
+    if(!e.shiftKey || (e.key !== "P" && e.key !== "p")) return;
+    if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName || "") || e.target.isContentEditable) return;
+    e.preventDefault();
+    loadAdmin().then(() => window.VIOLAB_ADMIN && VIOLAB_ADMIN.open());
+  });
+  const adminHash = () => { if(location.hash === "#admin") loadAdmin(); };   // admin.js opens the login itself for #admin
+  window.addEventListener("hashchange", adminHash); adminHash();
 })();
